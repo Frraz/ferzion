@@ -2,59 +2,516 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Recebemos seu contato</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recebemos seu contato — Ferzion</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    /*
+      Typography:
+      — Display / headlines: "Instrument Serif" — elegant, sharp, editorial. Similar to Claude's serif headers.
+      — Body / UI: "IBM Plex Sans" — structured, technical, highly legible. Clean without being generic.
+    */
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+    body, table, td, a {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+    table, td {
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+    img {
+      -ms-interpolation-mode: bicubic;
+      border: 0; height: auto;
+      line-height: 100%; outline: none; text-decoration: none;
+    }
+
+    @media only screen and (max-width: 620px) {
+      .email-wrapper { padding: 0 !important; }
+      .email-card    { border-radius: 0 !important; }
+      .email-header  { padding: 36px 28px 32px !important; }
+      .email-body    { padding: 36px 28px 32px !important; }
+      .email-footer  { padding: 28px 28px 36px !important; }
+      .headline      { font-size: 36px !important; }
+      .step-title    { font-size: 17px !important; }
+      .btn-wpp       { display: block !important; padding-right: 0 !important; padding-bottom: 10px !important; }
+      .btn-email     { display: block !important; }
+    }
+  </style>
 </head>
-<body style="margin:0; padding:0; background:#f5f7fa; font-family:Arial, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 40px 0;">
+
+<body style="margin:0; padding:0; background-color:#0A1C12;
+             font-family:'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;">
+
+  <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation"
+         style="background-color:#0A1C12; padding:56px 16px;">
     <tr>
       <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:8px; padding:40px;">
 
+        <!-- ══════════════ CARD ══════════════ -->
+        <table class="email-card" width="580" cellpadding="0" cellspacing="0" role="presentation"
+               style="max-width:580px; width:100%;
+                      border-radius:18px; overflow:hidden;
+                      box-shadow:0 28px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(88,225,168,0.10);">
+
+
+          <!-- ████████ HEADER ████████ -->
           <tr>
-            <td align="center">
-              <h2 style="margin:0; color:#111;">
-                Recebemos seu contato 🚀
-              </h2>
+            <td class="email-header"
+                style="background-color:#071A12; padding:46px 52px 42px;
+                       border-bottom:1px solid #102A1C;">
+
+              <!-- Logo + badge -->
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                <tr>
+                  <td style="vertical-align:middle;">
+                    <img
+                      src="https://ferzion.com.br/assets/logo-ferzion-3.png"
+                      alt="Ferzion"
+                      width="106"
+                      style="display:block; border:0; height:auto; max-width:106px;
+                             filter:brightness(0) invert(1); opacity:0.94;"
+                    >
+                  </td>
+                  <td style="vertical-align:middle; text-align:right;">
+                    <span style="display:inline-block;
+                                 background-color:rgba(88,225,168,0.10);
+                                 border:1.5px solid rgba(88,225,168,0.30);
+                                 border-radius:100px; padding:6px 16px;
+                                 font-family:'IBM Plex Sans', Arial, sans-serif;
+                                 font-size:10px; font-weight:600;
+                                 color:#58E1A8; letter-spacing:0.14em;
+                                 text-transform:uppercase;">
+                      Recebido
+                    </span>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Divider -->
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
+                     style="margin:34px 0;">
+                <tr>
+                  <td style="height:1px; background-color:#1A3828; font-size:0; line-height:0;">&nbsp;</td>
+                </tr>
+              </table>
+
+              <!-- Headline -->
+              <h1 class="headline"
+                  style="margin:0 0 14px;
+                         font-family:'Instrument Serif', Georgia, 'Times New Roman', serif;
+                         font-size:46px; font-weight:400;
+                         color:#F2EBDD; line-height:1.02;
+                         letter-spacing:-0.03em;">
+                Recebemos<br>
+                seu&nbsp;<em style="font-style:italic; color:#58E1A8;">contato.</em>
+              </h1>
+
+              <p style="margin:0;
+                        font-family:'IBM Plex Sans', Arial, sans-serif;
+                        font-size:15px; font-weight:400;
+                        color:#4E8C78; line-height:1.65;">
+                Nossa equipe já está ciente e em breve entrará em contato.
+              </p>
+
             </td>
           </tr>
 
+
+          <!-- ████████ BODY ████████ -->
           <tr>
-            <td style="padding-top:20px; color:#444; font-size:16px;">
-              <p>Olá <strong>{{ nome }}</strong>,</p>
+            <td class="email-body"
+                style="background-color:#F8F7F3; padding:44px 52px 40px;">
 
-              <p>
-                Recebemos sua solicitação de diagnóstico e em breve entraremos em contato com você.
+              <!-- Greeting -->
+              <p style="margin:0 0 6px;
+                        font-family:'IBM Plex Sans', Arial, sans-serif;
+                        font-size:11px; font-weight:600;
+                        color:#4CA7A1; letter-spacing:0.16em; text-transform:uppercase;">
+                Olá,
+              </p>
+              <h2 style="margin:0 0 28px;
+                         font-family:'Instrument Serif', Georgia, serif;
+                         font-size:34px; font-weight:400;
+                         color:#071A12; line-height:1.1; letter-spacing:-0.025em;">
+                {{ nome }}
+              </h2>
+
+              <!-- Body copy -->
+              <p style="margin:0 0 32px;
+                        font-family:'IBM Plex Sans', Arial, sans-serif;
+                        font-size:15px; font-weight:400;
+                        color:#2C2C2C; line-height:1.85;">
+                Recebemos sua solicitação de diagnóstico e nossa equipe já está analisando
+                as informações. Em breve entraremos em contato para entender melhor a sua
+                operação e apresentar como podemos trazer mais
+                <strong style="font-weight:600; color:#071A12;">controle, clareza
+                e eficiência</strong> para o seu negócio.
               </p>
 
-              <p>
-                Nossa equipe vai analisar sua operação e entender como podemos te ajudar a ganhar mais controle e eficiência.
+              <!-- Prazo card -->
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
+                     style="margin-bottom:40px;">
+                <tr>
+                  <td style="background-color:#071A12; border-radius:12px; padding:20px 24px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                      <tr>
+                        <!-- Icon -->
+                        <td style="vertical-align:middle; width:50px; padding-right:18px;">
+                          <div style="width:44px; height:44px; border-radius:10px;
+                                      background-color:#0F2820;
+                                      border:1px solid #1A3828;
+                                      text-align:center; line-height:44px;">
+                            <span style="font-family:'IBM Plex Sans', Arial, sans-serif;
+                                         font-size:18px; font-weight:500; color:#4CA7A1;
+                                         line-height:44px; display:block;">&#9711;</span>
+                          </div>
+                        </td>
+                        <!-- Text -->
+                        <td style="vertical-align:middle;">
+                          <p style="margin:0 0 3px;
+                                    font-family:'IBM Plex Sans', Arial, sans-serif;
+                                    font-size:10px; font-weight:600;
+                                    color:#3D8070; letter-spacing:0.14em; text-transform:uppercase;">
+                            Prazo de resposta
+                          </p>
+                          <p style="margin:0;
+                                    font-family:'Instrument Serif', Georgia, serif;
+                                    font-size:22px; font-weight:400;
+                                    color:#F2EBDD; letter-spacing:-0.02em; line-height:1.2;">
+                            Até <span style="color:#58E1A8; font-style:italic;">24 horas úteis</span>
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Section label -->
+              <p style="margin:0 0 22px;
+                        font-family:'IBM Plex Sans', Arial, sans-serif;
+                        font-size:10px; font-weight:600;
+                        color:#4CA7A1; letter-spacing:0.16em; text-transform:uppercase;">
+                O que acontece agora
               </p>
 
-              <p>
-                ⏱️ <strong>Prazo de resposta:</strong> até 24 horas úteis.
+              <!-- Steps -->
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
+                     style="margin-bottom:40px;">
+
+                <!-- Step 1 -->
+                <tr>
+                  <td style="vertical-align:top;">
+                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                      <tr>
+                        <td style="vertical-align:top; width:42px; padding-right:18px;">
+                          <table cellpadding="0" cellspacing="0" role="presentation">
+                            <tr>
+                              <td align="center"
+                                  style="width:34px; height:34px;
+                                         background-color:#071A12;
+                                         border-radius:8px; text-align:center; vertical-align:middle;">
+                                <span style="font-family:'Instrument Serif', Georgia, serif;
+                                             font-size:16px; font-weight:400;
+                                             color:#58E1A8; line-height:34px; display:block;">1</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="center" style="padding-top:4px;">
+                                <div style="width:1px; height:30px; background-color:#D4CFC5;
+                                            margin:0 auto; font-size:0; line-height:0;">&nbsp;</div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td style="vertical-align:top; padding-top:5px; padding-bottom:22px;">
+                          <p class="step-title"
+                             style="margin:0 0 5px;
+                                    font-family:'Instrument Serif', Georgia, serif;
+                                    font-size:19px; font-weight:400;
+                                    color:#071A12; letter-spacing:-0.015em; line-height:1.2;">
+                            Análise Interna
+                          </p>
+                          <p style="margin:0;
+                                    font-family:'IBM Plex Sans', Arial, sans-serif;
+                                    font-size:14px; font-weight:400;
+                                    color:#525252; line-height:1.75;">
+                            Avaliamos as informações que você enviou e mapeamos o contexto da sua operação.
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Step 2 -->
+                <tr>
+                  <td style="vertical-align:top;">
+                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                      <tr>
+                        <td style="vertical-align:top; width:42px; padding-right:18px;">
+                          <table cellpadding="0" cellspacing="0" role="presentation">
+                            <tr>
+                              <td align="center"
+                                  style="width:34px; height:34px;
+                                         background-color:#071A12;
+                                         border-radius:8px; text-align:center; vertical-align:middle;">
+                                <span style="font-family:'Instrument Serif', Georgia, serif;
+                                             font-size:16px; font-weight:400;
+                                             color:#58E1A8; line-height:34px; display:block;">2</span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="center" style="padding-top:4px;">
+                                <div style="width:1px; height:30px; background-color:#D4CFC5;
+                                            margin:0 auto; font-size:0; line-height:0;">&nbsp;</div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td style="vertical-align:top; padding-top:5px; padding-bottom:22px;">
+                          <p class="step-title"
+                             style="margin:0 0 5px;
+                                    font-family:'Instrument Serif', Georgia, serif;
+                                    font-size:19px; font-weight:400;
+                                    color:#071A12; letter-spacing:-0.015em; line-height:1.2;">
+                            Diagnóstico Personalizado
+                          </p>
+                          <p style="margin:0;
+                                    font-family:'IBM Plex Sans', Arial, sans-serif;
+                                    font-size:14px; font-weight:400;
+                                    color:#525252; line-height:1.75;">
+                            Identificamos os pontos de melhoria e as oportunidades reais da sua operação.
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- Step 3 -->
+                <tr>
+                  <td style="vertical-align:top;">
+                    <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                      <tr>
+                        <td style="vertical-align:top; width:42px; padding-right:18px;">
+                          <div style="width:34px; height:34px;
+                                      background-color:#071A12;
+                                      border:1.5px solid rgba(88,225,168,0.40);
+                                      border-radius:8px; text-align:center; line-height:31px;">
+                            <span style="font-family:'Instrument Serif', Georgia, serif;
+                                         font-size:16px; font-weight:400;
+                                         color:#58E1A8; line-height:31px; display:block;">3</span>
+                          </div>
+                        </td>
+                        <td style="vertical-align:top; padding-top:5px;">
+                          <p class="step-title"
+                             style="margin:0 0 5px;
+                                    font-family:'Instrument Serif', Georgia, serif;
+                                    font-size:19px; font-weight:400;
+                                    color:#071A12; letter-spacing:-0.015em; line-height:1.2;">
+                            Contato Direto
+                          </p>
+                          <p style="margin:0;
+                                    font-family:'IBM Plex Sans', Arial, sans-serif;
+                                    font-size:14px; font-weight:400;
+                                    color:#525252; line-height:1.75;">
+                            Entramos em contato via WhatsApp ou e-mail para alinhar os próximos passos.
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+              </table>
+
+              <!-- Divider -->
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
+                     style="margin-bottom:32px;">
+                <tr>
+                  <td style="height:1px; background-color:#E6E2D9; font-size:0; line-height:0;">&nbsp;</td>
+                </tr>
+              </table>
+
+              <!-- Contact before -->
+              <p style="margin:0 0 18px;
+                        font-family:'IBM Plex Sans', Arial, sans-serif;
+                        font-size:14px; font-weight:400;
+                        color:#444444; line-height:1.75;">
+                Precisa falar conosco antes? Estamos disponíveis:
               </p>
 
-              <hr style="margin:30px 0; border:none; border-top:1px solid #eee;">
+              <!-- Buttons -->
+              <table cellpadding="0" cellspacing="0" role="presentation" style="margin-bottom:40px;">
+                <tr>
+                  <td class="btn-wpp" style="padding-right:12px;">
+                    <a href="https://wa.me/5594992083253"
+                       style="display:inline-block;
+                              background-color:#071A12; color:#58E1A8;
+                              font-family:'IBM Plex Sans', Arial, sans-serif;
+                              font-size:13px; font-weight:600;
+                              text-decoration:none;
+                              padding:13px 24px; border-radius:8px;
+                              letter-spacing:0.04em;
+                              border:1.5px solid #1A3828;">
+                      WhatsApp
+                    </a>
+                  </td>
+                  <td class="btn-email">
+                    <a href="mailto:ferzion.dev@gmail.com"
+                       style="display:inline-block;
+                              background-color:#F2EBDD; color:#071A12;
+                              font-family:'IBM Plex Sans', Arial, sans-serif;
+                              font-size:13px; font-weight:600;
+                              text-decoration:none;
+                              padding:13px 24px; border-radius:8px;
+                              letter-spacing:0.04em;
+                              border:1.5px solid #D6CFBF;">
+                      E-mail
+                    </a>
+                  </td>
+                </tr>
+              </table>
 
-              <p style="font-size:14px; color:#777;">
-                Se você precisar falar com a gente antes, pode responder este e-mail ou entrar em contato pelo WhatsApp.
-              </p>
+              <!-- Signature -->
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                <tr>
+                  <td style="border-top:1px solid #E6E2D9; padding-top:28px;">
+                    <p style="margin:0 0 6px;
+                              font-family:'IBM Plex Sans', Arial, sans-serif;
+                              font-size:13px; font-weight:400; color:#999999;">
+                      Com estima,
+                    </p>
+                    <p style="margin:0 0 2px;
+                              font-family:'Instrument Serif', Georgia, serif;
+                              font-size:28px; font-weight:400;
+                              color:#071A12; letter-spacing:-0.03em; line-height:1.1;">
+                      Equipe Ferzion
+                    </p>
+                    <p style="margin:8px 0 0;
+                              font-family:'IBM Plex Sans', Arial, sans-serif;
+                              font-size:12px; font-weight:500;
+                              color:#4CA7A1; letter-spacing:0.04em;">
+                      ferzion.com.br
+                    </p>
+                  </td>
+                </tr>
+              </table>
 
-              <p style="margin-top:30px;">
-                Abraço,<br>
-                <strong>Equipe Ferzion</strong>
-              </p>
             </td>
+          </tr>
+
+
+          <!-- ████████ FOOTER ████████ -->
+          <tr>
+            <td class="email-footer" align="center"
+                style="background-color:#071A12;
+                       padding:32px 52px 40px;
+                       border-top:1px solid #102A1C;">
+
+              <!-- Social -->
+              <table cellpadding="0" cellspacing="0" role="presentation" style="margin:0 auto 22px;">
+                <tr>
+                  <td style="padding:0 5px;">
+                    <a href="https://www.linkedin.com/company/ferzion/"
+                       style="display:inline-block; color:#4E8C78;
+                              font-family:'IBM Plex Sans', Arial, sans-serif;
+                              font-size:11px; font-weight:600;
+                              text-decoration:none;
+                              padding:8px 18px; border-radius:100px;
+                              border:1px solid #1A3828;
+                              letter-spacing:0.06em; text-transform:uppercase;
+                              background-color:#0A2118;">
+                      LinkedIn
+                    </a>
+                  </td>
+                  <td style="padding:0 5px;">
+                    <a href="https://www.instagram.com/ferzion.dev/"
+                       style="display:inline-block; color:#4E8C78;
+                              font-family:'IBM Plex Sans', Arial, sans-serif;
+                              font-size:11px; font-weight:600;
+                              text-decoration:none;
+                              padding:8px 18px; border-radius:100px;
+                              border:1px solid #1A3828;
+                              letter-spacing:0.06em; text-transform:uppercase;
+                              background-color:#0A2118;">
+                      Instagram
+                    </a>
+                  </td>
+                  <td style="padding:0 5px;">
+                    <a href="https://wa.me/5594992083253"
+                       style="display:inline-block; color:#4E8C78;
+                              font-family:'IBM Plex Sans', Arial, sans-serif;
+                              font-size:11px; font-weight:600;
+                              text-decoration:none;
+                              padding:8px 18px; border-radius:100px;
+                              border:1px solid #1A3828;
+                              letter-spacing:0.06em; text-transform:uppercase;
+                              background-color:#0A2118;">
+                      WhatsApp
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Contact -->
+              <p style="margin:0 0 20px;
+                        font-family:'IBM Plex Sans', Arial, sans-serif;
+                        font-size:12px; font-weight:400; color:#234030; line-height:1.6;">
+                <a href="mailto:ferzion.dev@gmail.com"
+                   style="color:#3D8070; text-decoration:none; font-weight:500;">
+                  ferzion.dev@gmail.com
+                </a>
+                &nbsp;&middot;&nbsp;
+                <a href="tel:+5594992083253"
+                   style="color:#3D8070; text-decoration:none; font-weight:500;">
+                  +55 (94) 9 9208-3253
+                </a>
+              </p>
+
+              <!-- Separator -->
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
+                     style="margin-bottom:18px;">
+                <tr>
+                  <td style="height:1px; background-color:#102A1C; font-size:0; line-height:0;">&nbsp;</td>
+                </tr>
+              </table>
+
+              <!-- Copyright -->
+              <p style="margin:0;
+                        font-family:'IBM Plex Sans', Arial, sans-serif;
+                        font-size:11px; font-weight:400;
+                        color:#1E3828; line-height:1.7; letter-spacing:0.02em;">
+                &copy; {{ year }} Ferzion. Todos os direitos reservados.<br>
+                Você recebeu este e-mail porque preencheu o nosso formulário de contato.
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- Bottom accent -->
+          <tr>
+            <td style="height:3px;
+                       background:linear-gradient(90deg, #071A12 0%, #58E1A8 50%, #071A12 100%);
+                       font-size:0; line-height:0;">&nbsp;</td>
           </tr>
 
         </table>
 
-        <p style="font-size:12px; color:#aaa; margin-top:20px;">
-          © {{ year }} Ferzion. Todos os direitos reservados.
-        </p>
-
       </td>
     </tr>
   </table>
+
 </body>
 </html>
