@@ -1,0 +1,2440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferzion — Software sob medida para operações reais</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500&display=swap&display=swap" rel="stylesheet">
+
+<!-- Progress bar -->
+<style>
+#scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-teal, #4CA7A1), var(--accent, #58E1A8));
+  z-index: 200;
+  transition: width 80ms linear;
+  box-shadow: 0 0 8px rgba(88,225,168,0.5);
+}
+</style>
+
+<!-- React + Babel for Tweaks Panel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+/* === CSS VARIABLES === */
+:root {
+  --bg-deep:     #071A12;
+  --bg-mid:      #0F2D23;
+  --bg-light:    #F2EBDD;
+  --bg-subtle:   #D9CFBE;
+  --text-primary:#F2EBDD;
+  --text-dark:   #1A1A1A;
+  --text-muted:  #8A9E95;
+  --accent:      #58E1A8;
+  --accent-teal: #4CA7A1;
+  --border-dark: #1E3D2F;
+  --glow:        rgba(88, 225, 168, 0.12);
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+
+  --radius-card:  16px;
+  --radius-btn:   8px;
+  --radius-pill:  999px;
+  --radius-input: 8px;
+
+  --transition: 250ms ease;
+}
+
+/* === NOISE TEXTURE === */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+}
+
+/* === HERO GLOW === */
+.hero-glow {
+  position: absolute;
+  top: 10%; left: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(ellipse at center, rgba(88,225,168,0.06) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-glow-2 {
+  position: absolute;
+  bottom: 0; right: 5%;
+  width: 400px; height: 400px;
+  background: radial-gradient(ellipse at center, rgba(76,167,161,0.04) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === SCROLL PROGRESS === */
+#scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, #4CA7A1, #58E1A8);
+  z-index: 200;
+  transition: width 80ms linear;
+  box-shadow: 0 0 8px rgba(88,225,168,0.5);
+}
+
+/* === SECTION DIVIDER === */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-dark) 20%, var(--border-dark) 80%, transparent);
+}
+
+/* === HERO HEADLINE ANIMATION === */
+.hero-line {
+  display: block;
+  overflow: hidden;
+}
+.hero-line-inner {
+  display: block;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 800ms cubic-bezier(0.16,1,0.3,1), opacity 600ms ease;
+}
+.hero-line-inner.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* === ACTIVE NAV LINK === */
+.nav-links a.active { color: var(--text-primary); }
+.nav-links a.active::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: var(--accent);
+  margin-top: 2px;
+  border-radius: 1px;
+}
+
+/* === CARD ICON UPGRADE === */
+.sol-card-icon svg {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* === GRADIENT SECTION LABELS === */
+.label-tag.accent {
+  background: linear-gradient(90deg, var(--accent), #7ef5c8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* === PAIN CARD HOVER BORDER === */
+.pain-card {
+  position: relative;
+  overflow: hidden;
+}
+.pain-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--accent-teal);
+  border-radius: 0 2px 2px 0;
+  transition: height 350ms cubic-bezier(0.16,1,0.3,1);
+}
+.pain-card:hover::before { height: 100%; }
+
+/* === CASE CARD NUMBER === */
+.case-num {
+  position: absolute;
+  top: 16px; right: 20px;
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.025);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* === TIMELINE NODE PULSE === */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(76,167,161,0.3); }
+  70% { box-shadow: 0 0 0 8px rgba(76,167,161,0); }
+  100% { box-shadow: 0 0 0 0 rgba(76,167,161,0); }
+}
+.timeline-item:hover .timeline-node {
+  border-color: var(--accent-teal);
+  animation: pulse-ring 1.2s ease-out;
+}
+
+/* === FOOTER SOCIAL LINKS === */
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+.footer-social a {
+  width: 32px; height: 32px;
+  border-radius: 7px;
+  border: 1px solid var(--border-dark);
+  background: var(--bg-mid);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+}
+.footer-social a:hover {
+  border-color: rgba(88,225,168,0.3);
+  color: var(--accent);
+  background: rgba(88,225,168,0.05);
+}
+.footer-social svg { width: 14px; height: 14px; }
+
+/* === WHATSAPP FLOAT BUTTON === */
+.wa-float {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: #128C7E;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(18,140,126,0.4);
+  z-index: 90;
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+}
+.wa-float:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 28px rgba(18,140,126,0.5);
+}
+.wa-float svg { width: 26px; height: 26px; fill: #fff; }
+@media (max-width: 768px) {
+  .wa-float { bottom: 20px; right: 16px; width: 48px; height: 48px; border-radius: 12px; }
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 17px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: var(--font-body); border: none; background: none; }
+
+/* === TYPOGRAPHY === */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+h1 { font-size: clamp(40px, 5.5vw, 72px); font-weight: 700; }
+h2 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 700; }
+h3 { font-size: 22px; font-weight: 600; }
+
+.label-tag {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+.label-tag.accent  { color: var(--accent); }
+.label-tag.teal    { color: var(--accent-teal); }
+.label-tag.dark    { color: var(--accent-teal); }
+
+/* === LAYOUT === */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+section { position: relative; }
+
+/* === GRID BACKGROUND === */
+.grid-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(15,45,35,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,45,35,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === BUTTONS === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 28px;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg-deep);
+  font-weight: 600;
+}
+.btn-primary:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 0 24px rgba(88, 225, 168, 0.3);
+  transform: translateY(-1px);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
+.btn-outline:hover {
+  background: var(--accent);
+  color: var(--bg-deep);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 14px 0;
+  font-size: 14px;
+}
+.btn-ghost:hover { color: var(--text-primary); }
+
+/* === PILL / BADGE === */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.pill-accent {
+  border: 1px solid rgba(88,225,168,0.4);
+  color: var(--accent);
+  background: rgba(88,225,168,0.05);
+}
+.pill-teal {
+  border: 1px solid rgba(76,167,161,0.4);
+  color: var(--accent-teal);
+  background: rgba(76,167,161,0.05);
+}
+
+/* === CARDS === */
+.card {
+  background: var(--bg-mid);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-card);
+  padding: 36px;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+.card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(88,225,168,0.08), 0 8px 32px rgba(0,0,0,0.3);
+  transform: translateY(-4px);
+}
+
+/* === ANIMATIONS === */
+@keyframes float {
+  0%, 100% { transform: perspective(1200px) rotateY(-8deg) rotateX(3deg) translateY(0px); }
+  50%       { transform: perspective(1200px) rotateY(-8deg) rotateX(3deg) translateY(-10px); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes lineGrow {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms cubic-bezier(0.16,1,0.3,1), transform 600ms cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === NAVBAR === */
+#navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 72px;
+  z-index: 100;
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--border-dark);
+  transition: background 300ms ease, backdrop-filter 300ms ease, box-shadow 300ms ease;
+}
+#navbar.scrolled {
+  background: rgba(7,26,18,0.85);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 1px 0 var(--border-dark);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.nav-logo-icon {
+  width: 28px; height: 28px;
+  border: 1.5px solid rgba(88,225,168,0.5);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(88,225,168,0.06);
+}
+.nav-logo-icon svg { width: 14px; height: 14px; }
+.nav-logo-text {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+  flex: 1;
+  justify-content: center;
+}
+.nav-links a {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+.nav-links a:hover { color: var(--text-primary); }
+.nav-cta { margin-left: auto; }
+
+/* Mobile nav */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  margin-left: auto;
+  padding: 4px;
+  cursor: pointer;
+}
+.hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 300ms ease;
+}
+.nav-drawer {
+  position: fixed;
+  top: 0; right: -100%;
+  width: min(320px, 85vw);
+  height: 100vh;
+  background: var(--bg-mid);
+  border-left: 1px solid var(--border-dark);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  padding: 72px 32px 40px;
+  gap: 0;
+  transition: right 350ms cubic-bezier(0.16,1,0.3,1);
+}
+.nav-drawer.open { right: 0; }
+.nav-drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+  margin-bottom: auto;
+}
+.nav-drawer-links li { border-bottom: 1px solid var(--border-dark); }
+.nav-drawer-links a {
+  display: block;
+  padding: 18px 0;
+  font-size: 17px;
+  color: var(--text-primary);
+}
+.nav-drawer-close {
+  position: absolute;
+  top: 20px; right: 24px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border-dark);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);
+  font-size: 18px;
+  background: none;
+  cursor: pointer;
+}
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 190;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+.drawer-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* === HERO === */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 72px;
+  background: var(--bg-deep);
+  overflow: hidden;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 48px;
+  display: grid;
+  grid-template-columns: 60% 1fr;
+  gap: 64px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+.hero-copy { display: flex; flex-direction: column; gap: 24px; }
+.hero-badge { animation: fadeIn 600ms ease 100ms both; }
+.hero-headline {
+  font-size: clamp(40px, 5.5vw, 70px);
+  line-height: 1.0;
+  font-weight: 700;
+  animation: fadeUp 700ms cubic-bezier(0.16,1,0.3,1) 200ms both;
+}
+.hero-headline em {
+  font-style: italic;
+  color: var(--accent);
+}
+.hero-sub {
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 480px;
+  line-height: 1.6;
+  animation: fadeUp 700ms cubic-bezier(0.16,1,0.3,1) 330ms both;
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  animation: fadeUp 700ms cubic-bezier(0.16,1,0.3,1) 460ms both;
+}
+.hero-proof {
+  font-size: 13px;
+  color: #4a6858;
+  animation: fadeUp 700ms cubic-bezier(0.16,1,0.3,1) 560ms both;
+}
+.hero-proof strong { color: var(--text-muted); font-weight: 500; }
+
+/* Hero dashboard */
+.hero-visual {
+  animation: fadeIn 800ms ease 400ms both;
+}
+.dashboard-card {
+  background: var(--bg-mid);
+  border: 1px solid var(--border-dark);
+  border-radius: 14px;
+  padding: 20px;
+  animation: float 7s ease-in-out infinite;
+  box-shadow:
+    0 0 40px rgba(88,225,168,0.08),
+    0 0 80px rgba(7,26,18,0.8),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  position: relative;
+  overflow: hidden;
+}
+.dashboard-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(88,225,168,0.4), transparent);
+}
+.dash-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-dark);
+}
+.dash-dot { width: 8px; height: 8px; border-radius: 50%; }
+.dash-title-bar {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.05);
+}
+.dash-badge {
+  height: 20px;
+  width: 48px;
+  border-radius: 4px;
+  background: rgba(88,225,168,0.12);
+  border: 1px solid rgba(88,225,168,0.2);
+}
+.dash-filter-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.dash-filter {
+  height: 24px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-dark);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 4px;
+}
+.dash-filter-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-teal); }
+.dash-filter-label { width: 32px; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.1); }
+.dash-table { margin-bottom: 14px; }
+.dash-table-head {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 80px;
+  gap: 8px;
+  padding: 0 10px 6px;
+}
+.dash-th { height: 5px; border-radius: 3px; background: rgba(255,255,255,0.06); }
+.dash-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 80px;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  align-items: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid transparent;
+  transition: all 200ms;
+}
+.dash-row.active {
+  background: rgba(88,225,168,0.04);
+  border-color: rgba(88,225,168,0.12);
+}
+.dash-cell { height: 7px; border-radius: 3px; background: rgba(255,255,255,0.08); }
+.dash-cell.short { width: 60%; }
+.dash-status {
+  height: 20px;
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.dash-status.green {
+  background: rgba(88,225,168,0.12);
+  border: 1px solid rgba(88,225,168,0.25);
+  color: var(--accent);
+}
+.dash-status.teal {
+  background: rgba(76,167,161,0.12);
+  border: 1px solid rgba(76,167,161,0.25);
+  color: var(--accent-teal);
+}
+.dash-status.dim {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-muted);
+}
+.dash-chart-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.dash-chart {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border-dark);
+  border-radius: 8px;
+  padding: 10px;
+}
+.dash-chart-label {
+  height: 6px;
+  width: 50%;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.07);
+  margin-bottom: 8px;
+}
+.dash-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 40px;
+}
+.dash-bar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  background: rgba(88,225,168,0.18);
+  transition: height 200ms;
+}
+.dash-bar.highlight { background: rgba(88,225,168,0.55); }
+.dash-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.dash-stat-num {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+.dash-stat-label { height: 5px; width: 55px; border-radius: 3px; background: rgba(255,255,255,0.07); }
+
+/* === SECTION: PROBLEMA === */
+#problema {
+  background: var(--bg-light);
+  padding: 120px 0;
+  color: var(--text-dark);
+}
+#problema h2 { color: var(--text-dark); }
+.problema-closing {
+  max-width: 640px;
+  margin: 48px auto 0;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #4a4030;
+  font-style: italic;
+}
+
+/* Pain cards */
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.pain-grid::-webkit-scrollbar { display: none; }
+.pain-card {
+  background: #E5DFCF;
+  border: 1px solid #C4B9A6;
+  border-radius: 12px;
+  padding: 32px 24px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.pain-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.pain-num {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 700;
+  color: rgba(76,167,161,0.25);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.pain-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+.pain-desc {
+  font-size: 14px;
+  color: #5a5040;
+  line-height: 1.6;
+}
+
+/* === SECTION: SOLUÇÃO === */
+#solucao {
+  background: var(--bg-deep);
+  padding: 120px 0;
+}
+.solucao-header { max-width: 640px; margin-bottom: 64px; }
+.solucao-header h2 { margin-bottom: 20px; }
+.solucao-header p { font-size: 17px; color: var(--text-muted); line-height: 1.65; }
+
+.sol-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 48px;
+}
+.sol-card-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: rgba(88,225,168,0.08);
+  border: 1px solid rgba(88,225,168,0.18);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.sol-card-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.sol-card h3 { font-size: 19px; margin-bottom: 10px; color: var(--text-primary); }
+.sol-card p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--bg-mid);
+  border: 1px solid var(--border-dark);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.metric-item {
+  padding: 32px 40px;
+  text-align: center;
+  border-right: 1px solid var(--border-dark);
+}
+.metric-item:last-child { border-right: none; }
+.metric-num {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  display: block;
+  margin-bottom: 6px;
+}
+.metric-label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* === SECTION: CASES === */
+#cases {
+  background: var(--bg-mid);
+  padding: 120px 0;
+}
+.cases-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 48px;
+}
+.case-card {
+  background: var(--bg-deep);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-card);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+.case-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(88,225,168,0.06), 0 12px 40px rgba(0,0,0,0.4);
+  transform: translateY(-4px);
+}
+.case-card-tag { margin-bottom: 16px; }
+.case-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+.case-card-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+.case-features {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.case-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.case-feature-dot {
+  width: 14px; height: 14px; flex-shrink: 0;
+  border-radius: 3px;
+  background: rgba(88,225,168,0.1);
+  border: 1px solid rgba(88,225,168,0.25);
+  display: flex; align-items: center; justify-content: center;
+}
+.case-feature-dot svg { width: 8px; height: 8px; stroke: var(--accent); fill: none; stroke-width: 2.5; }
+
+/* Case card mini mockup */
+.case-mockup {
+  position: absolute;
+  bottom: 16px; right: 16px;
+  width: 72px; height: 52px;
+  background: var(--bg-mid);
+  border: 1px solid var(--border-dark);
+  border-radius: 8px;
+  padding: 6px;
+  display: flex; flex-direction: column; gap: 3px;
+  opacity: 0.6;
+  transition: opacity var(--transition);
+}
+.case-card:hover .case-mockup { opacity: 1; }
+.case-mockup-line {
+  height: 4px; border-radius: 2px;
+  background: rgba(255,255,255,0.08);
+}
+.case-mockup-line.accent-line {
+  background: rgba(88,225,168,0.25);
+  width: 60%;
+}
+.case-mockup-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 20px;
+  margin-top: auto;
+}
+.case-mockup-bar {
+  flex: 1;
+  border-radius: 2px 2px 0 0;
+  background: rgba(88,225,168,0.15);
+}
+.case-mockup-bar.hi { background: rgba(88,225,168,0.45); }
+
+/* === SECTION: PROCESSO === */
+#processo {
+  background: var(--bg-light);
+  padding: 120px 0;
+  color: var(--text-dark);
+}
+#processo h2 { color: var(--text-dark); }
+
+.processo-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 80px;
+  margin-top: 56px;
+  align-items: start;
+}
+.processo-intro { }
+.processo-quote {
+  margin-top: 28px;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--accent-teal);
+  line-height: 1.65;
+  border-left: 2px solid rgba(76,167,161,0.3);
+  padding-left: 16px;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  position: relative;
+}
+.timeline-item:not(:last-child) { padding-bottom: 40px; }
+.timeline-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.timeline-node {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 2px solid #C4B9A6;
+  background: var(--bg-light);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  z-index: 1;
+  transition: border-color var(--transition);
+}
+.timeline-node span {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-teal);
+}
+.timeline-line {
+  width: 2px;
+  flex: 1;
+  background: #D4CCBE;
+  margin-top: 4px;
+  min-height: 30px;
+}
+.timeline-content { padding-top: 8px; }
+.timeline-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+.timeline-desc {
+  font-size: 15px;
+  color: #5a5040;
+  line-height: 1.65;
+}
+.timeline-item:hover .timeline-node { border-color: var(--accent-teal); }
+
+/* === SECTION: TECH === */
+#tech {
+  background: var(--bg-deep);
+  padding: 120px 0;
+}
+.tech-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-top: 56px;
+  align-items: start;
+}
+.tech-benefits { display: flex; flex-direction: column; gap: 16px; }
+.tech-benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.tech-check {
+  width: 20px; height: 20px; flex-shrink: 0;
+  border-radius: 5px;
+  background: rgba(88,225,168,0.08);
+  border: 1px solid rgba(88,225,168,0.2);
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+}
+.tech-check svg { width: 10px; height: 10px; stroke: var(--accent); fill: none; stroke-width: 2.5; }
+.tech-benefit-text {
+  font-size: 16px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.tech-stack-col { }
+.tech-stack-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.tech-pill {
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-mid);
+  border: 1px solid var(--border-dark);
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.tech-stack-note {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  border-top: 1px solid var(--border-dark);
+  padding-top: 20px;
+}
+
+/* === SECTION: FAQ === */
+#faq {
+  background: var(--bg-light);
+  padding: 120px 0;
+  color: var(--text-dark);
+}
+#faq h2 { color: var(--text-dark); }
+.faq-list {
+  margin-top: 48px;
+  max-width: 760px;
+}
+.faq-item {
+  border-bottom: 1px solid #D9CFBE;
+}
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 0;
+  cursor: pointer;
+  user-select: none;
+}
+.faq-q-text {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.3;
+}
+.faq-arrow {
+  width: 24px; height: 24px; flex-shrink: 0;
+  border-radius: 6px;
+  border: 1px solid #C4B9A6;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 300ms ease, border-color 300ms ease;
+}
+.faq-arrow svg { width: 12px; height: 12px; stroke: var(--accent-teal); fill: none; stroke-width: 2; }
+.faq-item.open .faq-arrow { transform: rotate(90deg); border-color: var(--accent-teal); }
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 350ms cubic-bezier(0.16,1,0.3,1), opacity 300ms ease;
+  opacity: 0;
+}
+.faq-item.open .faq-answer { max-height: 200px; opacity: 1; }
+.faq-answer-inner {
+  padding-bottom: 20px;
+  font-size: 15px;
+  color: #5a5040;
+  line-height: 1.7;
+}
+
+/* === SECTION: CTA FINAL === */
+#cta-final {
+  background: var(--bg-mid);
+  border-top: 1px solid var(--border-dark);
+  padding: 120px 0;
+}
+.cta-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.cta-copy h2 {
+  font-size: clamp(28px, 3vw, 42px);
+  margin-bottom: 20px;
+}
+.cta-copy p {
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 32px;
+}
+.cta-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cta-bullet {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+.cta-bullet-dot {
+  width: 18px; height: 18px; flex-shrink: 0;
+  border-radius: 4px;
+  background: rgba(88,225,168,0.08);
+  border: 1px solid rgba(88,225,168,0.2);
+  display: flex; align-items: center; justify-content: center;
+}
+.cta-bullet-dot svg { width: 9px; height: 9px; stroke: var(--accent); fill: none; stroke-width: 2.5; }
+
+/* Form */
+.cta-form { display: flex; flex-direction: column; gap: 12px; }
+.form-input {
+  width: 100%;
+  height: 48px;
+  border-radius: var(--radius-input);
+  background: var(--bg-deep);
+  border: 1px solid var(--border-dark);
+  padding: 0 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  -webkit-appearance: none;
+}
+.form-input::placeholder { color: #4a6858; }
+.form-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(88,225,168,0.12);
+}
+.form-select {
+  width: 100%;
+  height: 48px;
+  border-radius: var(--radius-input);
+  background: var(--bg-deep);
+  border: 1px solid var(--border-dark);
+  padding: 0 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: #4a6858;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%238A9E95' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(88,225,168,0.12);
+  color: var(--text-primary);
+}
+.form-select option { background: var(--bg-deep); color: var(--text-primary); }
+.form-textarea {
+  width: 100%;
+  min-height: 96px;
+  border-radius: var(--radius-input);
+  background: var(--bg-deep);
+  border: 1px solid var(--border-dark);
+  padding: 14px 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-primary);
+  outline: none;
+  resize: vertical;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  line-height: 1.55;
+}
+.form-textarea::placeholder { color: #4a6858; }
+.form-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(88,225,168,0.12);
+}
+.form-submit {
+  width: 100%;
+  height: 52px;
+  border-radius: var(--radius-btn);
+  background: var(--accent);
+  color: var(--bg-deep);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.form-submit:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 0 28px rgba(88,225,168,0.3);
+}
+.form-disclaimer {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+}
+.form-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--accent-teal);
+  cursor: pointer;
+  transition: color var(--transition);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.form-whatsapp:hover { color: var(--accent); }
+.wha-icon {
+  width: 18px; height: 18px;
+  background: rgba(76,167,161,0.12);
+  border: 1px solid rgba(76,167,161,0.2);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+}
+.wha-icon svg { width: 10px; height: 10px; fill: var(--accent-teal); }
+
+/* Form validation states */
+.form-error {
+  font-size: 12px;
+  color: #e07070;
+  margin-top: -6px;
+  display: none;
+}
+.form-error.visible { display: block; }
+.form-input.error, .form-select.error, .form-textarea.error {
+  border-color: rgba(224,112,112,0.5);
+}
+.form-success {
+  text-align: center;
+  padding: 32px;
+  display: none;
+}
+.form-success.visible { display: block; }
+.form-success h3 { color: var(--accent); margin-bottom: 8px; font-size: 22px; }
+.form-success p { color: var(--text-muted); font-size: 15px; }
+
+/* === FOOTER === */
+#footer {
+  background: var(--bg-deep);
+  border-top: 1px solid var(--border-dark);
+  padding: 72px 0 36px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
+  gap: 48px;
+  margin-bottom: 56px;
+  align-items: start;
+}
+.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.footer-logo-img {
+  height: 26px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.7;
+}
+.footer-tagline {
+  font-size: 14px;
+  color: #4a6858;
+  line-height: 1.6;
+  margin-bottom: 0;
+  max-width: 220px;
+}
+.footer-col-title {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+.footer-links a {
+  font-size: 14px;
+  color: #4a6858;
+  transition: color var(--transition);
+  word-break: break-all;
+}
+.footer-links a:hover { color: var(--text-primary); }
+.footer-bottom {
+  border-top: 1px solid var(--border-dark);
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-copy {
+  font-size: 12px;
+  color: #2e4a3a;
+  line-height: 1.5;
+}
+
+/* === CUSTOM CURSOR === */
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 80ms ease, opacity 200ms ease;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(88,225,168,0.4);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 300ms ease, height 300ms ease, border-color 300ms ease, opacity 200ms ease;
+}
+.cursor-ring.hovering {
+  width: 52px; height: 52px;
+  border-color: rgba(88,225,168,0.7);
+}
+@media (hover: none) {
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* === LOGO IMAGE === */
+.nav-logo-img {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+  transition: opacity var(--transition);
+}
+.nav-logo:hover .nav-logo-img { opacity: 1; }
+.footer-logo-img {
+  height: 22px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.6;
+}
+
+/* === ABOUT SECTION === */
+#sobre {
+  background: var(--bg-deep);
+  padding: 120px 0;
+  border-top: 1px solid var(--border-dark);
+}
+.sobre-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.sobre-copy h2 { margin-bottom: 24px; }
+.sobre-copy p {
+  font-size: 17px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+.sobre-copy p strong { color: var(--text-primary); font-weight: 500; }
+.sobre-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sobre-stat-card {
+  background: var(--bg-mid);
+  border: 1px solid var(--border-dark);
+  border-radius: 12px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: border-color var(--transition);
+}
+.sobre-stat-card:hover { border-color: rgba(88,225,168,0.25); }
+.sobre-stat-num {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  min-width: 60px;
+}
+.sobre-stat-label {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.sobre-stat-label strong { display: block; color: var(--text-primary); font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+
+/* === COUNTER ANIMATION === */
+.count-up { display: inline-block; }
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2e5a48; }
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .container { padding: 0 32px; }
+  .nav-inner { padding: 0 32px; }
+  .hero-inner { padding: 60px 32px; gap: 40px; }
+  .hero-headline { font-size: clamp(36px, 5vw, 56px); }
+  .sol-grid { gap: 14px; }
+  .cases-grid { gap: 14px; }
+  .tech-layout, .processo-layout, .cta-layout { gap: 48px; }
+  .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 28px; }
+  .pain-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .nav-inner { padding: 0 20px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    padding: 40px 20px 60px;
+    gap: 40px;
+    text-align: center;
+  }
+  .hero-copy { align-items: center; }
+  .hero-actions { flex-direction: column; align-items: center; }
+  .hero-visual .dashboard-card { animation: fadeIn 1s ease 0.4s both; }
+  .sol-grid { grid-template-columns: 1fr; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .processo-layout { grid-template-columns: 1fr; gap: 32px; }
+  .tech-layout { grid-template-columns: 1fr; gap: 40px; }
+  .cta-layout { grid-template-columns: 1fr; gap: 40px; }
+  .sobre-layout { grid-template-columns: 1fr; gap: 40px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-grid > div:first-child { grid-column: 1 / -1; }
+  .pain-grid { grid-template-columns: repeat(2, 1fr); }
+  .metrics-row { grid-template-columns: 1fr; }
+  .metric-item { border-right: none; border-bottom: 1px solid var(--border-dark); }
+  .metric-item:last-child { border-bottom: none; }
+  section { padding-top: 80px !important; padding-bottom: 80px !important; }
+  .pain-card { min-width: 0; }
+}
+
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll progress -->
+<div id="scroll-progress"></div>
+
+<!-- WhatsApp float button -->
+<a href="https://wa.me/559492083253" class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Falar pelo WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" fill="white"/></svg>
+</a>
+
+<!-- === NAVBAR === -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo" aria-label="Ferzion — página inicial">
+      <img src="assets/logo-ferzion.jpeg" alt="Ferzion" class="nav-logo-img">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#solucao">Soluções</a></li>
+      <li><a href="#cases">Cases</a></li>
+      <li><a href="#processo">Como Funciona</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#cta-final" class="btn btn-outline" style="padding:10px 22px;font-size:14px;">Solicitar diagnóstico</a>
+    </div>
+    <button class="hamburger" id="hamburger-btn" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile drawer -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<nav class="nav-drawer" id="nav-drawer" aria-label="Menu mobile">
+  <button class="nav-drawer-close" id="drawer-close" aria-label="Fechar menu">✕</button>
+  <ul class="nav-drawer-links">
+    <li><a href="#solucao">Soluções</a></li>
+    <li><a href="#cases">Cases</a></li>
+    <li><a href="#processo">Como Funciona</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#cta-final" class="btn btn-primary" style="margin-top:32px;justify-content:center;">Solicitar diagnóstico gratuito →</a>
+</nav>
+
+<!-- === HERO === -->
+<section id="hero" class="grid-bg">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-inner">
+    <!-- Copy -->
+    <div class="hero-copy">
+      <div class="hero-badge">
+        <span class="pill pill-accent">Software sob medida para operações reais</span>
+      </div>
+      <h1 class="hero-headline">
+        Sua operação cresceu.<br>
+        <em>Seus processos não acompanharam.</em>
+      </h1>
+      <p class="hero-sub">
+        Criamos sistemas personalizados que eliminam o caos operacional e colocam você no controle total da sua empresa.
+      </p>
+      <div class="hero-actions">
+        <a href="#cta-final" class="btn btn-primary">Solicitar diagnóstico gratuito →</a>
+        <a href="#solucao" class="btn btn-ghost">Ver nossas soluções ↓</a>
+      </div>
+      <p class="hero-proof">
+        <strong>7 operações transformadas</strong> · Agronegócio, logística e gestão operacional
+      </p>
+    </div>
+    <!-- Dashboard Mockup -->
+    <div class="hero-visual">
+      <div class="dashboard-card">
+        <!-- Header -->
+        <div class="dash-header">
+          <div class="dash-dot" style="background:#58E1A8;"></div>
+          <div class="dash-dot" style="background:#4CA7A1;"></div>
+          <div class="dash-dot" style="background:#2e4238;"></div>
+          <div class="dash-title-bar"></div>
+          <div class="dash-badge"></div>
+        </div>
+        <!-- Filters -->
+        <div class="dash-filter-row">
+          <div class="dash-filter"><div class="dash-filter-dot"></div><div class="dash-filter-label"></div></div>
+          <div class="dash-filter"><div class="dash-filter-label" style="background:rgba(255,255,255,0.06);"></div></div>
+          <div class="dash-filter"><div class="dash-filter-label" style="background:rgba(255,255,255,0.06);width:24px;"></div></div>
+        </div>
+        <!-- Table -->
+        <div class="dash-table">
+          <div class="dash-table-head">
+            <div class="dash-th"></div><div class="dash-th"></div><div class="dash-th"></div><div class="dash-th"></div><div class="dash-th"></div>
+          </div>
+          <div class="dash-row active">
+            <div class="dash-cell"></div><div class="dash-cell short"></div><div class="dash-cell"></div><div class="dash-cell short"></div>
+            <div class="dash-status green">ATIVO</div>
+          </div>
+          <div class="dash-row">
+            <div class="dash-cell"></div><div class="dash-cell"></div><div class="dash-cell short"></div><div class="dash-cell"></div>
+            <div class="dash-status teal">EM LOTE</div>
+          </div>
+          <div class="dash-row">
+            <div class="dash-cell short"></div><div class="dash-cell"></div><div class="dash-cell"></div><div class="dash-cell short"></div>
+            <div class="dash-status dim">AGUARD.</div>
+          </div>
+          <div class="dash-row">
+            <div class="dash-cell"></div><div class="dash-cell short"></div><div class="dash-cell short"></div><div class="dash-cell"></div>
+            <div class="dash-status green">ATIVO</div>
+          </div>
+        </div>
+        <!-- Charts -->
+        <div class="dash-chart-row">
+          <div class="dash-chart">
+            <div class="dash-chart-label"></div>
+            <div class="dash-bars">
+              <div class="dash-bar" style="height:55%"></div>
+              <div class="dash-bar" style="height:75%"></div>
+              <div class="dash-bar" style="height:60%"></div>
+              <div class="dash-bar highlight" style="height:90%"></div>
+              <div class="dash-bar" style="height:70%"></div>
+              <div class="dash-bar" style="height:80%"></div>
+              <div class="dash-bar highlight" style="height:85%"></div>
+            </div>
+          </div>
+          <div class="dash-chart">
+            <div class="dash-stat">
+              <span class="dash-stat-num">94%</span>
+              <div class="dash-stat-label"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === PROBLEMA === -->
+<section id="problema">
+  <div class="container">
+    <div class="reveal">
+      <span class="label-tag dark">O Problema</span>
+      <h2 style="max-width:600px;">Você está gerenciando uma operação complexa com ferramentas simples demais.</h2>
+    </div>
+    <div class="pain-grid reveal" style="transition-delay:100ms;">
+      <div class="pain-card">
+        <div class="pain-num">01</div>
+        <div class="pain-title">Planilhas que ninguém controla</div>
+        <p class="pain-desc">Dados desatualizados, versões diferentes, decisões erradas.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">02</div>
+        <div class="pain-title">WhatsApp como sistema</div>
+        <p class="pain-desc">Informações espalhadas em conversas impossíveis de rastrear.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">03</div>
+        <div class="pain-title">Retrabalho invisível</div>
+        <p class="pain-desc">Horas gastas refazendo o que já foi feito porque ninguém sabe o que foi registrado.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">04</div>
+        <div class="pain-title">Falta de rastreabilidade</div>
+        <p class="pain-desc">Quando algo dá errado, ninguém sabe onde foi. E o problema se repete.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-num">05</div>
+        <div class="pain-title">Decisões sem dados</div>
+        <p class="pain-desc">Você toma decisões importantes sem visibilidade real do que está acontecendo.</p>
+      </div>
+    </div>
+    <p class="problema-closing reveal" style="transition-delay:200ms;">
+      "Esses problemas não são falha sua. São sintoma natural de uma operação que cresceu além das ferramentas que você tem."
+    </p>
+  </div>
+</section>
+
+<!-- === SOLUÇÃO === -->
+<section id="solucao">
+  <div class="container">
+    <div class="solucao-header reveal">
+      <span class="label-tag accent">A Solução</span>
+      <h2>Não vendemos software. Construímos sistemas que entendem sua operação.</h2>
+      <p style="margin-top:20px;">Antes de escrever uma linha de código, entendemos como sua empresa funciona, onde está perdendo tempo e onde está perdendo dinheiro.</p>
+    </div>
+    <div class="sol-grid">
+      <div class="card sol-card reveal" style="transition-delay:80ms;">
+        <div class="sol-card-icon">
+          <svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="7"/><path d="M9 6v3l2 2"/></svg>
+        </div>
+        <h3>Diagnóstico antes do desenvolvimento</h3>
+        <p>Mapeamos sua operação completa antes de definir qualquer solução. O sistema nasce da sua realidade, não de um template.</p>
+      </div>
+      <div class="card sol-card reveal" style="transition-delay:160ms;">
+        <div class="sol-card-icon">
+          <svg viewBox="0 0 18 18"><path d="M3 9h12M3 5h8M3 13h6"/></svg>
+        </div>
+        <h3>Desenvolvimento acompanhado</h3>
+        <p>Você valida cada etapa. Nada é entregue sem sua aprovação. O sistema evolui junto com o feedback real da operação.</p>
+      </div>
+      <div class="card sol-card reveal" style="transition-delay:240ms;">
+        <div class="sol-card-icon">
+          <svg viewBox="0 0 18 18"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="10" y="2" width="6" height="6" rx="1"/><rect x="2" y="10" width="6" height="6" rx="1"/><rect x="10" y="10" width="6" height="6" rx="1"/></svg>
+        </div>
+        <h3>Arquitetura que escala</h3>
+        <p>Construído com tecnologia moderna e escalável. Quando sua operação crescer, o sistema cresce junto — sem reescrever do zero.</p>
+      </div>
+    </div>
+    <div class="metrics-row reveal" style="transition-delay:120ms;">
+      <div class="metric-item">
+        <span class="metric-num" data-count="7">7</span>
+        <span class="metric-label">Operações transformadas</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num" data-count="4">4</span>
+        <span class="metric-label">Nichos atendidos</span>
+      </div>
+      <div class="metric-item">
+        <span class="metric-num">100%</span>
+        <span class="metric-label">Sistemas desenvolvidos sob medida</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === CASES === -->
+<section id="cases">
+  <div class="container">
+    <div class="reveal">
+      <span class="label-tag accent">Cases</span>
+      <h2>Sistemas reais para operações reais.</h2>
+    </div>
+    <div class="cases-grid">
+      <!-- Case 1 -->
+      <div class="case-card reveal" style="transition-delay:80ms;">
+        <span class="case-num">01</span>
+        <div class="case-card-tag"><span class="pill pill-teal">AGRONEGÓCIO · CONFINAMENTO</span></div>
+        <h3>Sistema de Gestão de Confinamentos</h3>
+        <p class="case-card-desc">Controle completo de lotes, pesagens, dietas e performance de animais em confinamento. Dados em tempo real, relatórios automáticos e rastreabilidade total.</p>
+        <div class="case-features">
+          <div class="case-feature"><div class="case-feature-dot"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></div>Controle de lotes</div>
+          <div class="case-feature"><div class="case-feature-dot"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></div>Gestão de dietas</div>
+          <div class="case-feature"><div class="case-feature-dot"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></div>Relatórios automáticos</div>
+        </div>
+        <div class="case-mockup">
+          <div class="case-mockup-line accent-line"></div>
+          <div class="case-mockup-line"></div>
+          <div class="case-mockup-line"></div>
+          <div class="case-mockup-bars">
+            <div class="case-mockup-bar" style="height:50%"></div>
+            <div class="case-mockup-bar hi" style="height:80%"></div>
+            <div class="case-mockup-bar" style="height:60%"></div>
+            <div class="case-mockup-bar hi" style="height:90%"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Case 2 -->
+      <div class="case-card reveal" style="transition-delay:160ms;">
+        <span class="case-num">02</span>
+        <div class="case-card-tag"><span class="pill pill-teal">AGRONEGÓCIO · PECUÁRIA</span></div>
+        <h3>Sistema de Gestão de Rebanhos</h3>
+        <p class="case-card-desc">Da identificação individual do animal ao histórico completo de tratamentos, movimentações e genealogia. Controle que antes existia só na memória do gestor.</p>
+        <div class="case-features">
+          <div class="case-feature"><div class="case-feature-dot"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></div>Identificação individual</div>
+          <div class="case-feature"><div class="case-feature-dot"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></div>Histórico sanitário</div>
+          <div class="case-feature"><div class="case-feature-dot"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></div>Movimentação de lotes</div>
+        </div>
+        <div class="case-mockup">
+          <div class="case-mockup-line accent-line"></div>
+          <div class="case-mockup-line"></div>
+          <div class="case-mockup-bars">
+            <div class="case-mockup-bar" style="height:70%"></div>
+            <div class="case-mockup-bar" style="height:40%"></div>
+            <div class="case-mockup-bar hi" style="height:85%"></div>
+            <div class="case-mockup-bar" style="height:55%"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Case 3 -->
+      <div class="case-card reveal" style="transition-delay:80ms;">
+        <span class="case-num">03</span>
+        <div class="case-card-tag"><span class="pill pill-teal">LOGÍSTICA · MADEIRA</span></div>
+        <h3>Sistema de Gestão de Romaneios</h3>
+        <p class="case-card-desc">Digitalização completa do processo de romaneio para venda de madeiras. Elimina papel, reduz erros e gera documentação automática para cada transação.</p>
+        <div class="case-features">
+          <div class="case-feature"><div class="case-feature-dot"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></div>Emissão digital</div>
+          <div class="case-feature"><div class="case-feature-dot"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></div>Controle de volumes</div>
+          <div class="case-feature"><div class="case-feature-dot"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></div>Documentação automática</div>
+        </div>
+        <div class="case-mockup">
+          <div class="case-mockup-line"></div>
+          <div class="case-mockup-line accent-line"></div>
+          <div class="case-mockup-line"></div>
+          <div class="case-mockup-bars">
+            <div class="case-mockup-bar hi" style="height:75%"></div>
+            <div class="case-mockup-bar" style="height:50%"></div>
+            <div class="case-mockup-bar" style="height:65%"></div>
+            <div class="case-mockup-bar hi" style="height:88%"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Case 4 -->
+      <div class="case-card reveal" style="transition-delay:160ms;">
+        <span class="case-num">04</span>
+        <div class="case-card-tag"><span class="pill pill-teal">GESTÃO OPERACIONAL</span></div>
+        <h3>Sistemas Administrativos Sob Medida</h3>
+        <p class="case-card-desc">Sistemas de controle administrativo desenhados a partir do fluxo real de cada empresa. Nenhum módulo desnecessário. Nenhum processo ignorado.</p>
+        <div class="case-features">
+          <div class="case-feature"><div class="case-feature-dot"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></div>Fluxo personalizado</div>
+          <div class="case-feature"><div class="case-feature-dot"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></div>Controle de processos</div>
+          <div class="case-feature"><div class="case-feature-dot"><svg viewBox="0 0 8 8"><polyline points="1,4 3,6 7,2"/></svg></div>Interface intuitiva</div>
+        </div>
+        <div class="case-mockup">
+          <div class="case-mockup-line accent-line"></div>
+          <div class="case-mockup-line"></div>
+          <div class="case-mockup-bars">
+            <div class="case-mockup-bar" style="height:45%"></div>
+            <div class="case-mockup-bar hi" style="height:92%"></div>
+            <div class="case-mockup-bar" style="height:60%"></div>
+            <div class="case-mockup-bar" style="height:70%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === PROCESSO === -->
+<section id="processo">
+  <div class="container">
+    <div class="reveal">
+      <span class="label-tag dark">Processo</span>
+      <h2>Do diagnóstico ao sistema funcionando na sua operação.</h2>
+    </div>
+    <div class="processo-layout">
+      <div class="processo-intro reveal" style="transition-delay:80ms;">
+        <p style="font-size:16px;color:#5a5040;line-height:1.7;">Um processo desenhado para eliminar insegurança e manter você no controle de cada decisão.</p>
+        <p class="processo-quote">"A maioria dos nossos clientes tinha dúvidas antes de começar. Depois da conversa inicial, o caminho ficou claro."</p>
+      </div>
+      <div class="timeline reveal" style="transition-delay:160ms;">
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-node"><span>01</span></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-title">Entendimento da operação</div>
+            <p class="timeline-desc">Conversamos sobre como sua empresa funciona hoje — os processos, os problemas, as pessoas envolvidas. Nada é presumido.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-node"><span>02</span></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-title">Planejamento estratégico</div>
+            <p class="timeline-desc">Desenhamos a arquitetura do sistema junto com você. Você aprova cada decisão antes de começar o desenvolvimento.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-node"><span>03</span></div>
+            <div class="timeline-line"></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-title">Desenvolvimento validado</div>
+            <p class="timeline-desc">Desenvolvemos em ciclos curtos com entregas frequentes. Você valida, ajusta e aprova em tempo real.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-node"><span>04</span></div>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-title">Implantação e suporte</div>
+            <p class="timeline-desc">O sistema vai para a operação real com treinamento da equipe e suporte próximo nas primeiras semanas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === TECH === -->
+<section id="tech">
+  <div class="container">
+    <div class="reveal">
+      <span class="label-tag accent">Tecnologia</span>
+      <h2>Construído para durar, crescer e funcionar onde você estiver.</h2>
+    </div>
+    <div class="tech-layout">
+      <div class="tech-benefits reveal" style="transition-delay:80ms;">
+        <div class="tech-benefit">
+          <div class="tech-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+          <span class="tech-benefit-text">Funciona em qualquer dispositivo — celular, tablet ou computador</span>
+        </div>
+        <div class="tech-benefit">
+          <div class="tech-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+          <span class="tech-benefit-text">Sistemas que escalam conforme sua operação cresce</span>
+        </div>
+        <div class="tech-benefit">
+          <div class="tech-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+          <span class="tech-benefit-text">Interface simples o suficiente para qualquer pessoa usar</span>
+        </div>
+        <div class="tech-benefit">
+          <div class="tech-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+          <span class="tech-benefit-text">Dados sempre seguros e com backup automático</span>
+        </div>
+        <div class="tech-benefit">
+          <div class="tech-check"><svg viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2.5"/></svg></div>
+          <span class="tech-benefit-text">Integração possível com sistemas que você já usa</span>
+        </div>
+      </div>
+      <div class="tech-stack-col reveal" style="transition-delay:160ms;">
+        <div class="tech-stack-title">Stack técnico</div>
+        <div class="tech-pills">
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">Django</span>
+          <span class="tech-pill">PostgreSQL</span>
+          <span class="tech-pill">Docker</span>
+          <span class="tech-pill">Tailwind</span>
+          <span class="tech-pill">HTMX</span>
+        </div>
+        <p class="tech-stack-note">Arquitetura moderna, segura e escalável. Sem dependência de plataformas proprietárias — seu sistema é seu, para sempre.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === FAQ === -->
+<section id="faq">
+  <div class="container">
+    <div class="reveal">
+      <span class="label-tag dark">Dúvidas Frequentes</span>
+      <h2>Perguntas que todo empresário faz antes de decidir.</h2>
+    </div>
+    <div class="faq-list reveal" style="transition-delay:80ms;">
+      <div class="faq-item open">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="true">
+          <span class="faq-q-text">Meu negócio realmente precisa de um sistema personalizado?</span>
+          <div class="faq-arrow"><svg viewBox="0 0 12 12"><path d="M4 2l4 4-4 4"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner">Se sua operação depende de planilhas, mensagens espalhadas e processos manuais, provavelmente você já está perdendo tempo, controle e dinheiro sem perceber. O diagnóstico inicial é gratuito — e já nessa conversa você vai entender se faz sentido ou não para o seu caso.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          <span class="faq-q-text">Quanto custa um sistema personalizado?</span>
+          <div class="faq-arrow"><svg viewBox="0 0 12 12"><path d="M4 2l4 4-4 4"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner">O investimento varia conforme a complexidade da operação e o escopo do sistema. Por isso fazemos o diagnóstico primeiro: para entender exatamente o que você precisa e apresentar uma proposta justa e detalhada. Sem surpresas.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          <span class="faq-q-text">Quanto tempo leva para ter o sistema funcionando?</span>
+          <div class="faq-arrow"><svg viewBox="0 0 12 12"><path d="M4 2l4 4-4 4"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner">Projetos mais simples podem estar operacionais em 6 a 12 semanas. Operações mais complexas levam mais tempo, mas sempre com entregas parciais para você ir vendo o progresso.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          <span class="faq-q-text">O sistema vai funcionar no celular?</span>
+          <div class="faq-arrow"><svg viewBox="0 0 12 12"><path d="M4 2l4 4-4 4"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner">Sim. Todos os sistemas que desenvolvemos são totalmente responsivos — funcionam perfeitamente em qualquer dispositivo, sem perda de funcionalidade.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+          <span class="faq-q-text">E depois de pronto, existe suporte?</span>
+          <div class="faq-arrow"><svg viewBox="0 0 12 12"><path d="M4 2l4 4-4 4"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <p class="faq-answer-inner">Sim. Acompanhamos a implantação de perto e permanecemos disponíveis para ajustes, melhorias e suporte técnico após a entrega.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === SOBRE === -->
+<section id="sobre">
+  <div class="container">
+    <div class="sobre-layout">
+      <div class="sobre-copy reveal">
+        <span class="label-tag accent">Sobre a Ferzion</span>
+        <h2>Uma empresa que entende operações antes de escrever código.</h2>
+        <p>A Ferzion nasceu da observação de um problema recorrente: <strong>empresas em crescimento presas em ferramentas que não acompanham sua complexidade.</strong></p>
+        <p>Nossa abordagem é diferente. Antes de qualquer desenvolvimento, mergulhamos na operação do cliente — entendemos os processos, as pessoas, os gargalos. O sistema que construímos é consequência desse entendimento, não um produto de prateleira adaptado.</p>
+        <p>Atuamos com foco especial no <strong>agronegócio, logística e gestão operacional</strong> — setores onde a distância entre a planilha e a realidade custa caro.</p>
+      </div>
+      <div class="sobre-visual reveal" style="transition-delay:120ms;">
+        <div class="sobre-stat-card">
+          <span class="sobre-stat-num" data-count="7">7</span>
+          <div class="sobre-stat-label">
+            <strong>Operações transformadas</strong>
+            Empresas que deixaram para trás planilhas e processos manuais.
+          </div>
+        </div>
+        <div class="sobre-stat-card">
+          <span class="sobre-stat-num" data-count="4">4</span>
+          <div class="sobre-stat-label">
+            <strong>Nichos atendidos</strong>
+            Agronegócio, pecuária, logística e gestão operacional.
+          </div>
+        </div>
+        <div class="sobre-stat-card">
+          <span class="sobre-stat-num">100%</span>
+          <div class="sobre-stat-label">
+            <strong>Sistemas sob medida</strong>
+            Nenhum template. Cada sistema nasce de uma operação real.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === CTA FINAL === -->
+<section id="cta-final">
+  <div class="container">
+    <div class="cta-layout">
+      <!-- Copy side -->
+      <div class="cta-copy reveal">
+        <h2>Pronto para colocar sua operação no controle?</h2>
+        <p>Agende um diagnóstico gratuito. Em uma conversa, você já entende o que um sistema pode fazer pela sua operação.</p>
+        <div class="cta-bullets">
+          <div class="cta-bullet">
+            <div class="cta-bullet-dot"><svg viewBox="0 0 9 9"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>
+            Diagnóstico gratuito, sem compromisso
+          </div>
+          <div class="cta-bullet">
+            <div class="cta-bullet-dot"><svg viewBox="0 0 9 9"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>
+            Resultado claro em uma única conversa
+          </div>
+          <div class="cta-bullet">
+            <div class="cta-bullet-dot"><svg viewBox="0 0 9 9"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>
+            Proposta sob medida após o diagnóstico
+          </div>
+        </div>
+      </div>
+      <!-- Form side -->
+      <div class="reveal" style="transition-delay:120ms;">
+        <form class="cta-form" id="contact-form" novalidate="">
+          <input class="form-input" id="f-name" type="text" placeholder="Nome completo" autocomplete="name" aria-label="Nome completo">
+          <span class="form-error" id="err-name">Por favor, informe seu nome.</span>
+          <input class="form-input" id="f-phone" type="tel" placeholder="WhatsApp — (11) 99999-9999" autocomplete="tel" aria-label="WhatsApp">
+          <span class="form-error" id="err-phone">Por favor, informe seu WhatsApp.</span>
+          <select class="form-select" id="f-segment" aria-label="Segmento da operação">
+            <option value="" disabled="" selected="">Segmento da operação</option>
+            <option value="agro">Agronegócio</option>
+            <option value="logistica">Logística</option>
+            <option value="gestao">Gestão Operacional</option>
+            <option value="outro">Outro</option>
+          </select>
+          <span class="form-error" id="err-seg">Por favor, selecione um segmento.</span>
+          <textarea class="form-textarea" id="f-challenge" placeholder="Qual é seu maior desafio hoje? Ex: planilhas desatualizadas, retrabalho, falta de controle..." aria-label="Maior desafio"></textarea>
+          <button type="submit" class="form-submit">Solicitar diagnóstico gratuito →</button>
+          <p class="form-disclaimer">Sem compromisso. Sem custo. Apenas uma conversa sobre sua operação.</p>
+          <a href="https://wa.me/559492083253" class="form-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Falar pelo WhatsApp">
+            <div class="wha-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            </div>
+            Prefere conversar pelo WhatsApp? Clique aqui
+          </a>
+        </form>
+        <div class="form-success" id="form-success">
+          <h3>Mensagem enviada!</h3>
+          <p>Entraremos em contato em breve para agendar seu diagnóstico gratuito.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === FOOTER === -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Col 1: Logo + tagline + social -->
+      <div>
+        <div class="footer-logo">
+          <img src="assets/logo-ferzion.jpeg" alt="Ferzion" class="footer-logo-img">
+        </div>
+        <p class="footer-tagline">Software sob medida para operações reais.</p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/company/ferzion/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn da Ferzion">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://wa.me/559492083253" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp da Ferzion">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          </a>
+          <a href="mailto:ferzion.dev@gmail.com" aria-label="Email da Ferzion">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
+          </a>
+        </div>
+      </div>
+      <!-- Col 2: Navegação -->
+      <div>
+        <div class="footer-col-title">Navegação</div>
+        <ul class="footer-links">
+          <li><a href="#solucao">Soluções</a></li>
+          <li><a href="#cases">Cases</a></li>
+          <li><a href="#processo">Como Funciona</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <!-- Col 3: Nichos -->
+      <div>
+        <div class="footer-col-title">Nichos atendidos</div>
+        <ul class="footer-links">
+          <li><a href="#cases">Agronegócio</a></li>
+          <li><a href="#cases">Pecuária</a></li>
+          <li><a href="#cases">Logística</a></li>
+          <li><a href="#cases">Gestão Operacional</a></li>
+        </ul>
+      </div>
+      <!-- Col 4: Contato -->
+      <div>
+        <div class="footer-col-title">Contato</div>
+        <ul class="footer-links">
+          <li><a href="mailto:ferzion.dev@gmail.com">ferzion.dev@gmail.com</a></li>
+          <li><a href="https://wa.me/559492083253" target="_blank" rel="noopener noreferrer">+55 94 9 9208-3253</a></li>
+          <li><a href="https://www.linkedin.com/company/ferzion/" target="_blank" rel="noopener noreferrer">linkedin.com/company/ferzion</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 Ferzion. Todos os direitos reservados.</span>
+      <span class="footer-copy">Desenvolvido com tecnologia moderna para operações reais.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursor-dot"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- Tweaks Panel -->
+<div id="tweaks-root"></div>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#58E1A8",
+  "bgDeep": "#071A12",
+  "bgMid": "#0F2D23",
+  "heroHeadline": "Sua operação cresceu. Seus processos não acompanharam.",
+  "ctaText": "Solicitar diagnóstico gratuito →",
+  "showAbout": true,
+  "fontScale": 85
+}/*EDITMODE-END*/;
+
+function TweaksApp() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    document.documentElement.style.setProperty('--accent', tweaks.accentColor);
+    document.documentElement.style.setProperty('--bg-deep', tweaks.bgDeep);
+    document.documentElement.style.setProperty('--bg-mid', tweaks.bgMid);
+    const base = (tweaks.fontScale / 100) * 17;
+    document.documentElement.style.fontSize = base + 'px';
+    const sobre = document.getElementById('sobre');
+    if (sobre) sobre.style.display = tweaks.showAbout ? '' : 'none';
+    const ctaBtns = document.querySelectorAll('.form-submit');
+    ctaBtns.forEach(b => { b.textContent = tweaks.ctaText; });
+  }, [tweaks]);
+
+  return (
+    <TweaksPanel title="Tweaks — Ferzion">
+      <TweakSection title="Cores">
+        <TweakColor label="Cor de destaque (accent)" value={tweaks.accentColor} onChange={v => setTweak('accentColor', v)} />
+        <TweakColor label="Fundo principal (dark)" value={tweaks.bgDeep} onChange={v => setTweak('bgDeep', v)} />
+        <TweakColor label="Fundo cards / mid" value={tweaks.bgMid} onChange={v => setTweak('bgMid', v)} />
+      </TweakSection>
+      <TweakSection title="Tipografia">
+        <TweakSlider label="Escala de fonte" value={tweaks.fontScale} min={85} max={115} step={1} onChange={v => setTweak('fontScale', v)} />
+      </TweakSection>
+      <TweakSection title="Copy">
+        <TweakText label="Texto do CTA" value={tweaks.ctaText} onChange={v => setTweak('ctaText', v)} />
+      </TweakSection>
+      <TweakSection title="Seções">
+        <TweakToggle label="Mostrar seção Sobre" value={tweaks.showAbout} onChange={v => setTweak('showAbout', v)} />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />);
+</script>
+
+<!-- === JAVASCRIPT === -->
+<script>
+/* === NAVBAR SCROLL === */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+/* === MOBILE DRAWER === */
+const hamburger = document.getElementById('hamburger-btn');
+const drawer    = document.getElementById('nav-drawer');
+const overlay   = document.getElementById('drawer-overlay');
+const closeBtn  = document.getElementById('drawer-close');
+
+function openDrawer() {
+  drawer.classList.add('open');
+  overlay.classList.add('visible');
+  hamburger.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  drawer.classList.remove('open');
+  overlay.classList.remove('visible');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+hamburger.addEventListener('click', openDrawer);
+closeBtn.addEventListener('click', closeDrawer);
+overlay.addEventListener('click', closeDrawer);
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+
+/* === SCROLL REVEAL === */
+const reveals = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revealObs.observe(el));
+
+/* === FAQ ACCORDION === */
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+    });
+    // open clicked if was closed
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+  btn.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+  });
+});
+
+/* === PHONE MASK === */
+const phoneInput = document.getElementById('f-phone');
+phoneInput.addEventListener('input', () => {
+  let v = phoneInput.value.replace(/\D/g, '').slice(0, 11);
+  if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+  if (v.length > 10) v = v.slice(0,10) + '-' + v.slice(10);
+  phoneInput.value = v;
+});
+
+/* === FORM VALIDATION === */
+const form = document.getElementById('contact-form');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let valid = true;
+
+  const name    = document.getElementById('f-name');
+  const phone   = document.getElementById('f-phone');
+  const segment = document.getElementById('f-segment');
+
+  const errName  = document.getElementById('err-name');
+  const errPhone = document.getElementById('err-phone');
+  const errSeg   = document.getElementById('err-seg');
+
+  // Reset
+  [name, phone, segment].forEach(el => el.classList.remove('error'));
+  [errName, errPhone, errSeg].forEach(el => el.classList.remove('visible'));
+
+  if (!name.value.trim()) {
+    name.classList.add('error');
+    errName.classList.add('visible');
+    valid = false;
+  }
+  if (!phone.value.trim() || phone.value.replace(/\D/g,'').length < 10) {
+    phone.classList.add('error');
+    errPhone.classList.add('visible');
+    valid = false;
+  }
+  if (!segment.value) {
+    segment.classList.add('error');
+    errSeg.classList.add('visible');
+    valid = false;
+  }
+
+  if (valid) {
+    form.style.display = 'none';
+    document.getElementById('form-success').classList.add('visible');
+  }
+});
+
+/* === SCROLL PROGRESS BAR === */
+const progressBar = document.getElementById('scroll-progress');
+function updateProgress() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressBar.style.width = pct + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+
+/* === ACTIVE NAV LINKS === */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const activeObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => activeObs.observe(s));
+
+/* === SMOOTH ANCHOR SCROLL === */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    const offset = 72;
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
+});
+
+/* === CUSTOM CURSOR === */
+const cursorDot  = document.getElementById('cursor-dot');
+const cursorRing = document.getElementById('cursor-ring');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+let rafId;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursorDot.style.left = mouseX + 'px';
+  cursorDot.style.top  = mouseY + 'px';
+});
+
+function animRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  cursorRing.style.left = ringX + 'px';
+  cursorRing.style.top  = ringY + 'px';
+  rafId = requestAnimationFrame(animRing);
+}
+animRing();
+
+document.querySelectorAll('a, button, .card, .case-card, .pain-card, .faq-question, .btn').forEach(el => {
+  el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
+});
+
+document.addEventListener('mouseleave', () => { cursorDot.style.opacity = '0'; cursorRing.style.opacity = '0'; });
+document.addEventListener('mouseenter', () => { cursorDot.style.opacity = '1'; cursorRing.style.opacity = '1'; });
+
+/* === COUNTER ANIMATION === */
+function animateCount(el, target, duration) {
+  const start = performance.now();
+  const from = 0;
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(from + (target - from) * ease);
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(step);
+}
+
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const val = parseInt(el.dataset.count);
+      if (!isNaN(val)) animateCount(el, val, 1800);
+      counterObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('[data-count]').forEach(el => counterObs.observe(el));
+</script>
+
+</body>
+</html>
