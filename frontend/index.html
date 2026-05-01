@@ -2059,7 +2059,7 @@ section { position: relative; }
   </div>
 </section>
 
-<!-- === CTA FINAL === -->
+
 <!-- === CTA FINAL === -->
 <section id="cta-final">
   <div class="container">
@@ -2100,10 +2100,10 @@ section { position: relative; }
       <div class="reveal" style="transition-delay:120ms;">
         <form class="cta-form" id="contact-form" novalidate>
 
-          <input class="form-input" id="f-name" name="name" type="text" placeholder="Nome completo" autocomplete="name" aria-label="Nome completo">
+          <input class="form-input" id="f-name" name="nome" type="text" placeholder="Nome completo" autocomplete="name" aria-label="Nome completo">
           <span class="form-error" id="err-name">Por favor, informe seu nome.</span>
 
-          <input class="form-input" id="f-phone" name="phone" type="tel" placeholder="WhatsApp — (11) 99999-9999" autocomplete="tel" aria-label="WhatsApp">
+          <input class="form-input" id="f-phone" name="whatsapp" type="tel" placeholder="WhatsApp — (11) 99999-9999" autocomplete="tel" aria-label="WhatsApp">
           <span class="form-error" id="err-phone">Por favor, informe seu WhatsApp.</span>
 
           <!-- EMAIL -->
@@ -2117,16 +2117,16 @@ section { position: relative; }
             aria-label="E-mail">
           <span class="form-error" id="err-email">Por favor, informe um e-mail válido.</span>
 
-          <select class="form-select" id="f-segment" name="segment" aria-label="Segmento da operação">
+          <select class="form-select" id="f-segmento" name="segmento" aria-label="Segmento da operação">
             <option value="" disabled selected>Segmento da operação</option>
             <option value="agro">Agronegócio</option>
             <option value="logistica">Logística</option>
-            <option value="gestao">Gestão Operacional</option>
+            <option value="industria">Indústria</option>
             <option value="outro">Outro</option>
           </select>
           <span class="form-error" id="err-seg">Por favor, selecione um segmento.</span>
 
-          <textarea class="form-textarea" id="f-challenge" name="challenge" placeholder="Qual é seu maior desafio hoje? Ex: planilhas desatualizadas, retrabalho, falta de controle..." aria-label="Maior desafio"></textarea>
+          <textarea class="form-textarea" id="f-challenge" name="desafio" placeholder="Qual é seu maior desafio hoje? Ex: planilhas desatualizadas, retrabalho, falta de controle..." aria-label="Maior desafio"></textarea>
 
           <button type="submit" class="form-submit">Solicitar diagnóstico gratuito →</button>
 
@@ -2302,7 +2302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const name    = document.getElementById('f-name');
     const phone   = document.getElementById('f-phone');
     const email   = document.getElementById('f-email');
-    const segment = document.getElementById('f-segment');
+    const segment = document.getElementById('f-segmento');
 
     const errName  = document.getElementById('err-name');
     const errPhone = document.getElementById('err-phone');
@@ -2346,8 +2346,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Sucesso
     if (valid) {
-      form.style.display = 'none';
-      document.getElementById('form-success').classList.add('visible');
+      const data = {
+        nome: name.value.trim(),
+        email: email.value.trim(),
+        whatsapp: phone.value.trim(),
+        segmento: segment.value,
+        desafio: document.getElementById('f-challenge').value.trim(),
+      };
+
+      fetch('/api/leads/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(res => {
+        if (!res.ok) return res.json().then(err => Promise.reject(err));
+        return res.json();
+      })
+      .then(() => {
+        form.style.display = 'none';
+        document.getElementById('form-success').classList.add('visible');
+      })
+      .catch(err => {
+        console.error('Erro ao enviar:', err);
+      });
     }
   });
 });
