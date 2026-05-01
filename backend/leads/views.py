@@ -1,3 +1,4 @@
+from django.db import transaction
 from rest_framework import generics, status
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import AllowAny
@@ -25,23 +26,34 @@ class LeadCreateView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        # 🔥 Captura dados extras
-        ip = request.META.get("REMOTE_ADDR")
+        # 🔥 Captura dados extras com fallback correto
+        ip = request.META.get("HTTP_X_FORWARDED_FOR")
+        if ip:
+            ip = ip.split(",")[0].strip()
+        else:
+            ip = request.META.get("REMOTE_ADDR")
+
         user_agent = request.META.get("HTTP_USER_AGENT", "")
 
-        lead = serializer.save(
-            ip=ip,
-            user_agent=user_agent,
-        )
+        # 🔒 Garante consistência (boa prática)
+        with transaction.atomic():
+            lead = serializer.save(
+                ip=ip,
+                user_agent=user_agent,
+            )
 
         # =========================
-        # 📧 ENVIO DE EMAIL (CORRETO)
+        # 📧 ENVIO DE EMAIL
         # =========================
-        try:
-            send_lead_confirmation_email(lead)
-        except Exception as e:
-            # Loga erro mas não quebra API
-            print("Erro ao enviar email:", e)
+        if lead.email:
+            try:
+                send_lead_confirmation_email(lead)
+            except Exception as e:
+                # 🔥 Melhor que print em produção
+                import logging
+
+                logger = logging.getLogger(__name__)
+                logger.error(f"Erro ao enviar email do lead {lead.id}: {e}")
 
         return Response(
             {

@@ -2334,71 +2334,97 @@ phoneInput.addEventListener('input', () => {
 /* === FORM VALIDATION === */
 const form = document.getElementById('contact-form');
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+if (form) {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  let valid = true;
+    let valid = true;
 
-  const name = document.getElementById('f-name');
-  const phone = document.getElementById('f-phone');
-  const email = document.getElementById('f-email'); // 🔥 NOVO
-  const segment = document.getElementById('f-segment');
-  const challenge = document.getElementById('f-challenge');
+    const name = document.getElementById('nome');
+    const phone = document.getElementById('whatsapp');
+    const email = document.getElementById('email');
+    const segment = document.getElementById('segmento');
+    const challenge = document.getElementById('desafio');
 
-  const errName = document.getElementById('err-name');
-  const errPhone = document.getElementById('err-phone');
-  const errEmail = document.getElementById('err-email'); // 🔥 NOVO
-  const errSeg = document.getElementById('err-seg');
+    const errName = document.getElementById('err-nome');
+    const errPhone = document.getElementById('err-whatsapp');
+    const errEmail = document.getElementById('err-email');
+    const errSeg = document.getElementById('err-segmento');
 
-  // Reset visual states
-  [name, phone, email, segment].forEach((el) =>
-    el.classList.remove('error')
-  );
+    // Reset
+    [name, phone, email, segment].forEach(el => el?.classList.remove('error'));
+    [errName, errPhone, errEmail, errSeg].forEach(el => el?.classList.remove('visible'));
 
-  [errName, errPhone, errEmail, errSeg].forEach((el) =>
-    el.classList.remove('visible')
-  );
-
-  // =====================
-  // VALIDATION
-  // =====================
-
-  // Nome
-  if (!name.value.trim()) {
-    name.classList.add('error');
-    errName.classList.add('visible');
-    valid = false;
-  }
-
-  // WhatsApp
-  if (
-    !phone.value.trim() ||
-    phone.value.replace(/\D/g, '').length < 10
-  ) {
-    phone.classList.add('error');
-    errPhone.classList.add('visible');
-    valid = false;
-  }
-
-  // Email (OPCIONAL, mas válido se preenchido)
-  if (email.value.trim()) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(email.value.trim())) {
-      email.classList.add('error');
-      errEmail.classList.add('visible');
+    // Nome
+    if (!name.value.trim()) {
+      name.classList.add('error');
+      errName.classList.add('visible');
       valid = false;
     }
-  }
 
-  // Segmento
-  if (!segment.value) {
-    segment.classList.add('error');
-    errSeg.classList.add('visible');
-    valid = false;
-  }
+    // WhatsApp
+    if (!phone.value.trim() || phone.value.replace(/\D/g, '').length < 10) {
+      phone.classList.add('error');
+      errPhone.classList.add('visible');
+      valid = false;
+    }
 
-  if (!valid) return;
+    // Email opcional
+    if (email.value.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(email.value.trim())) {
+        email.classList.add('error');
+        errEmail.classList.add('visible');
+        valid = false;
+      }
+    }
+
+    // Segmento
+    if (!segment.value) {
+      segment.classList.add('error');
+      errSeg.classList.add('visible');
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    try {
+      const response = await fetch('/api/leads/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nome: name.value.trim(),
+          whatsapp: phone.value.trim(),
+          email: email.value.trim() || null,
+          segmento: segment.value,
+          desafio: challenge.value.trim(),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('API ERROR:', data);
+        alert('Erro ao enviar formulário.');
+        return;
+      }
+
+      form.reset();
+      form.style.display = 'none';
+
+      document
+        .getElementById('form-success')
+        .classList.add('visible');
+
+    } catch (error) {
+      console.error('NETWORK ERROR:', error);
+      alert('Erro de conexão com servidor.');
+    }
+  });
+}
 
   // =====================
   // SUBMIT
