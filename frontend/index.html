@@ -2323,7 +2323,7 @@ document.querySelectorAll('.faq-question').forEach(btn => {
 });
 
 /* === PHONE MASK === */
-const phoneInput = document.getElementById('f-phone');
+const phoneInput = document.getElementById('whatsapp');
 phoneInput.addEventListener('input', () => {
   let v = phoneInput.value.replace(/\D/g, '').slice(0, 11);
   if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
@@ -2352,8 +2352,13 @@ if (form) {
     const errSeg = document.getElementById('err-segmento');
 
     // Reset
-    [name, phone, email, segment].forEach(el => el?.classList.remove('error'));
-    [errName, errPhone, errEmail, errSeg].forEach(el => el?.classList.remove('visible'));
+    [name, phone, email, segment].forEach(el => {
+      if (el) el.classList.remove('error');
+    });
+
+    [errName, errPhone, errEmail, errSeg].forEach(el => {
+      if (el) el.classList.remove('visible');
+    });
 
     // Nome
     if (!name.value.trim()) {
@@ -2369,11 +2374,10 @@ if (form) {
       valid = false;
     }
 
-    // Email opcional
+    // Email (opcional)
     if (email.value.trim()) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      if (!emailRegex.test(email.value.trim())) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!regex.test(email.value.trim())) {
         email.classList.add('error');
         errEmail.classList.add('visible');
         valid = false;
@@ -2392,9 +2396,7 @@ if (form) {
     try {
       const response = await fetch('/api/leads/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nome: name.value.trim(),
           whatsapp: phone.value.trim(),
@@ -2414,14 +2416,11 @@ if (form) {
 
       form.reset();
       form.style.display = 'none';
+      document.getElementById('form-success').classList.add('visible');
 
-      document
-        .getElementById('form-success')
-        .classList.add('visible');
-
-    } catch (error) {
-      console.error('NETWORK ERROR:', error);
-      alert('Erro de conexão com servidor.');
+    } catch (err) {
+      console.error('NETWORK ERROR:', err);
+      alert('Erro de conexão.');
     }
   });
 }
