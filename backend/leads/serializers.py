@@ -4,10 +4,17 @@ from .models import Lead
 
 
 class LeadSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+        required=False,
+        allow_null=True,
+        allow_blank=True,
+    )
+
     class Meta:
         model = Lead
         fields = [
             "nome",
+            "email",
             "whatsapp",
             "segmento",
             "desafio",
@@ -22,11 +29,17 @@ class LeadSerializer(serializers.ModelSerializer):
 
         return value
 
+    # 🔹 Email opcional, mas válido se enviado
+    def validate_email(self, value):
+        if not value:
+            return None
+
+        return value.strip().lower()
+
     # 🔹 WhatsApp validado
     def validate_whatsapp(self, value):
         value = value.strip()
 
-        # remove tudo que não for número
         numbers = "".join(filter(str.isdigit, value))
 
         if len(numbers) < 10:
@@ -52,3 +65,13 @@ class LeadSerializer(serializers.ModelSerializer):
             return ""
 
         return value.strip()
+
+    # 🔥 EXTRA: normalização geral (opcional mas top)
+    def validate(self, attrs):
+        # garante que pelo menos um contato exista
+        if not attrs.get("email") and not attrs.get("whatsapp"):
+            raise serializers.ValidationError(
+                "Informe pelo menos um meio de contato (email ou WhatsApp)."
+            )
+
+        return attrs

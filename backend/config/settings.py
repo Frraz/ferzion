@@ -1,12 +1,17 @@
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# 🔐 Segurança
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "unsafe-dev-key")
+# 🔥 Carrega .env
+load_dotenv(BASE_DIR / ".env")
 
-DEBUG = False  # 🚨 produção
+# 🔐 Segurança
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-dev-key")
+
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -15,8 +20,8 @@ ALLOWED_HOSTS = [
     "www.ferzion.com.br",
 ]
 
-# 🌐 CORS (frontend pode acessar API)
-CORS_ALLOW_ALL_ORIGINS = True  # pode restringir depois
+# 🌐 CORS
+CORS_ALLOW_ALL_ORIGINS = True  # depois você pode restringir
 
 # 📦 Apps
 INSTALLED_APPS = [
@@ -37,7 +42,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",  # mantém (admin usa)
+    "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -92,12 +97,25 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# 🚀 DRF (AQUI ESTÁ A CHAVE DO SEU PROBLEMA)
+# 🚀 DRF
 REST_FRAMEWORK = {
-    # 🔥 remove CSRF da API (profissional)
     "DEFAULT_AUTHENTICATION_CLASSES": [],
-    # API pública (formulário)
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ],
 }
+
+# =========================
+# 📧 EMAIL (NOVO)
+# =========================
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
+
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)

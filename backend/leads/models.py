@@ -10,6 +10,7 @@ class Lead(models.Model):
         OUTRO = "outro", "Outro"
 
     nome = models.CharField("Nome", max_length=255)
+    email = models.EmailField("E-mail", blank=True, null=True)  # ✅ NOVO
     whatsapp = models.CharField("WhatsApp", max_length=30)
 
     segmento = models.CharField(
@@ -22,9 +23,9 @@ class Lead(models.Model):
 
     desafio = models.TextField("Desafio", blank=True)
 
-    # 🔥 Extras profissionais
-    ip = models.GenericIPAddressField(null=True, blank=True)
-    user_agent = models.TextField(null=True, blank=True)
+    # Extras
+    ip = models.GenericIPAddressField("IP", null=True, blank=True)
+    user_agent = models.TextField("User Agent", null=True, blank=True)
 
     created_at = models.DateTimeField("Criado em", auto_now_add=True)
 
