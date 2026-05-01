@@ -2063,55 +2063,132 @@ section { position: relative; }
 <section id="cta-final">
   <div class="container">
     <div class="cta-layout">
+
       <!-- Copy side -->
       <div class="cta-copy reveal">
         <h2>Pronto para colocar sua operação no controle?</h2>
         <p>Agende um diagnóstico gratuito. Em uma conversa, você já entende o que um sistema pode fazer pela sua operação.</p>
+
         <div class="cta-bullets">
           <div class="cta-bullet">
-            <div class="cta-bullet-dot"><svg viewBox="0 0 9 9"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>
+            <div class="cta-bullet-dot">
+              <svg viewBox="0 0 9 9"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg>
+            </div>
             Diagnóstico gratuito, sem compromisso
           </div>
+
           <div class="cta-bullet">
-            <div class="cta-bullet-dot"><svg viewBox="0 0 9 9"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>
+            <div class="cta-bullet-dot">
+              <svg viewBox="0 0 9 9"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg>
+            </div>
             Resultado claro em uma única conversa
           </div>
+
           <div class="cta-bullet">
-            <div class="cta-bullet-dot"><svg viewBox="0 0 9 9"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>
+            <div class="cta-bullet-dot">
+              <svg viewBox="0 0 9 9"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg>
+            </div>
             Proposta sob medida após o diagnóstico
           </div>
         </div>
       </div>
+
       <!-- Form side -->
       <div class="reveal" style="transition-delay:120ms;">
-        <form class="cta-form" id="contact-form" novalidate="">
-          <input class="form-input" id="f-name" type="text" placeholder="Nome completo" autocomplete="name" aria-label="Nome completo">
-          <span class="form-error" id="err-name">Por favor, informe seu nome.</span>
-          <input class="form-input" id="f-phone" type="tel" placeholder="WhatsApp — (11) 99999-9999" autocomplete="tel" aria-label="WhatsApp">
-          <span class="form-error" id="err-phone">Por favor, informe seu WhatsApp.</span>
-          <select class="form-select" id="f-segment" aria-label="Segmento da operação">
-            <option value="" disabled="" selected="">Segmento da operação</option>
+        <form class="cta-form" id="contact-form" novalidate>
+
+          <!-- Nome -->
+          <input
+            class="form-input"
+            id="nome"
+            name="nome"
+            type="text"
+            placeholder="Nome completo"
+            autocomplete="name"
+            required
+          />
+          <span class="form-error" id="err-nome">Por favor, informe seu nome.</span>
+
+          <!-- WhatsApp -->
+          <input
+            class="form-input"
+            id="whatsapp"
+            name="whatsapp"
+            type="tel"
+            placeholder="WhatsApp — (11) 99999-9999"
+            autocomplete="tel"
+            required
+          />
+          <span class="form-error" id="err-whatsapp">Por favor, informe seu WhatsApp.</span>
+
+          <!-- Email (NOVO - opcional) -->
+          <input
+            class="form-input"
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Seu e-mail (opcional)"
+            autocomplete="email"
+          />
+          <span class="form-error" id="err-email">E-mail inválido.</span>
+
+          <!-- Segmento -->
+          <select
+            class="form-select"
+            id="segmento"
+            name="segmento"
+            required
+          >
+            <option value="" disabled selected>Segmento da operação</option>
             <option value="agro">Agronegócio</option>
             <option value="logistica">Logística</option>
-            <option value="gestao">Gestão Operacional</option>
+            <option value="industria">Indústria</option>
+            <option value="varejo">Varejo</option>
             <option value="outro">Outro</option>
           </select>
-          <span class="form-error" id="err-seg">Por favor, selecione um segmento.</span>
-          <textarea class="form-textarea" id="f-challenge" placeholder="Qual é seu maior desafio hoje? Ex: planilhas desatualizadas, retrabalho, falta de controle..." aria-label="Maior desafio"></textarea>
-          <button type="submit" class="form-submit">Solicitar diagnóstico gratuito →</button>
-          <p class="form-disclaimer">Sem compromisso. Sem custo. Apenas uma conversa sobre sua operação.</p>
-          <a href="https://wa.me/559492083253" class="form-whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Falar pelo WhatsApp">
+          <span class="form-error" id="err-segmento">Selecione um segmento.</span>
+
+          <!-- Desafio -->
+          <textarea
+            class="form-textarea"
+            id="desafio"
+            name="desafio"
+            placeholder="Qual é seu maior desafio hoje? Ex: planilhas, retrabalho, falta de controle..."
+          ></textarea>
+
+          <!-- Submit -->
+          <button type="submit" class="form-submit">
+            Solicitar diagnóstico gratuito →
+          </button>
+
+          <p class="form-disclaimer">
+            Sem compromisso. Sem custo. Apenas uma conversa sobre sua operação.
+          </p>
+
+          <!-- WhatsApp -->
+          <a
+            href="https://wa.me/559492083253"
+            class="form-whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <div class="wha-icon">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              <svg viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+              </svg>
             </div>
             Prefere conversar pelo WhatsApp? Clique aqui
           </a>
+
         </form>
+
+        <!-- Sucesso -->
         <div class="form-success" id="form-success">
           <h3>Mensagem enviada!</h3>
           <p>Entraremos em contato em breve para agendar seu diagnóstico gratuito.</p>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -2264,29 +2341,36 @@ form.addEventListener('submit', async (e) => {
 
   const name = document.getElementById('f-name');
   const phone = document.getElementById('f-phone');
+  const email = document.getElementById('f-email'); // 🔥 NOVO
   const segment = document.getElementById('f-segment');
   const challenge = document.getElementById('f-challenge');
 
   const errName = document.getElementById('err-name');
   const errPhone = document.getElementById('err-phone');
+  const errEmail = document.getElementById('err-email'); // 🔥 NOVO
   const errSeg = document.getElementById('err-seg');
 
   // Reset visual states
-  [name, phone, segment].forEach((el) =>
+  [name, phone, email, segment].forEach((el) =>
     el.classList.remove('error')
   );
 
-  [errName, errPhone, errSeg].forEach((el) =>
+  [errName, errPhone, errEmail, errSeg].forEach((el) =>
     el.classList.remove('visible')
   );
 
-  // Validation
+  // =====================
+  // VALIDATION
+  // =====================
+
+  // Nome
   if (!name.value.trim()) {
     name.classList.add('error');
     errName.classList.add('visible');
     valid = false;
   }
 
+  // WhatsApp
   if (
     !phone.value.trim() ||
     phone.value.replace(/\D/g, '').length < 10
@@ -2296,6 +2380,18 @@ form.addEventListener('submit', async (e) => {
     valid = false;
   }
 
+  // Email (OPCIONAL, mas válido se preenchido)
+  if (email.value.trim()) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email.value.trim())) {
+      email.classList.add('error');
+      errEmail.classList.add('visible');
+      valid = false;
+    }
+  }
+
+  // Segmento
   if (!segment.value) {
     segment.classList.add('error');
     errSeg.classList.add('visible');
@@ -2303,6 +2399,10 @@ form.addEventListener('submit', async (e) => {
   }
 
   if (!valid) return;
+
+  // =====================
+  // SUBMIT
+  // =====================
 
   try {
     const response = await fetch('/api/leads/', {
@@ -2314,6 +2414,7 @@ form.addEventListener('submit', async (e) => {
       body: JSON.stringify({
         nome: name.value.trim(),
         whatsapp: phone.value.trim(),
+        email: email.value.trim() || null, // 🔥 NOVO
         segmento: segment.value,
         desafio: challenge.value.trim(),
       }),
@@ -2323,7 +2424,6 @@ form.addEventListener('submit', async (e) => {
 
     if (!response.ok) {
       console.error('API ERROR:', data);
-
       alert('Erro ao enviar formulário.');
       return;
     }
@@ -2331,7 +2431,6 @@ form.addEventListener('submit', async (e) => {
     console.log('SUCCESS:', data);
 
     form.reset();
-
     form.style.display = 'none';
 
     document
@@ -2340,7 +2439,6 @@ form.addEventListener('submit', async (e) => {
 
   } catch (error) {
     console.error('NETWORK ERROR:', error);
-
     alert('Erro de conexão com servidor.');
   }
 });

@@ -8,22 +8,28 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # 🔥 Carrega .env
 load_dotenv(BASE_DIR / ".env")
 
-# 🔐 Segurança
+# =========================
+# 🔐 SEGURANÇA
+# =========================
+
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-dev-key")
 
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-    "ferzion.com.br",
-    "www.ferzion.com.br",
-]
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS", "127.0.0.1,localhost,ferzion.com.br,www.ferzion.com.br"
+).split(",")
 
+# =========================
 # 🌐 CORS
-CORS_ALLOW_ALL_ORIGINS = True  # depois você pode restringir
+# =========================
 
-# 📦 Apps
+CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL", "True").lower() == "true"
+
+# =========================
+# 📦 APPS
+# =========================
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -31,12 +37,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",
     "corsheaders",
+    "rest_framework",
     "leads",
 ]
 
-# ⚙️ Middleware
+# =========================
+# ⚙️ MIDDLEWARE
+# =========================
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
@@ -50,11 +59,16 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "config.urls"
 
-# 🧠 Templates
+# =========================
+# 🧠 TEMPLATES
+# =========================
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            BASE_DIR / "templates",  # 🔥 IMPORTANTE (emails)
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -68,7 +82,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-# 🗄️ Database
+# =========================
+# 🗄️ DATABASE
+# =========================
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -76,7 +93,10 @@ DATABASES = {
     }
 }
 
-# 🔑 Passwords
+# =========================
+# 🔑 PASSWORDS
+# =========================
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
@@ -86,18 +106,27 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# 🌍 Locale
+# =========================
+# 🌍 LOCALE
+# =========================
+
 LANGUAGE_CODE = "pt-br"
 TIME_ZONE = "America/Sao_Paulo"
 
 USE_I18N = True
 USE_TZ = True
 
-# 📦 Static
+# =========================
+# 📦 STATIC
+# =========================
+
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# =========================
 # 🚀 DRF
+# =========================
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [],
     "DEFAULT_PERMISSION_CLASSES": [
@@ -106,16 +135,21 @@ REST_FRAMEWORK = {
 }
 
 # =========================
-# 📧 EMAIL (NOVO)
+# 📧 EMAIL
 # =========================
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))
-EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
+
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True").lower() == "true"
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "False").lower() == "true"
 
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", EMAIL_HOST_USER)
+
+# Timeout evita travar request
+EMAIL_TIMEOUT = 10

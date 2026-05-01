@@ -1,6 +1,6 @@
 # 🔐 ENV
 .env
-.env.*
+.env.
 
 # 🐍 Python
 __pycache__/
@@ -26,3 +26,5 @@ Thumbs.db
 # 🧠 IDE
 .vscode/
 .idea/
+
+*.sqlite3

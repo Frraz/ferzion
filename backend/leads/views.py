@@ -1,5 +1,3 @@
-from django.conf import settings
-from django.core.mail import send_mail
 from rest_framework import generics, status
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import AllowAny
@@ -7,6 +5,7 @@ from rest_framework.response import Response
 
 from .models import Lead
 from .serializers import LeadSerializer
+from .services import send_lead_confirmation_email
 
 
 # 🔐 Remove CSRF apenas para essa API
@@ -26,7 +25,7 @@ class LeadCreateView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        # 🔥 captura dados extras
+        # 🔥 Captura dados extras
         ip = request.META.get("REMOTE_ADDR")
         user_agent = request.META.get("HTTP_USER_AGENT", "")
 
@@ -36,27 +35,13 @@ class LeadCreateView(generics.CreateAPIView):
         )
 
         # =========================
-        # 📧 ENVIO DE EMAIL
+        # 📧 ENVIO DE EMAIL (CORRETO)
         # =========================
-        email = getattr(lead, "email", None)
-
-        if email:
-            try:
-                send_mail(
-                    subject="Recebemos seu contato 🚀",
-                    message=(
-                        f"Olá {lead.nome},\n\n"
-                        "Recebemos sua solicitação com sucesso!\n"
-                        "Nossa equipe vai analisar e entrar em contato em breve.\n\n"
-                        "Se precisar de algo urgente, responda este e-mail.\n\n"
-                        "— Equipe Ferzion"
-                    ),
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[email],
-                    fail_silently=True,  # não quebra sua API
-                )
-            except Exception:
-                pass  # evita quebrar a API em caso de erro de email
+        try:
+            send_lead_confirmation_email(lead)
+        except Exception as e:
+            # Loga erro mas não quebra API
+            print("Erro ao enviar email:", e)
 
         return Response(
             {
