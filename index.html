@@ -32,12 +32,6 @@
 }
 </style>
 
-<!-- React + Babel for Tweaks Panel -->
-{% comment %} <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
- {% endcomment %}
-
 <style>
 /* === CSS VARIABLES === */
 :root {
@@ -2186,57 +2180,6 @@ section { position: relative; }
 <div class="cursor-dot" id="cursor-dot"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
 
-<!-- Tweaks Panel -->
-{% comment %} <div id="tweaks-root"></div> {% endcomment %}
-{% comment %} <script type="text/babel" src="tweaks-panel.jsx"></script> {% endcomment %}
-{% comment %} <script type="text/babel">
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accentColor": "#58E1A8",
-  "bgDeep": "#071A12",
-  "bgMid": "#0F2D23",
-  "heroHeadline": "Sua operação cresceu. Seus processos não acompanharam.",
-  "ctaText": "Solicitar diagnóstico gratuito →",
-  "showAbout": true,
-  "fontScale": 85
-}/*EDITMODE-END*/;
-
-function TweaksApp() {
-  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
-
-  React.useEffect(() => {
-    document.documentElement.style.setProperty('--accent', tweaks.accentColor);
-    document.documentElement.style.setProperty('--bg-deep', tweaks.bgDeep);
-    document.documentElement.style.setProperty('--bg-mid', tweaks.bgMid);
-    const base = (tweaks.fontScale / 100) * 17;
-    document.documentElement.style.fontSize = base + 'px';
-    const sobre = document.getElementById('sobre');
-    if (sobre) sobre.style.display = tweaks.showAbout ? '' : 'none';
-    const ctaBtns = document.querySelectorAll('.form-submit');
-    ctaBtns.forEach(b => { b.textContent = tweaks.ctaText; });
-  }, [tweaks]);
-
-  return (
-    <TweaksPanel title="Tweaks — Ferzion">
-      <TweakSection title="Cores">
-        <TweakColor label="Cor de destaque (accent)" value={tweaks.accentColor} onChange={v => setTweak('accentColor', v)} />
-        <TweakColor label="Fundo principal (dark)" value={tweaks.bgDeep} onChange={v => setTweak('bgDeep', v)} />
-        <TweakColor label="Fundo cards / mid" value={tweaks.bgMid} onChange={v => setTweak('bgMid', v)} />
-      </TweakSection>
-      <TweakSection title="Tipografia">
-        <TweakSlider label="Escala de fonte" value={tweaks.fontScale} min={85} max={115} step={1} onChange={v => setTweak('fontScale', v)} />
-      </TweakSection>
-      <TweakSection title="Copy">
-        <TweakText label="Texto do CTA" value={tweaks.ctaText} onChange={v => setTweak('ctaText', v)} />
-      </TweakSection>
-      <TweakSection title="Seções">
-        <TweakToggle label="Mostrar seção Sobre" value={tweaks.showAbout} onChange={v => setTweak('showAbout', v)} />
-      </TweakSection>
-    </TweaksPanel>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />);
-</script> {% endcomment %}
 
 <!-- === JAVASCRIPT === -->
 <script>
