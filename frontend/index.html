@@ -2256,41 +2256,92 @@ phoneInput.addEventListener('input', () => {
 
 /* === FORM VALIDATION === */
 const form = document.getElementById('contact-form');
-form.addEventListener('submit', (e) => {
+
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
+
   let valid = true;
 
-  const name    = document.getElementById('f-name');
-  const phone   = document.getElementById('f-phone');
+  const name = document.getElementById('f-name');
+  const phone = document.getElementById('f-phone');
   const segment = document.getElementById('f-segment');
+  const challenge = document.getElementById('f-challenge');
 
-  const errName  = document.getElementById('err-name');
+  const errName = document.getElementById('err-name');
   const errPhone = document.getElementById('err-phone');
-  const errSeg   = document.getElementById('err-seg');
+  const errSeg = document.getElementById('err-seg');
 
-  // Reset
-  [name, phone, segment].forEach(el => el.classList.remove('error'));
-  [errName, errPhone, errSeg].forEach(el => el.classList.remove('visible'));
+  // Reset visual states
+  [name, phone, segment].forEach((el) =>
+    el.classList.remove('error')
+  );
 
+  [errName, errPhone, errSeg].forEach((el) =>
+    el.classList.remove('visible')
+  );
+
+  // Validation
   if (!name.value.trim()) {
     name.classList.add('error');
     errName.classList.add('visible');
     valid = false;
   }
-  if (!phone.value.trim() || phone.value.replace(/\D/g,'').length < 10) {
+
+  if (
+    !phone.value.trim() ||
+    phone.value.replace(/\D/g, '').length < 10
+  ) {
     phone.classList.add('error');
     errPhone.classList.add('visible');
     valid = false;
   }
+
   if (!segment.value) {
     segment.classList.add('error');
     errSeg.classList.add('visible');
     valid = false;
   }
 
-  if (valid) {
+  if (!valid) return;
+
+  try {
+    const response = await fetch('/api/leads/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+
+      body: JSON.stringify({
+        nome: name.value.trim(),
+        whatsapp: phone.value.trim(),
+        segmento: segment.value,
+        desafio: challenge.value.trim(),
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('API ERROR:', data);
+
+      alert('Erro ao enviar formulário.');
+      return;
+    }
+
+    console.log('SUCCESS:', data);
+
+    form.reset();
+
     form.style.display = 'none';
-    document.getElementById('form-success').classList.add('visible');
+
+    document
+      .getElementById('form-success')
+      .classList.add('visible');
+
+  } catch (error) {
+    console.error('NETWORK ERROR:', error);
+
+    alert('Erro de conexão com servidor.');
   }
 });
 
