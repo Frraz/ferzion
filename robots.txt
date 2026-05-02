@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /api/
+Disallow: /backend/
+
+Sitemap: https://ferzion.com.br/sitemap.xml
