@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
   <title>Recebemos seu contato — Ferzion</title>
   <!--[if mso]>
   <noscript>
@@ -14,181 +17,186 @@
   </noscript>
   <![endif]-->
   <style>
-    /*
-      Typography:
-      — Display / headlines: "Instrument Serif" — elegant, sharp, editorial. Similar to Claude's serif headers.
-      — Body / UI: "IBM Plex Sans" — structured, technical, highly legible. Clean without being generic.
-    */
-    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap');
 
-    body, table, td, a {
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-    }
-    table, td {
-      mso-table-lspace: 0pt;
-      mso-table-rspace: 0pt;
-    }
-    img {
-      -ms-interpolation-mode: bicubic;
-      border: 0; height: auto;
-      line-height: 100%; outline: none; text-decoration: none;
-    }
+    body, table, td, a { -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+    table, td { mso-table-lspace:0pt; mso-table-rspace:0pt; }
+    img { -ms-interpolation-mode:bicubic; border:0; height:auto; line-height:100%; outline:none; text-decoration:none; }
+    a { color:inherit; }
 
     @media only screen and (max-width: 620px) {
-      .email-wrapper { padding: 0 !important; }
-      .email-card    { border-radius: 0 !important; }
-      .email-header  { padding: 36px 28px 32px !important; }
-      .email-body    { padding: 36px 28px 32px !important; }
-      .email-footer  { padding: 28px 28px 36px !important; }
-      .headline      { font-size: 36px !important; }
-      .step-title    { font-size: 17px !important; }
-      .btn-wpp       { display: block !important; padding-right: 0 !important; padding-bottom: 10px !important; }
-      .btn-email     { display: block !important; }
+      .email-wrap   { padding:0 !important; }
+      .card         { border-radius:0 !important; }
+      .hd           { padding:36px 26px 32px !important; }
+      .bd           { padding:36px 26px 36px !important; }
+      .ft           { padding:28px 26px 36px !important; }
+      .headline     { font-size:36px !important; }
+      .h2-name      { font-size:28px !important; }
+      .step-title   { font-size:17px !important; }
+      .stack-btn    { display:block !important; padding:0 0 10px 0 !important; }
+      .stack-btn a  { display:block !important; text-align:center !important; }
+      .social-cell  { padding:0 3px !important; }
+      .social-cell a{ padding:7px 12px !important; font-size:10px !important; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .body-bg     { background-color:#0B110D !important; }
     }
   </style>
 </head>
 
-<body style="margin:0; padding:0; background-color:#0A1C12;
-             font-family:'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;">
+<body class="body-bg" style="margin:0; padding:0; background-color:#11170F;
+             font-family:'Manrope','Helvetica Neue',Arial,sans-serif;">
 
-  <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation"
-         style="background-color:#0A1C12; padding:56px 16px;">
+  <!-- Preheader -->
+  <div style="display:none; max-height:0; overflow:hidden; opacity:0; mso-hide:all;
+              font-size:1px; color:#11170F; line-height:1px;">
+    Recebemos sua solicitação de diagnóstico. Nossa equipe responderá em até 24h úteis.
+  </div>
+
+  <table class="email-wrap" width="100%" cellpadding="0" cellspacing="0" role="presentation"
+         style="background-color:#11170F; padding:56px 16px;">
     <tr>
       <td align="center">
 
-        <!-- ══════════════ CARD ══════════════ -->
-        <table class="email-card" width="580" cellpadding="0" cellspacing="0" role="presentation"
-               style="max-width:580px; width:100%;
-                      border-radius:18px; overflow:hidden;
-                      box-shadow:0 28px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(88,225,168,0.10);">
+        <!-- ═══════ CARD ═══════ -->
+        <table class="card" width="580" cellpadding="0" cellspacing="0" role="presentation"
+               style="max-width:580px; width:100%; border-radius:18px; overflow:hidden;
+                      box-shadow:0 28px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(109,171,147,0.10);">
 
-
-          <!-- ████████ HEADER ████████ -->
+          <!-- Top accent line — brand chevron echo -->
           <tr>
-            <td class="email-header"
-                style="background-color:#071A12; padding:46px 52px 42px;
-                       border-bottom:1px solid #102A1C;">
+            <td style="height:1px; background:linear-gradient(90deg, transparent 0%, #6DAB93 50%, transparent 100%); font-size:0; line-height:0;">&nbsp;</td>
+          </tr>
 
-              <!-- Logo + badge -->
+          <!-- ████ HEADER (dark) ████ -->
+          <tr>
+            <td class="hd" style="background-color:#1D2720; padding:46px 52px 42px;
+                                  border-bottom:1px solid rgba(232,228,216,0.08);">
+
+              <!-- Logo + status pill -->
               <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
                 <tr>
                   <td style="vertical-align:middle;">
-                    <img
-                      src="https://ferzion.com.br/assets/logo-ferzion-3.png"
-                      alt="Ferzion"
-                      width="106"
-                      style="display:block; border:0; height:auto; max-width:106px;
-                             filter:brightness(0) invert(1); opacity:0.94;"
-                    >
+                    <img src="https://ferzion.com.br/assets/logo-ferzion-3.png"
+                         alt="Ferzion" width="140"
+                         style="display:block; border:0; height:auto; max-width:140px;">
                   </td>
                   <td style="vertical-align:middle; text-align:right;">
-                    <span style="display:inline-block;
-                                 background-color:rgba(88,225,168,0.10);
-                                 border:1.5px solid rgba(88,225,168,0.30);
-                                 border-radius:100px; padding:6px 16px;
-                                 font-family:'IBM Plex Sans', Arial, sans-serif;
-                                 font-size:10px; font-weight:600;
-                                 color:#58E1A8; letter-spacing:0.14em;
-                                 text-transform:uppercase;">
-                      Recebido
+                    <!--[if mso]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" arcsize="50%" stroke="t" strokecolor="#6DAB93" fillcolor="#1D2720" style="height:26px;v-text-anchor:middle;width:96px;">
+                      <w:anchorlock/>
+                      <center style="color:#6DAB93;font-family:Arial,sans-serif;font-size:10px;font-weight:600;letter-spacing:1.6px;">RECEBIDO</center>
+                    </v:roundrect>
+                    <![endif]-->
+                    <!--[if !mso]><!-- -->
+                    <span style="display:inline-block; background-color:rgba(109,171,147,0.10);
+                                 border:1px solid rgba(109,171,147,0.35); border-radius:100px;
+                                 padding:6px 14px; font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
+                                 font-size:10px; font-weight:600; color:#8FC8B0;
+                                 letter-spacing:0.16em; text-transform:uppercase;">
+                      • Recebido
                     </span>
+                    <!--<![endif]-->
                   </td>
                 </tr>
               </table>
 
               <!-- Divider -->
-              <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
-                     style="margin:34px 0;">
-                <tr>
-                  <td style="height:1px; background-color:#1A3828; font-size:0; line-height:0;">&nbsp;</td>
-                </tr>
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="margin:36px 0 32px;">
+                <tr><td style="height:1px; background-color:rgba(232,228,216,0.10); font-size:0; line-height:0;">&nbsp;</td></tr>
               </table>
+
+              <!-- Eyebrow -->
+              <p style="margin:0 0 18px;
+                        font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
+                        font-size:11px; font-weight:600;
+                        color:#6DAB93; letter-spacing:0.18em; text-transform:uppercase;">
+                ◆ &nbsp;Confirmação de contato
+              </p>
 
               <!-- Headline -->
               <h1 class="headline"
-                  style="margin:0 0 14px;
-                         font-family:'Instrument Serif', Georgia, 'Times New Roman', serif;
+                  style="margin:0 0 16px;
+                         font-family:'Instrument Serif',Georgia,'Times New Roman',serif;
                          font-size:46px; font-weight:400;
-                         color:#F2EBDD; line-height:1.02;
-                         letter-spacing:-0.03em;">
+                         color:#E8E4D8; line-height:1.0; letter-spacing:-0.03em;">
                 Recebemos<br>
-                seu&nbsp;<em style="font-style:italic; color:#58E1A8;">contato.</em>
+                seu&nbsp;<em style="font-style:italic; color:#8FC8B0;">contato.</em>
               </h1>
 
-              <p style="margin:0;
-                        font-family:'IBM Plex Sans', Arial, sans-serif;
+              <p style="margin:0; max-width:420px;
+                        font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
                         font-size:15px; font-weight:400;
-                        color:#4E8C78; line-height:1.65;">
-                Nossa equipe já está ciente e em breve entrará em contato.
+                        color:#9DAC9E; line-height:1.65;">
+                Nossa equipe já está ciente e em breve entrará em contato para entender a sua operação.
               </p>
 
             </td>
           </tr>
 
-
-          <!-- ████████ BODY ████████ -->
+          <!-- ████ BODY (cream) ████ -->
           <tr>
-            <td class="email-body"
-                style="background-color:#F8F7F3; padding:44px 52px 40px;">
+            <td class="bd" style="background-color:#E3DBC9; padding:44px 52px 40px;">
 
               <!-- Greeting -->
-              <p style="margin:0 0 6px;
-                        font-family:'IBM Plex Sans', Arial, sans-serif;
+              <p style="margin:0 0 8px;
+                        font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
                         font-size:11px; font-weight:600;
-                        color:#4CA7A1; letter-spacing:0.16em; text-transform:uppercase;">
-                Olá,
+                        color:#3A6B5A; letter-spacing:0.18em; text-transform:uppercase;">
+                ◆ &nbsp;Olá
               </p>
-              <h2 style="margin:0 0 28px;
-                         font-family:'Instrument Serif', Georgia, serif;
-                         font-size:34px; font-weight:400;
-                         color:#071A12; line-height:1.1; letter-spacing:-0.025em;">
+              <h2 class="h2-name"
+                  style="margin:0 0 28px;
+                         font-family:'Instrument Serif',Georgia,serif;
+                         font-size:36px; font-weight:400;
+                         color:#1D2720; line-height:1.1; letter-spacing:-0.025em;">
                 {{ nome }}
               </h2>
 
               <!-- Body copy -->
               <p style="margin:0 0 32px;
-                        font-family:'IBM Plex Sans', Arial, sans-serif;
+                        font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
                         font-size:15px; font-weight:400;
-                        color:#2C2C2C; line-height:1.85;">
+                        color:#1D2720; line-height:1.75;">
                 Recebemos sua solicitação de diagnóstico e nossa equipe já está analisando
-                as informações. Em breve entraremos em contato para entender melhor a sua
-                operação e apresentar como podemos trazer mais
-                <strong style="font-weight:600; color:#071A12;">controle, clareza
-                e eficiência</strong> para o seu negócio.
+                as informações enviadas. Em breve entraremos em contato para entender melhor
+                a sua operação e mostrar como podemos trazer mais
+                <strong style="font-weight:600; color:#1D2720;">controle, clareza e
+                eficiência</strong> para o seu negócio.
               </p>
 
-              <!-- Prazo card -->
-              <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
-                     style="margin-bottom:40px;">
+              <!-- Prazo card (dark inset on cream) -->
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="margin-bottom:40px;">
                 <tr>
-                  <td style="background-color:#071A12; border-radius:12px; padding:20px 24px;">
+                  <td style="background-color:#1D2720; border-radius:12px; padding:22px 26px;">
                     <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
                       <tr>
-                        <!-- Icon -->
-                        <td style="vertical-align:middle; width:50px; padding-right:18px;">
-                          <div style="width:44px; height:44px; border-radius:10px;
-                                      background-color:#0F2820;
-                                      border:1px solid #1A3828;
-                                      text-align:center; line-height:44px;">
-                            <span style="font-family:'IBM Plex Sans', Arial, sans-serif;
-                                         font-size:18px; font-weight:500; color:#4CA7A1;
-                                         line-height:44px; display:block;">&#9711;</span>
-                          </div>
+                        <td style="vertical-align:middle; width:52px; padding-right:18px;">
+                          <table cellpadding="0" cellspacing="0" role="presentation">
+                            <tr>
+                              <td style="width:44px; height:44px; background-color:rgba(109,171,147,0.10);
+                                         border:1px solid rgba(109,171,147,0.30); border-radius:10px;
+                                         text-align:center; vertical-align:middle; line-height:44px;">
+                                <span style="font-family:'Instrument Serif',Georgia,serif;
+                                             font-size:22px; font-style:italic; color:#8FC8B0;
+                                             line-height:44px; display:block;">◷</span>
+                              </td>
+                            </tr>
+                          </table>
                         </td>
-                        <!-- Text -->
                         <td style="vertical-align:middle;">
-                          <p style="margin:0 0 3px;
-                                    font-family:'IBM Plex Sans', Arial, sans-serif;
+                          <p style="margin:0 0 4px;
+                                    font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
                                     font-size:10px; font-weight:600;
-                                    color:#3D8070; letter-spacing:0.14em; text-transform:uppercase;">
+                                    color:#6DAB93; letter-spacing:0.16em; text-transform:uppercase;">
                             Prazo de resposta
                           </p>
                           <p style="margin:0;
-                                    font-family:'Instrument Serif', Georgia, serif;
+                                    font-family:'Instrument Serif',Georgia,serif;
                                     font-size:22px; font-weight:400;
-                                    color:#F2EBDD; letter-spacing:-0.02em; line-height:1.2;">
-                            Até <span style="color:#58E1A8; font-style:italic;">24 horas úteis</span>
+                                    color:#E8E4D8; letter-spacing:-0.02em; line-height:1.2;">
+                            Até <em style="font-style:italic; color:#8FC8B0;">24 horas úteis</em>
                           </p>
                         </td>
                       </tr>
@@ -198,55 +206,53 @@
               </table>
 
               <!-- Section label -->
-              <p style="margin:0 0 22px;
-                        font-family:'IBM Plex Sans', Arial, sans-serif;
-                        font-size:10px; font-weight:600;
-                        color:#4CA7A1; letter-spacing:0.16em; text-transform:uppercase;">
-                O que acontece agora
+              <p style="margin:0 0 24px;
+                        font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
+                        font-size:11px; font-weight:600;
+                        color:#3A6B5A; letter-spacing:0.18em; text-transform:uppercase;">
+                ◆ &nbsp;O que acontece agora
               </p>
 
               <!-- Steps -->
-              <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
-                     style="margin-bottom:40px;">
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="margin-bottom:40px;">
 
                 <!-- Step 1 -->
                 <tr>
                   <td style="vertical-align:top;">
                     <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
                       <tr>
-                        <td style="vertical-align:top; width:42px; padding-right:18px;">
+                        <td style="vertical-align:top; width:44px; padding-right:18px;">
                           <table cellpadding="0" cellspacing="0" role="presentation">
                             <tr>
-                              <td align="center"
-                                  style="width:34px; height:34px;
-                                         background-color:#071A12;
-                                         border-radius:8px; text-align:center; vertical-align:middle;">
-                                <span style="font-family:'Instrument Serif', Georgia, serif;
-                                             font-size:16px; font-weight:400;
-                                             color:#58E1A8; line-height:34px; display:block;">1</span>
+                              <td align="center" style="width:36px; height:36px; background-color:#1D2720;
+                                          border-radius:8px; text-align:center; vertical-align:middle;
+                                          line-height:36px;">
+                                <span style="font-family:'Instrument Serif',Georgia,serif;
+                                             font-size:17px; font-style:italic; color:#8FC8B0;
+                                             line-height:36px; display:block;">01</span>
                               </td>
                             </tr>
                             <tr>
-                              <td align="center" style="padding-top:4px;">
-                                <div style="width:1px; height:30px; background-color:#D4CFC5;
+                              <td align="center" style="padding-top:6px;">
+                                <div style="width:1px; height:30px; background-color:rgba(29,39,32,0.20);
                                             margin:0 auto; font-size:0; line-height:0;">&nbsp;</div>
                               </td>
                             </tr>
                           </table>
                         </td>
-                        <td style="vertical-align:top; padding-top:5px; padding-bottom:22px;">
+                        <td style="vertical-align:top; padding-top:7px; padding-bottom:22px;">
                           <p class="step-title"
-                             style="margin:0 0 5px;
-                                    font-family:'Instrument Serif', Georgia, serif;
-                                    font-size:19px; font-weight:400;
-                                    color:#071A12; letter-spacing:-0.015em; line-height:1.2;">
-                            Análise Interna
+                             style="margin:0 0 6px;
+                                    font-family:'Instrument Serif',Georgia,serif;
+                                    font-size:20px; font-style:italic; font-weight:400;
+                                    color:#1D2720; letter-spacing:-0.015em; line-height:1.2;">
+                            Análise interna
                           </p>
                           <p style="margin:0;
-                                    font-family:'IBM Plex Sans', Arial, sans-serif;
+                                    font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
                                     font-size:14px; font-weight:400;
-                                    color:#525252; line-height:1.75;">
-                            Avaliamos as informações que você enviou e mapeamos o contexto da sua operação.
+                                    color:#5E6457; line-height:1.7;">
+                            Avaliamos as informações enviadas e mapeamos o contexto da sua operação.
                           </p>
                         </td>
                       </tr>
@@ -259,39 +265,38 @@
                   <td style="vertical-align:top;">
                     <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
                       <tr>
-                        <td style="vertical-align:top; width:42px; padding-right:18px;">
+                        <td style="vertical-align:top; width:44px; padding-right:18px;">
                           <table cellpadding="0" cellspacing="0" role="presentation">
                             <tr>
-                              <td align="center"
-                                  style="width:34px; height:34px;
-                                         background-color:#071A12;
-                                         border-radius:8px; text-align:center; vertical-align:middle;">
-                                <span style="font-family:'Instrument Serif', Georgia, serif;
-                                             font-size:16px; font-weight:400;
-                                             color:#58E1A8; line-height:34px; display:block;">2</span>
+                              <td align="center" style="width:36px; height:36px; background-color:#1D2720;
+                                          border-radius:8px; text-align:center; vertical-align:middle;
+                                          line-height:36px;">
+                                <span style="font-family:'Instrument Serif',Georgia,serif;
+                                             font-size:17px; font-style:italic; color:#8FC8B0;
+                                             line-height:36px; display:block;">02</span>
                               </td>
                             </tr>
                             <tr>
-                              <td align="center" style="padding-top:4px;">
-                                <div style="width:1px; height:30px; background-color:#D4CFC5;
+                              <td align="center" style="padding-top:6px;">
+                                <div style="width:1px; height:30px; background-color:rgba(29,39,32,0.20);
                                             margin:0 auto; font-size:0; line-height:0;">&nbsp;</div>
                               </td>
                             </tr>
                           </table>
                         </td>
-                        <td style="vertical-align:top; padding-top:5px; padding-bottom:22px;">
+                        <td style="vertical-align:top; padding-top:7px; padding-bottom:22px;">
                           <p class="step-title"
-                             style="margin:0 0 5px;
-                                    font-family:'Instrument Serif', Georgia, serif;
-                                    font-size:19px; font-weight:400;
-                                    color:#071A12; letter-spacing:-0.015em; line-height:1.2;">
-                            Diagnóstico Personalizado
+                             style="margin:0 0 6px;
+                                    font-family:'Instrument Serif',Georgia,serif;
+                                    font-size:20px; font-style:italic; font-weight:400;
+                                    color:#1D2720; letter-spacing:-0.015em; line-height:1.2;">
+                            Diagnóstico personalizado
                           </p>
                           <p style="margin:0;
-                                    font-family:'IBM Plex Sans', Arial, sans-serif;
+                                    font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
                                     font-size:14px; font-weight:400;
-                                    color:#525252; line-height:1.75;">
-                            Identificamos os pontos de melhoria e as oportunidades reais da sua operação.
+                                    color:#5E6457; line-height:1.7;">
+                            Identificamos pontos de melhoria e oportunidades reais da sua operação.
                           </p>
                         </td>
                       </tr>
@@ -304,28 +309,31 @@
                   <td style="vertical-align:top;">
                     <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
                       <tr>
-                        <td style="vertical-align:top; width:42px; padding-right:18px;">
-                          <div style="width:34px; height:34px;
-                                      background-color:#071A12;
-                                      border:1.5px solid rgba(88,225,168,0.40);
-                                      border-radius:8px; text-align:center; line-height:31px;">
-                            <span style="font-family:'Instrument Serif', Georgia, serif;
-                                         font-size:16px; font-weight:400;
-                                         color:#58E1A8; line-height:31px; display:block;">3</span>
-                          </div>
+                        <td style="vertical-align:top; width:44px; padding-right:18px;">
+                          <table cellpadding="0" cellspacing="0" role="presentation">
+                            <tr>
+                              <td align="center" style="width:36px; height:36px;
+                                          background-color:#6DAB93; border-radius:8px;
+                                          text-align:center; vertical-align:middle; line-height:36px;">
+                                <span style="font-family:'Instrument Serif',Georgia,serif;
+                                             font-size:17px; font-style:italic; color:#11170F;
+                                             line-height:36px; display:block;">03</span>
+                              </td>
+                            </tr>
+                          </table>
                         </td>
-                        <td style="vertical-align:top; padding-top:5px;">
+                        <td style="vertical-align:top; padding-top:7px;">
                           <p class="step-title"
-                             style="margin:0 0 5px;
-                                    font-family:'Instrument Serif', Georgia, serif;
-                                    font-size:19px; font-weight:400;
-                                    color:#071A12; letter-spacing:-0.015em; line-height:1.2;">
-                            Contato Direto
+                             style="margin:0 0 6px;
+                                    font-family:'Instrument Serif',Georgia,serif;
+                                    font-size:20px; font-style:italic; font-weight:400;
+                                    color:#1D2720; letter-spacing:-0.015em; line-height:1.2;">
+                            Contato direto
                           </p>
                           <p style="margin:0;
-                                    font-family:'IBM Plex Sans', Arial, sans-serif;
+                                    font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
                                     font-size:14px; font-weight:400;
-                                    color:#525252; line-height:1.75;">
+                                    color:#5E6457; line-height:1.7;">
                             Entramos em contato via WhatsApp ou e-mail para alinhar os próximos passos.
                           </p>
                         </td>
@@ -337,49 +345,56 @@
               </table>
 
               <!-- Divider -->
-              <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
-                     style="margin-bottom:32px;">
-                <tr>
-                  <td style="height:1px; background-color:#E6E2D9; font-size:0; line-height:0;">&nbsp;</td>
-                </tr>
+              <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="margin-bottom:30px;">
+                <tr><td style="height:1px; background-color:rgba(29,39,32,0.14); font-size:0; line-height:0;">&nbsp;</td></tr>
               </table>
 
               <!-- Contact before -->
-              <p style="margin:0 0 18px;
-                        font-family:'IBM Plex Sans', Arial, sans-serif;
+              <p style="margin:0 0 20px;
+                        font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
                         font-size:14px; font-weight:400;
-                        color:#444444; line-height:1.75;">
+                        color:#1D2720; line-height:1.7;">
                 Precisa falar conosco antes? Estamos disponíveis:
               </p>
 
               <!-- Buttons -->
               <table cellpadding="0" cellspacing="0" role="presentation" style="margin-bottom:40px;">
                 <tr>
-                  <td class="btn-wpp" style="padding-right:12px;">
+                  <td class="stack-btn" style="padding-right:10px;">
+                    <!--[if mso]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://wa.me/5594992083253" arcsize="14%" strokecolor="#6DAB93" fillcolor="#6DAB93" style="height:46px;v-text-anchor:middle;width:170px;">
+                      <w:anchorlock/>
+                      <center style="color:#11170F;font-family:Arial,sans-serif;font-size:14px;font-weight:700;">WhatsApp →</center>
+                    </v:roundrect>
+                    <![endif]-->
+                    <!--[if !mso]><!-- -->
                     <a href="https://wa.me/5594992083253"
-                       style="display:inline-block;
-                              background-color:#071A12; color:#58E1A8;
-                              font-family:'IBM Plex Sans', Arial, sans-serif;
-                              font-size:13px; font-weight:600;
-                              text-decoration:none;
-                              padding:13px 24px; border-radius:8px;
-                              letter-spacing:0.04em;
-                              border:1.5px solid #1A3828;">
-                      WhatsApp
+                       style="display:inline-block; background-color:#6DAB93; color:#11170F;
+                              font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
+                              font-size:13.5px; font-weight:600; text-decoration:none;
+                              padding:14px 24px; border-radius:8px; letter-spacing:0.01em;
+                              border:1px solid #6DAB93;">
+                      WhatsApp &nbsp;→
                     </a>
+                    <!--<![endif]-->
                   </td>
-                  <td class="btn-email">
+                  <td class="stack-btn">
+                    <!--[if mso]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="mailto:ferzion.dev@gmail.com" arcsize="14%" strokecolor="#1D2720" fillcolor="#1D2720" style="height:46px;v-text-anchor:middle;width:170px;">
+                      <w:anchorlock/>
+                      <center style="color:#E8E4D8;font-family:Arial,sans-serif;font-size:14px;font-weight:600;">E-mail</center>
+                    </v:roundrect>
+                    <![endif]-->
+                    <!--[if !mso]><!-- -->
                     <a href="mailto:ferzion.dev@gmail.com"
-                       style="display:inline-block;
-                              background-color:#F2EBDD; color:#071A12;
-                              font-family:'IBM Plex Sans', Arial, sans-serif;
-                              font-size:13px; font-weight:600;
-                              text-decoration:none;
-                              padding:13px 24px; border-radius:8px;
-                              letter-spacing:0.04em;
-                              border:1.5px solid #D6CFBF;">
+                       style="display:inline-block; background-color:transparent; color:#1D2720;
+                              font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
+                              font-size:13.5px; font-weight:600; text-decoration:none;
+                              padding:14px 24px; border-radius:8px; letter-spacing:0.01em;
+                              border:1px solid rgba(29,39,32,0.30);">
                       E-mail
                     </a>
+                    <!--<![endif]-->
                   </td>
                 </tr>
               </table>
@@ -387,23 +402,24 @@
               <!-- Signature -->
               <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
                 <tr>
-                  <td style="border-top:1px solid #E6E2D9; padding-top:28px;">
+                  <td style="border-top:1px solid rgba(29,39,32,0.14); padding-top:28px;">
                     <p style="margin:0 0 6px;
-                              font-family:'IBM Plex Sans', Arial, sans-serif;
-                              font-size:13px; font-weight:400; color:#999999;">
+                              font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
+                              font-size:12px; font-weight:500; color:#5E6457;
+                              letter-spacing:0.1em; text-transform:uppercase;">
                       Com estima,
                     </p>
                     <p style="margin:0 0 2px;
-                              font-family:'Instrument Serif', Georgia, serif;
-                              font-size:28px; font-weight:400;
-                              color:#071A12; letter-spacing:-0.03em; line-height:1.1;">
+                              font-family:'Instrument Serif',Georgia,serif;
+                              font-size:28px; font-style:italic; font-weight:400;
+                              color:#1D2720; letter-spacing:-0.025em; line-height:1.1;">
                       Equipe Ferzion
                     </p>
-                    <p style="margin:8px 0 0;
-                              font-family:'IBM Plex Sans', Arial, sans-serif;
-                              font-size:12px; font-weight:500;
-                              color:#4CA7A1; letter-spacing:0.04em;">
-                      ferzion.com.br
+                    <p style="margin:10px 0 0;
+                              font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
+                              font-size:11px; font-weight:600;
+                              color:#3A6B5A; letter-spacing:0.16em; text-transform:uppercase;">
+                      ferzion.com.br &nbsp;·&nbsp; Precisão · Estratégia · Identidade
                     </p>
                   </td>
                 </tr>
@@ -412,53 +428,48 @@
             </td>
           </tr>
 
-
-          <!-- ████████ FOOTER ████████ -->
+          <!-- ████ FOOTER (dark) ████ -->
           <tr>
-            <td class="email-footer" align="center"
-                style="background-color:#071A12;
-                       padding:32px 52px 40px;
-                       border-top:1px solid #102A1C;">
+            <td class="ft" align="center"
+                style="background-color:#11170F; padding:34px 52px 40px;
+                       border-top:1px solid rgba(232,228,216,0.06);">
 
               <!-- Social -->
-              <table cellpadding="0" cellspacing="0" role="presentation" style="margin:0 auto 22px;">
+              <table cellpadding="0" cellspacing="0" role="presentation" style="margin:0 auto 24px;">
                 <tr>
-                  <td style="padding:0 5px;">
+                  <td class="social-cell" style="padding:0 4px;">
                     <a href="https://www.linkedin.com/company/ferzion/"
-                       style="display:inline-block; color:#4E8C78;
-                              font-family:'IBM Plex Sans', Arial, sans-serif;
-                              font-size:11px; font-weight:600;
-                              text-decoration:none;
-                              padding:8px 18px; border-radius:100px;
-                              border:1px solid #1A3828;
-                              letter-spacing:0.06em; text-transform:uppercase;
-                              background-color:#0A2118;">
+                       style="display:inline-block; color:#9DAC9E;
+                              font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
+                              font-size:11px; font-weight:600; text-decoration:none;
+                              padding:8px 16px; border-radius:100px;
+                              border:1px solid rgba(232,228,216,0.10);
+                              letter-spacing:0.14em; text-transform:uppercase;
+                              background-color:#1D2720;">
                       LinkedIn
                     </a>
                   </td>
-                  <td style="padding:0 5px;">
+                  <td class="social-cell" style="padding:0 4px;">
                     <a href="https://www.instagram.com/ferzion.dev/"
-                       style="display:inline-block; color:#4E8C78;
-                              font-family:'IBM Plex Sans', Arial, sans-serif;
-                              font-size:11px; font-weight:600;
-                              text-decoration:none;
-                              padding:8px 18px; border-radius:100px;
-                              border:1px solid #1A3828;
-                              letter-spacing:0.06em; text-transform:uppercase;
-                              background-color:#0A2118;">
+                       style="display:inline-block; color:#9DAC9E;
+                              font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
+                              font-size:11px; font-weight:600; text-decoration:none;
+                              padding:8px 16px; border-radius:100px;
+                              border:1px solid rgba(232,228,216,0.10);
+                              letter-spacing:0.14em; text-transform:uppercase;
+                              background-color:#1D2720;">
                       Instagram
                     </a>
                   </td>
-                  <td style="padding:0 5px;">
+                  <td class="social-cell" style="padding:0 4px;">
                     <a href="https://wa.me/5594992083253"
-                       style="display:inline-block; color:#4E8C78;
-                              font-family:'IBM Plex Sans', Arial, sans-serif;
-                              font-size:11px; font-weight:600;
-                              text-decoration:none;
-                              padding:8px 18px; border-radius:100px;
-                              border:1px solid #1A3828;
-                              letter-spacing:0.06em; text-transform:uppercase;
-                              background-color:#0A2118;">
+                       style="display:inline-block; color:#9DAC9E;
+                              font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
+                              font-size:11px; font-weight:600; text-decoration:none;
+                              padding:8px 16px; border-radius:100px;
+                              border:1px solid rgba(232,228,216,0.10);
+                              letter-spacing:0.14em; text-transform:uppercase;
+                              background-color:#1D2720;">
                       WhatsApp
                     </a>
                   </td>
@@ -466,44 +477,41 @@
               </table>
 
               <!-- Contact -->
-              <p style="margin:0 0 20px;
-                        font-family:'IBM Plex Sans', Arial, sans-serif;
-                        font-size:12px; font-weight:400; color:#234030; line-height:1.6;">
+              <p style="margin:0 0 22px;
+                        font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
+                        font-size:12px; font-weight:400; color:#5E6457; line-height:1.65;">
                 <a href="mailto:ferzion.dev@gmail.com"
-                   style="color:#3D8070; text-decoration:none; font-weight:500;">
+                   style="color:#6DAB93; text-decoration:none; font-weight:500;">
                   ferzion.dev@gmail.com
                 </a>
-                &nbsp;&middot;&nbsp;
+                &nbsp;·&nbsp;
                 <a href="tel:+5594992083253"
-                   style="color:#3D8070; text-decoration:none; font-weight:500;">
+                   style="color:#6DAB93; text-decoration:none; font-weight:500;">
                   +55 (94) 9 9208-3253
                 </a>
               </p>
 
               <!-- Separator -->
-              <table width="100%" cellpadding="0" cellspacing="0" role="presentation"
-                     style="margin-bottom:18px;">
-                <tr>
-                  <td style="height:1px; background-color:#102A1C; font-size:0; line-height:0;">&nbsp;</td>
-                </tr>
+              <table width="60" cellpadding="0" cellspacing="0" role="presentation" style="margin:0 auto 18px;">
+                <tr><td style="height:1px; background-color:rgba(109,171,147,0.30); font-size:0; line-height:0;">&nbsp;</td></tr>
               </table>
 
               <!-- Copyright -->
               <p style="margin:0;
-                        font-family:'IBM Plex Sans', Arial, sans-serif;
+                        font-family:'Manrope','Helvetica Neue',Arial,sans-serif;
                         font-size:11px; font-weight:400;
-                        color:#1E3828; line-height:1.7; letter-spacing:0.02em;">
-                &copy; {{ year }} Ferzion. Todos os direitos reservados.<br>
-                Você recebeu este e-mail porque preencheu o nosso formulário de contato.
+                        color:#5E6457; line-height:1.7; letter-spacing:0.02em;">
+                © {{ year }} Ferzion · Todos os direitos reservados.<br>
+                Você recebeu este e-mail porque preencheu o formulário de contato.
               </p>
 
             </td>
           </tr>
 
-          <!-- Bottom accent -->
+          <!-- Bottom accent line -->
           <tr>
-            <td style="height:3px;
-                       background:linear-gradient(90deg, #071A12 0%, #58E1A8 50%, #071A12 100%);
+            <td style="height:2px;
+                       background:linear-gradient(90deg, transparent 0%, #6DAB93 50%, transparent 100%);
                        font-size:0; line-height:0;">&nbsp;</td>
           </tr>
 
