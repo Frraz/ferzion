@@ -58,11 +58,11 @@
 ═══════════════════════════════════════════════════════════ */
 :root {
   /* Brand — dark forest */
-  --ink-900: #11170F;       /* deepest */
-  --ink-800: #1D2720;       /* primary dark */
-  --ink-700: #243429;       /* elevated */
-  --ink-600: #284536;       /* surface alt */
-  --ink-500: #325040;       /* hover */
+  --ink-900: #11170F;
+  --ink-800: #1D2720;
+  --ink-700: #243429;
+  --ink-600: #284536;
+  --ink-500: #325040;
 
   /* Brand — warm cream surfaces */
   --bone-100: #F1EADB;
@@ -73,7 +73,7 @@
 
   /* Accent — mint */
   --mint-400: #8FC8B0;
-  --mint-500: #6DAB93;       /* primary accent */
+  --mint-500: #6DAB93;
   --mint-600: #4F8E78;
   --mint-700: #3A6B5A;
 
@@ -133,10 +133,8 @@ img, svg { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; font-family: inherit; border: none; background: none; color: inherit; }
 
-/* Selection */
 ::selection { background: var(--mint-500); color: var(--ink-900); }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--ink-900); }
 ::-webkit-scrollbar-thumb { background: var(--ink-600); border-radius: 3px; }
@@ -163,7 +161,6 @@ h3 { font-size: 22px; font-weight: 500; letter-spacing: -0.018em; line-height: 1
 
 .serif { font-family: var(--serif); font-weight: 400; font-style: italic; letter-spacing: -0.02em; }
 
-/* Eyebrow / kicker — monospace technical */
 .eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
   font-family: var(--mono);
@@ -185,7 +182,6 @@ h3 { font-size: 22px; font-weight: 500; letter-spacing: -0.018em; line-height: 1
 .eyebrow.on-light { color: var(--mint-600); }
 .eyebrow.muted { color: var(--on-dark-mute); }
 
-/* Index/number column markers — editorial */
 .idx {
   font-family: var(--mono);
   font-size: 10.5px;
@@ -201,7 +197,6 @@ h3 { font-size: 22px; font-weight: 500; letter-spacing: -0.018em; line-height: 1
 .container { max-width: 1280px; margin: 0 auto; padding: 0 56px; }
 section { position: relative; }
 
-/* Diagonal separator inspired by the brand identity (chevron edge) */
 .chev-divider {
   position: relative;
   height: 96px;
@@ -281,7 +276,6 @@ section { position: relative; }
 }
 .btn-ghost:hover { color: var(--on-dark); }
 
-/* Light variants */
 .btn-outline.on-light {
   color: var(--on-light);
   border-color: var(--line-light-2);
@@ -340,11 +334,9 @@ section { position: relative; }
   50%      { opacity: 1; }
 }
 
-/* Scroll reveal */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* Mask-based char reveal */
 .split-line { display: block; overflow: hidden; }
 .split-line > span {
   display: inline-block;
@@ -375,7 +367,6 @@ section { position: relative; }
   height: 100%; display: flex; align-items: center; gap: 40px;
 }
 
-/* Logo */
 .nav-logo {
   display: flex; align-items: center;
   flex-shrink: 0;
@@ -387,8 +378,6 @@ section { position: relative; }
   height: 72px;
   width: auto;
   display: block;
-  /* Logo extends slightly above/below the navbar baseline to feel
-     prominent without stretching the navbar itself. */
   margin: -8px 0;
 }
 .footer-logo img {
@@ -429,7 +418,6 @@ section { position: relative; }
 .nav-cta { margin-left: auto; }
 .nav-cta .btn { padding: 11px 20px; font-size: 13px; }
 
-/* Hamburger */
 .hamburger {
   display: none;
   flex-direction: column; gap: 5px;
@@ -443,7 +431,6 @@ section { position: relative; }
   transition: all var(--t-med);
 }
 
-/* Mobile drawer */
 .nav-drawer {
   position: fixed;
   top: 0; right: -100%;
@@ -506,7 +493,7 @@ section { position: relative; }
 .drawer-overlay.visible { opacity: 1; pointer-events: auto; }
 
 /* ═══════════════════════════════════════════════════════════
-   HERO — editorial diagonal composition
+   HERO
 ═══════════════════════════════════════════════════════════ */
 #hero {
   min-height: 100vh;
@@ -516,7 +503,6 @@ section { position: relative; }
   position: relative;
 }
 
-/* Background composition */
 .hero-bg {
   position: absolute; inset: 0;
   pointer-events: none;
@@ -548,7 +534,6 @@ section { position: relative; }
   animation-duration: 18s;
   animation-delay: -4s;
 }
-/* Big editorial brand mark — faint background ornament */
 .hero-mark {
   position: absolute;
   top: 50%; right: -8%;
@@ -559,7 +544,6 @@ section { position: relative; }
 }
 .hero-mark svg { width: 100%; height: 100%; }
 
-/* Diagonal accent line (echoes brand chevron) */
 .hero-chevron {
   position: absolute;
   top: 0; bottom: 0;
@@ -632,7 +616,6 @@ section { position: relative; }
 
 .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 
-/* Hero trust strip */
 .hero-strip {
   display: flex; align-items: center; gap: 18px;
   padding-top: 28px;
@@ -653,7 +636,6 @@ section { position: relative; }
   justify-content: center;
 }
 
-/* Aux: floating editorial card */
 .hero-aux {
   position: absolute;
   z-index: 3;
@@ -711,7 +693,6 @@ section { position: relative; }
   border-radius: 1px;
 }
 
-/* Main mockup card — taller, sharper */
 .dash {
   width: 100%;
   max-width: 540px;
@@ -732,7 +713,6 @@ section { position: relative; }
   background: linear-gradient(90deg, transparent, var(--mint-500) 50%, transparent);
   opacity: 0.5;
 }
-/* Scanning line */
 .dash::after {
   content: '';
   position: absolute; top: 38px; left: 0; right: 0;
@@ -859,7 +839,6 @@ section { position: relative; }
   display: inline-block;
 }
 
-/* Sparkline chart area */
 .dash-chart {
   height: 96px;
   position: relative;
@@ -878,7 +857,6 @@ section { position: relative; }
   overflow: visible;
 }
 
-/* Activity log */
 .dash-log {
   display: flex; flex-direction: column; gap: 8px;
   padding-top: 12px;
@@ -907,7 +885,7 @@ section { position: relative; }
 .chip-dim   { background: rgba(232,228,216,0.04); color: var(--on-dark-dim); border: 1px solid var(--line-dark-2); }
 
 /* ═══════════════════════════════════════════════════════════
-   MARQUEE — clients / pillars strip
+   MARQUEE
 ═══════════════════════════════════════════════════════════ */
 .marquee {
   background: var(--ink-900);
@@ -938,7 +916,7 @@ section { position: relative; }
 }
 
 /* ═══════════════════════════════════════════════════════════
-   PROBLEMA — editorial cream section
+   PROBLEMA
 ═══════════════════════════════════════════════════════════ */
 #problema {
   background: var(--bone-200);
@@ -947,7 +925,6 @@ section { position: relative; }
   position: relative;
   overflow: hidden;
 }
-/* Faint diagonal pattern */
 #problema::before {
   content: '';
   position: absolute; inset: 0;
@@ -1105,7 +1082,6 @@ section { position: relative; }
   font-weight: 400;
 }
 
-/* Metrics row */
 .metrics {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1250,7 +1226,28 @@ section { position: relative; }
   background: var(--mint-500);
 }
 
-/* Visual band */
+/* ─── Linha de prova social por case ─── */
+.case-proof {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-dark);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mint-500);
+  line-height: 1.4;
+}
+.case-proof::before {
+  content: '';
+  width: 6px; height: 6px;
+  border: 1px solid currentColor;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
 .case-band {
   height: 96px;
   background: var(--ink-700);
@@ -1662,7 +1659,6 @@ section { position: relative; }
 }
 .cta-bullet-d svg { width: 10px; height: 10px; stroke: var(--mint-500); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
-/* Form */
 .cta-form {
   background: var(--ink-900);
   border: 1px solid var(--line-dark-2);
@@ -2079,7 +2075,7 @@ section { position: relative; }
   .cta-bullet { font-size: 14.5px; }
   .cta-form { padding: 24px 20px; gap: 14px; }
   .cta-form-title { font-size: 19px; }
-  .form-input, .form-select, .form-textarea { font-size: 16px; padding: 12px 14px; } /* 16px prevents iOS zoom */
+  .form-input, .form-select, .form-textarea { font-size: 16px; padding: 12px 14px; }
   .form-submit { height: 50px; font-size: 14.5px; }
 
   .footer-top { grid-template-columns: 1fr; gap: 36px; margin-bottom: 48px; }
@@ -2193,8 +2189,9 @@ section { position: relative; }
         <span class="split-line"><span><em>não acompanharam.</em></span></span>
       </h1>
 
+      <!-- ✦ ALTERADO: subtítulo ancora em histórico real, não em promessa genérica -->
       <p class="hero-sub reveal" style="transition-delay: 320ms;">
-        A Ferzion projeta sistemas sob medida para empresas que cresceram além das ferramentas que tinham. Tecnologia que devolve clareza, controle e ritmo — alinhada ao seu modelo real de operação.
+        A Ferzion constrói sistemas para operações que cresceram além do que planilha sustenta. Agronegócio, logística, gestão rural — e o mesmo cliente que voltou para contratar o segundo e o terceiro sistema.
       </p>
 
       <div class="hero-actions reveal" style="transition-delay: 440ms;">
@@ -2205,12 +2202,13 @@ section { position: relative; }
         <a href="#cases" class="btn btn-outline">Ver trabalhos</a>
       </div>
 
+      <!-- ✦ ALTERADO: strip ancora a prova de recorrência logo abaixo da headline -->
       <div class="hero-strip reveal" style="transition-delay: 560ms;">
-        <span class="strong">07 operações transformadas</span>
+        <span class="strong">1 cliente · 3 sistemas consecutivos</span>
         <span class="hero-strip-sep"></span>
-        <span>Agronegócio · Logística · Gestão</span>
+        <span>Agronegócio · Logística · RH</span>
         <span class="hero-strip-sep"></span>
-        <span>Brasil</span>
+        <span>7 operações entregues</span>
       </div>
     </div>
 
@@ -2345,7 +2343,6 @@ section { position: relative; }
     <span class="marquee-item">Identidade <span class="glyph"></span></span>
     <span class="marquee-item">Operação <span class="glyph"></span></span>
     <span class="marquee-item">Tecnologia sob medida <span class="glyph"></span></span>
-    <!-- duplicate for seamless loop -->
     <span class="marquee-item">Precisão <span class="glyph"></span></span>
     <span class="marquee-item">Estratégia <span class="glyph"></span></span>
     <span class="marquee-item">Identidade <span class="glyph"></span></span>
@@ -2474,17 +2471,22 @@ section { position: relative; }
 ═══════════════════════════════════════════════ -->
 <section id="cases" data-screen-label="Cases">
   <div class="container">
+
+    <!-- ✦ ALTERADO: h2 ancora em prova de recorrência + parágrafo contextualiza -->
     <div class="section-head reveal">
       <div>
         <span class="eyebrow">003 · Trabalhos selecionados</span>
       </div>
       <div class="section-head-r">
-        <h2>Sistemas reais para <span class="serif">operações reais.</span></h2>
+        <h2>Sistemas reais. <span class="serif">Clientes que voltaram.</span></h2>
+        <p style="margin-top: 28px;">Um grupo familiar contratou três sistemas consecutivos com a Ferzion. Os cases abaixo mostram o que foi construído — e o que cada entrega gerou de confiança para a próxima.</p>
       </div>
     </div>
 
+    <!-- ✦ ALTERADO: 4 cards com nomes reais, números concretos e linha de prova social -->
     <div class="cases-grid">
-      <!-- Case 1 -->
+
+      <!-- Case 1 — Conftech -->
       <article class="case-card reveal" style="transition-delay: 60ms;">
         <div class="case-band">
           <svg viewBox="0 0 400 96" preserveAspectRatio="none">
@@ -2507,21 +2509,22 @@ section { position: relative; }
           </svg>
         </div>
         <div class="case-head">
-          <span class="tag tag-mint">Agronegócio · Confinamento</span>
+          <span class="tag tag-mint">Confinamento bovino · Agronegócio</span>
           <span class="case-num">01</span>
         </div>
         <div class="case-body">
-          <h3>Gestão de Confinamentos</h3>
-          <p class="case-desc">Controle completo de lotes, pesagens, dietas e performance animal. Dados em tempo real, relatórios automáticos, rastreabilidade total.</p>
+          <h3>Conftech</h3>
+          <p class="case-desc">Dois grupos de consultores registram a operação no sistema. A API nativa exporta para o Power BI via token autenticado — sem planilha intermediária, sem exportação manual. Decisões de manejo e alimentação tomadas com base em dados reais.</p>
           <div class="case-features">
-            <div class="case-feature">Controle de lotes</div>
-            <div class="case-feature">Gestão de dietas</div>
-            <div class="case-feature">Relatórios automáticos</div>
+            <div class="case-feature">API REST com autenticação Bearer</div>
+            <div class="case-feature">Integração direta Power BI</div>
+            <div class="case-feature">GMD, custo por cabeça, projeção de venda</div>
           </div>
+          <p class="case-proof">Em produção para consultores de confinamento profissionais</p>
         </div>
       </article>
 
-      <!-- Case 2 -->
+      <!-- Case 2 — Rebanho -->
       <article class="case-card reveal" style="transition-delay: 140ms;">
         <div class="case-band">
           <svg viewBox="0 0 400 96" preserveAspectRatio="none">
@@ -2548,21 +2551,22 @@ section { position: relative; }
           </svg>
         </div>
         <div class="case-head">
-          <span class="tag tag-mint">Agronegócio · Pecuária</span>
+          <span class="tag tag-mint">Pecuária · Gestão distribuída</span>
           <span class="case-num">02</span>
         </div>
         <div class="case-body">
-          <h3>Gestão de Rebanhos</h3>
-          <p class="case-desc">Da identificação individual ao histórico completo de tratamentos, movimentações e genealogia. Controle que antes só existia na memória do gestor.</p>
+          <h3>Rebanho</h3>
+          <p class="case-desc">10 fazendas, mais de 8 mil animais — antes gerenciados por uma pasta de trabalho Excel com dezenas de abas. Hoje: plataforma centralizada, 5 usuários com acesso controlado, rastreabilidade imutável de cada movimentação por padrão Ledger.</p>
           <div class="case-features">
-            <div class="case-feature">Identificação individual</div>
-            <div class="case-feature">Histórico sanitário</div>
-            <div class="case-feature">Movimentação de lotes</div>
+            <div class="case-feature">Ledger imutável por design</div>
+            <div class="case-feature">10 fazendas centralizadas</div>
+            <div class="case-feature">Integridade garantida em nível de banco</div>
           </div>
+          <p class="case-proof">Segundo sistema do mesmo cliente — levou ao terceiro contrato</p>
         </div>
       </article>
 
-      <!-- Case 3 -->
+      <!-- Case 3 — Romaneios de Madeira -->
       <article class="case-card reveal" style="transition-delay: 200ms;">
         <div class="case-band">
           <svg viewBox="0 0 400 96" preserveAspectRatio="none">
@@ -2587,21 +2591,22 @@ section { position: relative; }
           </svg>
         </div>
         <div class="case-head">
-          <span class="tag tag-mint">Logística · Madeira</span>
+          <span class="tag tag-mint">Logística · Controle financeiro</span>
           <span class="case-num">03</span>
         </div>
         <div class="case-body">
-          <h3>Gestão de Romaneios</h3>
-          <p class="case-desc">Digitalização completa do romaneio para venda de madeiras. Elimina papel, reduz erro humano e gera documentação automática a cada transação.</p>
+          <h3>Romaneios de Madeira</h3>
+          <p class="case-desc">Saldo de clientes calculado automaticamente por histórico completo de vendas e pagamentos — sem ajuste manual, sem fórmula que quebra, sem versão desatualizada. Cubagem por tora calculada pelo sistema a partir das medidas reais.</p>
           <div class="case-features">
-            <div class="case-feature">Emissão digital</div>
-            <div class="case-feature">Controle de volumes</div>
-            <div class="case-feature">Documentação automática</div>
+            <div class="case-feature">Saldo derivado do histórico real</div>
+            <div class="case-feature">Cubagem automática por tora</div>
+            <div class="case-feature">Exportação PDF / XLSX / CSV</div>
           </div>
+          <p class="case-proof">Primeiro sistema — abriu o caminho para mais dois contratos</p>
         </div>
       </article>
 
-      <!-- Case 4 -->
+      <!-- Case 4 — Sistema RH -->
       <article class="case-card reveal" style="transition-delay: 260ms;">
         <div class="case-band">
           <svg viewBox="0 0 400 96" preserveAspectRatio="none">
@@ -2628,19 +2633,21 @@ section { position: relative; }
           </svg>
         </div>
         <div class="case-head">
-          <span class="tag tag-mint">Gestão Operacional</span>
+          <span class="tag tag-mint">RH · Operações rurais</span>
           <span class="case-num">04</span>
         </div>
         <div class="case-body">
-          <h3>Sistemas Administrativos sob medida</h3>
-          <p class="case-desc">Controle administrativo desenhado a partir do fluxo real de cada empresa. Nenhum módulo desnecessário. Nenhum processo ignorado.</p>
+          <h3>Sistema RH</h3>
+          <p class="case-desc">Engine de folha com 20 rubricas, tabelas de INSS e IRRF armazenadas no banco — atualizáveis sem redeploy. Fechamento imutável com hash SHA-256. CLT e diaristas com regras de cálculo distintas, cada rubrica rastreável.</p>
           <div class="case-features">
-            <div class="case-feature">Fluxo personalizado</div>
-            <div class="case-feature">Controle de processos</div>
-            <div class="case-feature">Interface intuitiva</div>
+            <div class="case-feature">Engine desacoplada do ORM</div>
+            <div class="case-feature">Tabelas legais no banco</div>
+            <div class="case-feature">Fechamento com SHA-256</div>
           </div>
+          <p class="case-proof">Terceiro sistema do mesmo cliente — em produção</p>
         </div>
       </article>
+
     </div>
   </div>
 </section>
@@ -2846,20 +2853,24 @@ section { position: relative; }
 <section id="sobre" data-screen-label="Sobre">
   <div class="container">
     <div class="sobre-grid">
+
+      <!-- ✦ ALTERADO: parágrafo de recorrência adicionado; narrativa concreta da relação de 3 sistemas -->
       <div class="sobre-copy reveal">
         <span class="eyebrow">007 · O estúdio</span>
         <h2>Uma empresa que entende <span class="serif">operações</span> antes de escrever código.</h2>
         <p>A Ferzion nasceu da observação de um problema recorrente: <strong>empresas em crescimento presas em ferramentas que não acompanham sua complexidade.</strong></p>
         <p>Nossa abordagem é diferente. Antes de qualquer desenvolvimento, mergulhamos na operação do cliente — entendemos processos, pessoas, gargalos. O sistema é consequência desse entendimento, nunca um produto de prateleira adaptado.</p>
+        <p>Um único grupo familiar contratou três sistemas consecutivos com a Ferzion — romaneios de madeira, gestão de rebanho, folha de pagamento. Não por fidelidade. Porque <strong>cada entrega resolveu o que prometeu resolver</strong> e abriu espaço para o próximo problema.</p>
         <p>Atuamos com foco no <strong>agronegócio, logística e gestão operacional</strong> — setores onde a distância entre a planilha e a realidade custa caro.</p>
       </div>
 
+      <!-- ✦ ALTERADO: stat 3 mudou de "100% sob medida" para "3×" — prova concreta de recompra -->
       <div class="sobre-stats reveal" style="transition-delay: 120ms;">
         <div class="sobre-stat">
           <span class="sobre-stat-num" data-count="7">7</span>
           <div class="sobre-stat-label">
             <strong>Operações transformadas</strong>
-            <span class="sobre-stat-label-sub">Empresas que deixaram planilhas e processos manuais para trás.</span>
+            <span class="sobre-stat-label-sub">Agronegócio, logística, gestão e RH rural. Cada sistema construído do zero.</span>
           </div>
         </div>
         <div class="sobre-stat">
@@ -2870,13 +2881,14 @@ section { position: relative; }
           </div>
         </div>
         <div class="sobre-stat">
-          <span class="sobre-stat-num">100%</span>
+          <span class="sobre-stat-num">3×</span>
           <div class="sobre-stat-label">
-            <strong>Sob medida, sempre</strong>
-            <span class="sobre-stat-label-sub">Nenhum template. Cada sistema nasce de uma operação real.</span>
+            <strong>Mesmo cliente, três contratos</strong>
+            <span class="sobre-stat-label-sub">O retorno é o maior indicador de que a entrega foi bem feita.</span>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -2990,7 +3002,7 @@ section { position: relative; }
           <a href="https://wa.me/559492083253" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
           </a>
-          <a href="/cdn-cgi/l/email-protection#6b0d0e1911020405450f0e1d2b0c060a020745080406" aria-label="Email">
+          <a href="mailto:contato@ferzion.com.br" aria-label="Email">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></svg>
           </a>
         </div>
@@ -3020,7 +3032,7 @@ section { position: relative; }
       <div>
         <div class="footer-col-title">Contato</div>
         <ul class="footer-links">
-          <li><a href="/cdn-cgi/l/email-protection#741211060e1d1b1a5a101102341319151d185a171b19"><span class="__cf_email__" data-cfemail="32545740485b5d5c1c56574472555f535b5e1c515d5f">[email&#160;protected]</span></a></li>
+          <li><a href="mailto:contato@ferzion.com.br">contato@ferzion.com.br</a></li>
           <li><a href="https://wa.me/559492083253" target="_blank" rel="noopener noreferrer">+55 94 9 9208-3253</a></li>
           <li><a href="https://www.linkedin.com/company/ferzion/" target="_blank" rel="noopener noreferrer">linkedin.com/company/ferzion</a></li>
         </ul>
@@ -3043,7 +3055,7 @@ section { position: relative; }
 <div class="cursor-dot" id="cursor-dot"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ─── Navbar scroll ─── */
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
