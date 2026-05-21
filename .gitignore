@@ -1,30 +1,45 @@
-# 🔐 ENV
+# ─── Segredos / ambiente ───
 .env
-.env.
+.env.*
+!.env.example
 
-# 🐍 Python
+# ─── Python ───
 __pycache__/
 *.py[cod]
-*.sqlite3
+*$py.class
 
-# 🧪 Virtualenv
+# ─── Banco de dados (desenvolvimento) ───
+*.sqlite3
+*.sqlite3-journal
+
+# ─── Virtualenv ───
 .venv/
 venv/
 env/
 
-# 📦 Django
+# ─── Django ───
 staticfiles/
 media/
-
-# 🧾 Logs
 *.log
 
-# 🖥️ OS
+# ─── Testes / cobertura / lint ───
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ─── Node (caso o frontend ganhe um build step) ───
+node_modules/
+
+# ─── Claude Code ───
+.claude/settings.local.json
+
+# ─── Sistema operacional ───
 .DS_Store
 Thumbs.db
 
-# 🧠 IDE
+# ─── Editores / IDE ───
 .vscode/
 .idea/
-
-*.sqlite3
+*.swp
