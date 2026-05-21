@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Ferzion">
+  <rect width="100" height="100" rx="22" fill="#11170F"/>
+  <g transform="translate(50 50) rotate(45)" fill="none" stroke="#6DAB93" stroke-width="5" stroke-linejoin="round">
+    <rect x="-31" y="-31" width="62" height="62" rx="5"/>
+    <rect x="-17" y="-17" width="34" height="34" rx="3"/>
+  </g>
+  <circle cx="50" cy="50" r="4" fill="#6DAB93"/>
+</svg>
