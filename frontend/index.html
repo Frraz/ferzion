@@ -2,6 +2,9 @@
 <html lang="pt-BR">
 <head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B9BSL8RZZF"></script>
 <script>
@@ -11,45 +14,211 @@
   gtag('config', 'G-B9BSL8RZZF');
 </script>
 
-<!-- Schema Markup -->
+<!-- SEO primário -->
+<title>Ferzion — Software sob medida para operações com propósito.</title>
+<meta name="description" content="Desenvolvimento de software sob medida para agronegócio, logística e gestão operacional no Brasil. Sistemas que substituem planilhas. Diagnóstico gratuito.">
+<link rel="canonical" href="https://ferzion.com.br/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Ferzion">
+<meta name="theme-color" content="#1D2720">
+<meta name="google-site-verification" content="pIK-nbOwZ3aX1pheWYrOmuJudpxxr3KfkdfOrPDZZrc">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ferzion">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://ferzion.com.br/">
+<meta property="og:title" content="Ferzion — Software sob medida para operações com propósito.">
+<meta property="og:description" content="Sistemas sob medida para agronegócio, logística e gestão operacional. Diagnóstico gratuito.">
+<meta property="og:image" content="https://ferzion.com.br/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ferzion — software sob medida para operações com propósito.">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ferzion — Software sob medida para operações com propósito.">
+<meta name="twitter:description" content="Sistemas sob medida para agronegócio, logística e gestão operacional. Diagnóstico gratuito.">
+<meta name="twitter:image" content="https://ferzion.com.br/assets/og-image.png">
+<meta name="twitter:image:alt" content="Ferzion — software sob medida para operações com propósito.">
+
+<!-- Favicon / PWA -->
+<link rel="icon" href="/assets/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Schema.org — grafo de entidades (Organization, WebSite, WebPage, OfferCatalog, FAQPage) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Ferzion",
-  "url": "https://ferzion.com.br",
-  "description": "Desenvolvimento de software sob medida para empresas e negócios. Sistemas personalizados para agronegócio, automação de processos e gestão operacional.",
-  "areaServed": ["Pará", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Brasil"],
-  "contactPoint": { "@type": "ContactPoint", "contactType": "sales", "availableLanguage": "Portuguese" },
-  "sameAs": ["https://www.linkedin.com/company/ferzion", "https://www.instagram.com/ferzion"]
+  "@graph": [
+    {
+      "@type": ["Organization", "ProfessionalService"],
+      "@id": "https://ferzion.com.br/#organization",
+      "name": "Ferzion",
+      "alternateName": "Ferzion Software",
+      "url": "https://ferzion.com.br/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://ferzion.com.br/#logo",
+        "url": "https://ferzion.com.br/assets/logo-ferzion-3.png",
+        "width": 403,
+        "height": 403,
+        "caption": "Ferzion"
+      },
+      "image": "https://ferzion.com.br/assets/og-image.png",
+      "slogan": "Software sob medida para operações com propósito.",
+      "description": "A Ferzion desenvolve software sob medida para empresas e operações que cresceram além do que planilhas conseguem sustentar. Sistemas personalizados para agronegócio, logística, gestão operacional e RH, com foco em rastreabilidade e integridade de dados.",
+      "email": "contato@ferzion.com.br",
+      "telephone": "+55 94 99208-3253",
+      "knowsLanguage": "pt-BR",
+      "areaServed": [
+        { "@type": "AdministrativeArea", "name": "Pará" },
+        { "@type": "AdministrativeArea", "name": "Maranhão" },
+        { "@type": "AdministrativeArea", "name": "Mato Grosso" },
+        { "@type": "AdministrativeArea", "name": "Mato Grosso do Sul" },
+        { "@type": "Country", "name": "Brasil" }
+      ],
+      "knowsAbout": [
+        "Desenvolvimento de software sob medida",
+        "Sistemas web para agronegócio",
+        "Automação de processos operacionais",
+        "Gestão de rebanho bovino",
+        "Sistemas de folha de pagamento",
+        "Software para logística e transporte",
+        "Integração de sistemas e APIs"
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "telephone": "+55 94 99208-3253",
+          "email": "contato@ferzion.com.br",
+          "availableLanguage": ["Portuguese"],
+          "areaServed": "BR"
+        }
+      ],
+      "hasOfferCatalog": { "@id": "https://ferzion.com.br/#services" },
+      "sameAs": [
+        "https://www.linkedin.com/company/ferzion/",
+        "https://www.instagram.com/ferzion"
+      ]
+    },
+    {
+      "@type": "OfferCatalog",
+      "@id": "https://ferzion.com.br/#services",
+      "name": "Serviços da Ferzion",
+      "itemListElement": [
+        {
+          "@type": "Service",
+          "name": "Sistemas web sob medida",
+          "serviceType": "Desenvolvimento de software sob medida",
+          "description": "Sistemas web personalizados para agronegócio, logística, RH e gestão operacional, construídos do zero a partir da operação real do cliente.",
+          "provider": { "@id": "https://ferzion.com.br/#organization" },
+          "areaServed": { "@type": "Country", "name": "Brasil" }
+        },
+        {
+          "@type": "Service",
+          "name": "Automação de processos operacionais",
+          "serviceType": "Automação de processos",
+          "description": "Automação de processos com rastreabilidade e integridade de dados, substituindo planilhas e controles manuais.",
+          "provider": { "@id": "https://ferzion.com.br/#organization" },
+          "areaServed": { "@type": "Country", "name": "Brasil" }
+        },
+        {
+          "@type": "Service",
+          "name": "Landing pages e sites institucionais",
+          "serviceType": "Desenvolvimento web",
+          "description": "Landing pages e sites institucionais com identidade visual sob medida, codificados do zero, sem templates.",
+          "provider": { "@id": "https://ferzion.com.br/#organization" },
+          "areaServed": { "@type": "Country", "name": "Brasil" }
+        },
+        {
+          "@type": "Service",
+          "name": "Integração de sistemas e APIs",
+          "serviceType": "Integração de sistemas",
+          "description": "Integração de sistemas via API REST com ferramentas como Power BI, eliminando exportação manual de dados.",
+          "provider": { "@id": "https://ferzion.com.br/#organization" },
+          "areaServed": { "@type": "Country", "name": "Brasil" }
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ferzion.com.br/#website",
+      "url": "https://ferzion.com.br/",
+      "name": "Ferzion",
+      "description": "Desenvolvimento de software sob medida para operações com propósito.",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://ferzion.com.br/#organization" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://ferzion.com.br/#webpage",
+      "url": "https://ferzion.com.br/",
+      "name": "Ferzion — Software sob medida para operações com propósito.",
+      "description": "Desenvolvimento de software sob medida para agronegócio, logística e gestão operacional no Brasil. Sistemas que substituem planilhas. Diagnóstico gratuito.",
+      "inLanguage": "pt-BR",
+      "isPartOf": { "@id": "https://ferzion.com.br/#website" },
+      "about": { "@id": "https://ferzion.com.br/#organization" },
+      "primaryImageOfPage": "https://ferzion.com.br/assets/og-image.png"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://ferzion.com.br/#faq",
+      "isPartOf": { "@id": "https://ferzion.com.br/#webpage" },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Meu negócio realmente precisa de um sistema personalizado?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Se sua operação depende de planilhas, mensagens espalhadas e processos manuais, você provavelmente já está perdendo tempo, controle e dinheiro sem perceber. O diagnóstico inicial é gratuito — já na conversa você entende se faz sentido para o seu caso."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quanto custa um sistema personalizado?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "O investimento varia conforme a complexidade da operação e o escopo do sistema. Por isso o diagnóstico vem antes da proposta — para apresentar um valor justo, detalhado e sem surpresas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quanto tempo leva para ter o sistema funcionando?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Projetos mais simples ficam operacionais em 6 a 12 semanas. Operações complexas levam mais tempo, mas sempre com entregas parciais — você vê o progresso ao longo do caminho."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "O sistema funciona no celular?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. Todos os sistemas que desenvolvemos são totalmente responsivos — funcionam em qualquer dispositivo, sem perda de funcionalidade."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Existe suporte após a entrega?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. Acompanhamos a implantação de perto e seguimos disponíveis para ajustes, melhorias e suporte técnico contínuo."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 
-<meta name="google-site-verification" content="pIK-nbOwZ3aX1pheWYrOmuJudpxxr3KfkdfOrPDZZrc">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="index, follow">
-<meta name="author" content="Ferzion">
-<meta name="theme-color" content="#1D2720">
-
-<title>Ferzion — Software sob medida para operações com propósito.</title>
-<meta name="description" content="Desenvolvimento de software sob medida para empresas e negócios no Brasil. Sistemas personalizados para agronegócio, gestão operacional e automação de processos. Diagnóstico gratuito.">
-<link rel="canonical" href="https://ferzion.com.br">
-
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ferzion.com.br">
-<meta property="og:title" content="Ferzion — Software sob medida para operações com propósito.">
-<meta property="og:description" content="Sistemas personalizados para agronegócio, gestão operacional e automação de processos. Diagnóstico gratuito.">
-<meta property="og:image" content="https://ferzion.com.br/assets/og-image.png">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Ferzion — Software sob medida para operações com propósito.">
-<meta name="twitter:description" content="Sistemas personalizados para agronegócio, gestão operacional e automação de processos. Diagnóstico gratuito.">
-<meta name="twitter:image" content="https://ferzion.com.br/assets/og-image.png">
-
+<!-- Fontes -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
 
 <style>
 /* ═══════════════════════════════════════════════════════════
@@ -615,6 +784,12 @@ section { position: relative; }
 }
 
 .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.hero-actions-note {
+  margin-top: 14px;
+  font-size: 12.5px;
+  color: var(--on-dark-dim);
+  letter-spacing: 0.01em;
+}
 
 .hero-strip {
   display: flex; align-items: center; gap: 18px;
@@ -1005,6 +1180,24 @@ section { position: relative; }
   font-weight: 400;
   margin-top: auto;
 }
+.pain-bridge {
+  margin-top: 48px;
+  max-width: 640px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 21px;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: var(--on-light);
+}
+.pain-bridge a {
+  color: var(--mint-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color .2s ease;
+}
+.pain-bridge a:hover { color: var(--mint-600); }
 
 /* ═══════════════════════════════════════════════════════════
    SOLUÇÃO
@@ -2117,7 +2310,7 @@ section { position: relative; }
 <header id="navbar">
   <div class="nav-inner">
     <a href="#" class="nav-logo" aria-label="Ferzion - início">
-      <img src="assets/logo-ferzion-3.png" alt="Ferzion">
+      <img src="assets/logo-ferzion-3.png" alt="Ferzion — desenvolvimento de software sob medida" width="403" height="403" fetchpriority="high" decoding="async">
     </a>
 
     <ul class="nav-links">
@@ -2179,7 +2372,7 @@ section { position: relative; }
     <div class="hero-copy">
       <div class="hero-badge reveal">
         <span class="dot"></span>
-        Software sob medida · Diagnóstico aberto
+        Software sob medida · Diagnóstico gratuito
       </div>
 
       <h1 class="hero-headline">
@@ -2189,18 +2382,19 @@ section { position: relative; }
         <span class="split-line"><span><em>não acompanharam.</em></span></span>
       </h1>
 
-      <!-- ✦ ALTERADO: subtítulo ancora em histórico real, não em promessa genérica -->
+      <!-- ✦ ALTERADO: subtítulo traz "sistemas sob medida" + nichos cedo (SEO) e converte a recompra em prova concreta -->
       <p class="hero-sub reveal" style="transition-delay: 320ms;">
-        A Ferzion constrói sistemas para operações que cresceram além do que planilha sustenta. Agronegócio, logística, gestão rural — e o mesmo cliente que voltou para contratar o segundo e o terceiro sistema.
+        A Ferzion constrói sistemas sob medida para agronegócio, logística e gestão operacional. Um mesmo cliente já voltou três vezes — romaneios, rebanho e folha de pagamento — porque cada entrega resolveu o que prometeu.
       </p>
 
       <div class="hero-actions reveal" style="transition-delay: 440ms;">
         <a href="#cta-final" class="btn btn-primary">
-          Solicitar diagnóstico
+          Agendar diagnóstico gratuito
           <svg class="arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg>
         </a>
-        <a href="#cases" class="btn btn-outline">Ver trabalhos</a>
+        <a href="#cases" class="btn btn-outline">Ver sistemas entregues</a>
       </div>
+      <p class="hero-actions-note reveal" style="transition-delay: 480ms;">Sem compromisso · uma conversa basta para começar</p>
 
       <!-- ✦ ALTERADO: strip ancora a prova de recorrência logo abaixo da headline -->
       <div class="hero-strip reveal" style="transition-delay: 560ms;">
@@ -2375,7 +2569,7 @@ section { position: relative; }
       <div class="pain-card">
         <div class="pain-idx">02</div>
         <h3 class="pain-title">WhatsApp como sistema</h3>
-        <p class="pain-desc">Informações espalhadas em conversas impossíveis de rastrear.</p>
+        <p class="pain-desc">Um combinado importante se perde no meio da conversa — e depois ninguém consegue provar o que ficou acertado.</p>
       </div>
       <div class="pain-card">
         <div class="pain-idx">03</div>
@@ -2390,9 +2584,15 @@ section { position: relative; }
       <div class="pain-card">
         <div class="pain-idx">05</div>
         <h3 class="pain-title">Decisões sem dados</h3>
-        <p class="pain-desc">Decisões importantes sem visibilidade real do que está acontecendo.</p>
+        <p class="pain-desc">Você aposta na intuição e só enxerga o erro quando ele já custou caro.</p>
       </div>
     </div>
+
+    <!-- ✦ ALTERADO: linha de ponte após a dor — conecta o problema à saída com micro-CTA -->
+    <p class="pain-bridge reveal">
+      Reconheceu sua operação em algum desses? É exatamente esse tipo de problema que a Ferzion resolve —
+      <a href="#cta-final">um diagnóstico mostra por onde começar</a>.
+    </p>
   </div>
 </section>
 
@@ -2923,7 +3123,7 @@ section { position: relative; }
       <div class="reveal" style="transition-delay: 120ms;">
         <form class="cta-form" id="contact-form" novalidate>
           <div class="cta-form-head">
-            <span class="cta-form-title">Solicitar diagnóstico</span>
+            <span class="cta-form-title">Diagnóstico gratuito</span>
             <span class="cta-form-tag"><span class="d"></span>Aberto</span>
           </div>
 
@@ -2958,7 +3158,7 @@ section { position: relative; }
           </div>
 
           <button type="submit" class="form-submit">
-            Solicitar diagnóstico
+            Agendar diagnóstico gratuito
             <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg>
           </button>
 
@@ -2987,7 +3187,7 @@ section { position: relative; }
     <div class="footer-top">
       <div class="footer-brand">
         <div class="footer-logo">
-          <img src="assets/logo-ferzion-3.png" alt="Ferzion">
+          <img src="assets/logo-ferzion-3.png" alt="Ferzion" width="403" height="403" loading="lazy" decoding="async">
         </div>
         <p class="footer-tagline">Software sob medida para operações com propósito.</p>
         <div class="footer-mantras">
