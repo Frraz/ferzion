@@ -20,7 +20,7 @@
 <link rel="canonical" href="https://ferzion.com.br/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="Ferzion">
-<meta name="theme-color" content="#1D2720">
+<meta name="theme-color" content="#15201A">
 <meta name="google-site-verification" content="pIK-nbOwZ3aX1pheWYrOmuJudpxxr3KfkdfOrPDZZrc">
 
 <!-- Open Graph -->
@@ -102,7 +102,7 @@
       "hasOfferCatalog": { "@id": "https://ferzion.com.br/#services" },
       "sameAs": [
         "https://www.linkedin.com/company/ferzion/",
-        "https://www.instagram.com/ferzion"
+        "https://www.instagram.com/ferzion.dev/"
       ]
     },
     {
@@ -226,12 +226,12 @@
    Premium · editorial · tech-luxury
 ═══════════════════════════════════════════════════════════ */
 :root {
-  /* Brand — dark forest */
-  --ink-900: #11170F;
-  --ink-800: #1D2720;
-  --ink-700: #243429;
-  --ink-600: #284536;
-  --ink-500: #325040;
+  /* Brand — deep forest (núcleo escuro, quase-preto esverdeado da identidade) */
+  --ink-900: #0E140F;
+  --ink-800: #15201A;
+  --ink-700: #1E2B23;
+  --ink-600: #2C4537;
+  --ink-500: #375444;
 
   /* Brand — warm cream surfaces */
   --bone-100: #F1EADB;
@@ -240,29 +240,30 @@
   --bone-400: #CABBA3;
   --bone-500: #B8A88E;
 
-  /* Accent — mint */
-  --mint-400: #8FC8B0;
-  --mint-500: #6DAB93;
-  --mint-600: #4F8E78;
-  --mint-700: #3A6B5A;
+  /* Accent — mint (verde-menta vivo da identidade Ferzion) */
+  --mint-rgb: 82, 199, 149;
+  --mint-400: #8AE3BA;
+  --mint-500: #52C795;
+  --mint-600: #2E9165;
+  --mint-700: #1F6344;
 
   /* Type colors */
   --on-dark:        #E8E4D8;
   --on-dark-mute:   #9DAC9E;
   --on-dark-dim:    #5E6457;
-  --on-light:       #1D2720;
+  --on-light:       #15201A;
   --on-light-mute:  #5E6457;
   --on-light-dim:   #7E826F;
 
   /* Lines */
   --line-dark:   rgba(232, 228, 216, 0.08);
   --line-dark-2: rgba(232, 228, 216, 0.14);
-  --line-light:  rgba(29, 39, 32, 0.12);
-  --line-light-2: rgba(29, 39, 32, 0.22);
+  --line-light:  rgba(21, 32, 26, 0.12);
+  --line-light-2: rgba(21, 32, 26, 0.22);
 
   /* Glow */
-  --glow:    rgba(109, 171, 147, 0.18);
-  --glow-2:  rgba(109, 171, 147, 0.35);
+  --glow:    rgba(var(--mint-rgb), 0.20);
+  --glow-2:  rgba(var(--mint-rgb), 0.42);
 
   /* Type */
   --serif:  'Instrument Serif', 'Times New Roman', serif;
@@ -297,12 +298,52 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'ss01', 'cv11';
+  text-wrap: pretty;
 }
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; font-family: inherit; border: none; background: none; color: inherit; }
 
 ::selection { background: var(--mint-500); color: var(--ink-900); }
+
+/* ─── Foco visível para navegação por teclado ─── */
+:focus-visible {
+  outline: 2px solid var(--mint-400);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+:focus:not(:focus-visible) { outline: none; }
+#main:focus { outline: none; }
+
+/* ─── Conteúdo exclusivo para leitores de tela ─── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Link "pular para o conteúdo" ─── */
+.skip-link {
+  position: fixed;
+  top: 14px; left: 14px;
+  z-index: 300;
+  padding: 12px 20px;
+  background: var(--mint-500);
+  color: var(--ink-900);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: var(--r-sm);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  transform: translateY(-160%);
+  transition: transform var(--t-med) var(--ease-out);
+}
+.skip-link:focus-visible { transform: translateY(0); }
 
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--ink-900); }
@@ -323,7 +364,7 @@ body::before {
 /* ═══════════════════════════════════════════════════════════
    TYPOGRAPHY SYSTEM
 ═══════════════════════════════════════════════════════════ */
-h1, h2, h3, h4 { font-family: var(--sans); font-weight: 500; line-height: 1.02; letter-spacing: -0.025em; }
+h1, h2, h3, h4 { font-family: var(--sans); font-weight: 500; line-height: 1.02; letter-spacing: -0.025em; text-wrap: balance; }
 h1 { font-size: clamp(42px, 5.6vw, 78px); font-weight: 400; letter-spacing: -0.035em; line-height: 1.0; }
 h2 { font-size: clamp(30px, 3.8vw, 54px); font-weight: 400; letter-spacing: -0.03em; line-height: 1.05; }
 h3 { font-size: 22px; font-weight: 500; letter-spacing: -0.018em; line-height: 1.2; }
@@ -348,7 +389,7 @@ h3 { font-size: 22px; font-weight: 500; letter-spacing: -0.018em; line-height: 1
   transform: rotate(45deg);
   flex-shrink: 0;
 }
-.eyebrow.on-light { color: var(--mint-600); }
+.eyebrow.on-light { color: var(--mint-700); }
 .eyebrow.muted { color: var(--on-dark-mute); }
 
 .idx {
@@ -360,11 +401,17 @@ h3 { font-size: 22px; font-weight: 500; letter-spacing: -0.018em; line-height: 1
 }
 .idx.on-light { color: var(--on-light-dim); }
 
+/* Algarismos de largura fixa em dados e métricas — evita "pulo" ao animar */
+.metric-v, .sobre-stat-num, .dash-kpi-v, .dash-log-time,
+.hero-aux .val, .case-num, .step-num, .step-duration {
+  font-variant-numeric: tabular-nums;
+}
+
 /* ═══════════════════════════════════════════════════════════
    LAYOUT
 ═══════════════════════════════════════════════════════════ */
 .container { max-width: 1280px; margin: 0 auto; padding: 0 56px; }
-section { position: relative; }
+section { position: relative; scroll-margin-top: 80px; }
 
 .chev-divider {
   position: relative;
@@ -422,7 +469,7 @@ section { position: relative; }
   transform: translateY(-1px);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.3),
-    0 8px 30px rgba(109,171,147,0.32),
+    0 8px 30px rgba(var(--mint-rgb),0.32),
     0 2px 4px rgba(0,0,0,0.2);
 }
 .btn-primary:active { transform: translateY(0); }
@@ -435,7 +482,7 @@ section { position: relative; }
 .btn-outline:hover {
   border-color: var(--mint-500);
   color: var(--mint-400);
-  background: rgba(109,171,147,0.04);
+  background: rgba(var(--mint-rgb),0.04);
 }
 
 .btn-ghost {
@@ -452,7 +499,7 @@ section { position: relative; }
 .btn-outline.on-light:hover {
   border-color: var(--mint-600);
   color: var(--mint-700);
-  background: rgba(109,171,147,0.06);
+  background: rgba(var(--mint-rgb),0.06);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -472,14 +519,14 @@ section { position: relative; }
   background: rgba(232,228,216,0.02);
 }
 .tag-mint {
-  border-color: rgba(109,171,147,0.35);
+  border-color: rgba(var(--mint-rgb),0.35);
   color: var(--mint-500);
-  background: rgba(109,171,147,0.04);
+  background: rgba(var(--mint-rgb),0.04);
 }
 .tag-light {
-  border: 1px solid rgba(29,39,32,0.18);
+  border: 1px solid rgba(21,32,26,0.18);
   color: var(--on-light-mute);
-  background: rgba(29,39,32,0.03);
+  background: rgba(21,32,26,0.03);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -526,7 +573,7 @@ section { position: relative; }
   border-bottom: 1px solid transparent;
 }
 #navbar.scrolled {
-  background: rgba(29, 39, 32, 0.7);
+  background: rgba(21, 32, 26, 0.72);
   backdrop-filter: blur(24px) saturate(140%);
   -webkit-backdrop-filter: blur(24px) saturate(140%);
   border-color: var(--line-dark);
@@ -605,6 +652,7 @@ section { position: relative; }
   top: 0; right: -100%;
   width: min(360px, 90vw);
   height: 100vh;
+  height: 100dvh;
   background: var(--ink-700);
   border-left: 1px solid var(--line-dark);
   z-index: 200;
@@ -652,7 +700,7 @@ section { position: relative; }
 }
 .drawer-overlay {
   position: fixed; inset: 0;
-  background: rgba(17, 23, 15, 0.7);
+  background: rgba(14, 20, 15, 0.74);
   backdrop-filter: blur(6px);
   z-index: 190;
   opacity: 0;
@@ -666,6 +714,7 @@ section { position: relative; }
 ═══════════════════════════════════════════════════════════ */
 #hero {
   min-height: 100vh;
+  min-height: 100dvh;
   padding-top: 80px;
   background: var(--ink-800);
   overflow: hidden;
@@ -699,7 +748,7 @@ section { position: relative; }
 .hero-glow.b {
   width: 600px; height: 600px;
   top: auto; bottom: -20%; left: auto; right: -10%;
-  background: radial-gradient(circle, rgba(79,142,120,0.14) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(var(--mint-rgb),0.14) 0%, transparent 60%);
   animation-duration: 18s;
   animation-delay: -4s;
 }
@@ -718,7 +767,7 @@ section { position: relative; }
   top: 0; bottom: 0;
   left: 45%;
   width: 1px;
-  background: linear-gradient(180deg, transparent, rgba(109,171,147,0.4) 25%, rgba(109,171,147,0.4) 75%, transparent);
+  background: linear-gradient(180deg, transparent, rgba(var(--mint-rgb),0.4) 25%, rgba(var(--mint-rgb),0.4) 75%, transparent);
   transform: skewX(-12deg);
   display: none;
 }
@@ -733,7 +782,7 @@ section { position: relative; }
   grid-template-columns: 1.05fr 1fr;
   gap: 64px;
   align-items: center;
-  min-height: calc(100vh - 76px);
+  min-height: calc(100dvh - 80px);
 }
 
 .hero-copy { display: flex; flex-direction: column; gap: 32px; max-width: 620px; }
@@ -879,7 +928,7 @@ section { position: relative; }
   box-shadow:
     0 30px 80px rgba(0,0,0,0.5),
     0 1px 0 rgba(232,228,216,0.05) inset,
-    0 0 100px rgba(109,171,147,0.06);
+    0 0 100px rgba(var(--mint-rgb),0.06);
 }
 .dash::before {
   content: '';
@@ -949,7 +998,7 @@ section { position: relative; }
   transition: all var(--t-fast);
 }
 .dash-side-item.active {
-  background: rgba(109,171,147,0.1);
+  background: rgba(var(--mint-rgb),0.1);
   color: var(--mint-400);
 }
 .dash-side-item svg { width: 14px; height: 14px; }
@@ -1055,7 +1104,7 @@ section { position: relative; }
   border-radius: 3px;
   text-transform: uppercase;
 }
-.chip-mint  { background: rgba(109,171,147,0.12); color: var(--mint-400); border: 1px solid rgba(109,171,147,0.25); }
+.chip-mint  { background: rgba(var(--mint-rgb),0.12); color: var(--mint-400); border: 1px solid rgba(var(--mint-rgb),0.25); }
 .chip-bone  { background: rgba(218,202,179,0.06); color: var(--bone-300); border: 1px solid rgba(218,202,179,0.18); }
 .chip-dim   { background: rgba(232,228,216,0.04); color: var(--on-dark-dim); border: 1px solid var(--line-dark-2); }
 
@@ -1106,7 +1155,7 @@ section { position: relative; }
   background-image:
     repeating-linear-gradient(-45deg,
       transparent 0 60px,
-      rgba(29,39,32,0.025) 60px 61px);
+      rgba(21,32,26,0.025) 60px 61px);
   pointer-events: none;
 }
 #problema h2 { color: var(--on-light); max-width: 720px; }
@@ -1146,7 +1195,7 @@ section { position: relative; }
   display: flex;
   flex-direction: column;
 }
-.pain-card:hover { background: rgba(29,39,32,0.04); }
+.pain-card:hover { background: rgba(21,32,26,0.04); }
 .pain-idx {
   font-family: var(--mono);
   font-size: 11px;
@@ -1357,7 +1406,7 @@ section { position: relative; }
   flex-direction: column;
 }
 .case-card:hover {
-  border-color: rgba(109,171,147,0.25);
+  border-color: rgba(var(--mint-rgb),0.25);
   transform: translateY(-4px);
   box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
@@ -1521,7 +1570,7 @@ section { position: relative; }
   background: var(--mint-500);
   color: var(--ink-800);
   border-color: var(--mint-500);
-  box-shadow: 0 8px 24px rgba(79,142,120,0.3);
+  box-shadow: 0 8px 24px rgba(var(--mint-rgb),0.3);
 }
 .step-content { padding-top: 8px; }
 .step-h {
@@ -1589,8 +1638,8 @@ section { position: relative; }
   width: 28px; height: 28px;
   flex-shrink: 0;
   border-radius: 6px;
-  background: rgba(109,171,147,0.08);
-  border: 1px solid rgba(109,171,147,0.25);
+  background: rgba(var(--mint-rgb),0.08);
+  border: 1px solid rgba(var(--mint-rgb),0.25);
   display: flex; align-items: center; justify-content: center;
 }
 .tech-check svg { width: 12px; height: 12px; stroke: var(--mint-500); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
@@ -1653,7 +1702,7 @@ section { position: relative; }
 .tech-pill:hover {
   border-color: var(--mint-500);
   color: var(--mint-400);
-  background: rgba(109,171,147,0.06);
+  background: rgba(var(--mint-rgb),0.06);
   transform: translateY(-2px);
 }
 .tech-stack-note {
@@ -1845,8 +1894,8 @@ section { position: relative; }
 .cta-bullet-d {
   width: 22px; height: 22px;
   border-radius: 5px;
-  background: rgba(109,171,147,0.08);
-  border: 1px solid rgba(109,171,147,0.3);
+  background: rgba(var(--mint-rgb),0.08);
+  border: 1px solid rgba(var(--mint-rgb),0.3);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
@@ -1919,8 +1968,8 @@ section { position: relative; }
 .form-input::placeholder, .form-textarea::placeholder { color: var(--on-dark-dim); }
 .form-input:focus, .form-select:focus, .form-textarea:focus {
   border-color: var(--mint-500);
-  background: rgba(109,171,147,0.04);
-  box-shadow: 0 0 0 3px rgba(109,171,147,0.08);
+  background: rgba(var(--mint-rgb),0.04);
+  box-shadow: 0 0 0 3px rgba(var(--mint-rgb),0.08);
 }
 .form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%239DAC9E' stroke-width='1.5'%3E%3Cpath d='M3 4.5l3 3 3-3'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
 .form-select option { background: var(--ink-700); color: var(--on-dark); }
@@ -1946,10 +1995,27 @@ section { position: relative; }
 .form-submit:hover {
   background: var(--mint-400);
   transform: translateY(-1px);
-  box-shadow: 0 10px 30px rgba(109,171,147,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+  box-shadow: 0 10px 30px rgba(var(--mint-rgb),0.4), inset 0 1px 0 rgba(255,255,255,0.3);
 }
 .form-submit:active { transform: translateY(0); }
 .form-submit svg { width: 14px; height: 14px; flex-shrink: 0; }
+.form-submit:disabled {
+  opacity: 0.72;
+  cursor: progress;
+  transform: none;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+}
+.form-submit:disabled:hover { background: var(--mint-500); transform: none; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.btn-spinner {
+  width: 15px; height: 15px;
+  border: 2px solid rgba(14,20,15,0.28);
+  border-top-color: var(--ink-900);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
 
 .form-disclaimer {
   font-family: var(--mono);
@@ -1958,6 +2024,13 @@ section { position: relative; }
   text-transform: uppercase;
   color: var(--on-dark-dim);
   text-align: center;
+}
+.form-privacy {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--on-dark-dim);
+  text-align: center;
+  margin-top: -8px;
 }
 .form-whatsapp {
   display: flex; align-items: center; justify-content: center;
@@ -1983,6 +2056,27 @@ section { position: relative; }
 .form-input.error, .form-select.error, .form-textarea.error {
   border-color: rgba(214,138,138,0.6);
 }
+
+/* Aviso geral do formulário (ex.: falha de rede) */
+.form-feedback {
+  display: none;
+  gap: 10px;
+  padding: 13px 15px;
+  border-radius: var(--r-sm);
+  background: rgba(214,138,138,0.07);
+  border: 1px solid rgba(214,138,138,0.32);
+  font-size: 13px;
+  color: #e2a5a5;
+  line-height: 1.55;
+}
+.form-feedback.visible { display: block; }
+.form-feedback a {
+  color: var(--mint-400);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 500;
+}
+.form-feedback a:hover { color: var(--mint-500); }
 
 .form-success {
   text-align: center;
@@ -2064,7 +2158,7 @@ section { position: relative; }
 .footer-social a:hover {
   border-color: var(--mint-500);
   color: var(--mint-400);
-  background: rgba(109,171,147,0.06);
+  background: rgba(var(--mint-rgb),0.06);
   transform: translateY(-2px);
 }
 .footer-social svg { width: 14px; height: 14px; }
@@ -2122,7 +2216,7 @@ section { position: relative; }
 }
 .cursor-ring {
   width: 32px; height: 32px;
-  border: 1px solid rgba(109,171,147,0.4);
+  border: 1px solid rgba(var(--mint-rgb),0.4);
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
@@ -2133,7 +2227,7 @@ section { position: relative; }
 .cursor-ring.hovering {
   width: 56px; height: 56px;
   border-color: var(--mint-500);
-  background: rgba(109,171,147,0.04);
+  background: rgba(var(--mint-rgb),0.04);
 }
 @media (hover: none), (pointer: coarse) { .cursor-dot, .cursor-ring { display: none !important; } }
 @media (prefers-reduced-motion: reduce) {
@@ -2154,14 +2248,14 @@ section { position: relative; }
   background: var(--mint-500);
   color: var(--ink-900);
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 8px 30px rgba(109,171,147,0.45);
+  box-shadow: 0 8px 30px rgba(var(--mint-rgb),0.45);
   z-index: 90;
   transition: all var(--t-med);
 }
 .wa-float:hover {
   background: var(--mint-400);
   transform: translateY(-4px) scale(1.04);
-  box-shadow: 0 14px 40px rgba(109,171,147,0.55);
+  box-shadow: 0 14px 40px rgba(var(--mint-rgb),0.55);
 }
 .wa-float svg { width: 26px; height: 26px; fill: currentColor; }
 
@@ -2304,6 +2398,8 @@ section { position: relative; }
 </head>
 <body>
 
+<a class="skip-link" href="#main">Pular para o conteúdo</a>
+
 <div id="scroll-progress"></div>
 
 <!-- === NAVBAR === -->
@@ -2347,6 +2443,8 @@ section { position: relative; }
   </ul>
   <a href="#cta-final" class="btn btn-primary" style="margin-top:36px; justify-content:center;">Diagnóstico gratuito →</a>
 </nav>
+
+<main id="main" tabindex="-1">
 
 <!-- ═══════════════════════════════════════════════
      HERO
@@ -2493,15 +2591,15 @@ section { position: relative; }
               <svg viewBox="0 0 400 96" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="lineGrad" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stop-color="#6DAB93" stop-opacity="0.35"/>
-                    <stop offset="100%" stop-color="#6DAB93" stop-opacity="0"/>
+                    <stop offset="0%" stop-color="#52C795" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#52C795" stop-opacity="0"/>
                   </linearGradient>
                 </defs>
                 <path d="M0,72 L40,60 L80,64 L120,42 L160,48 L200,30 L240,38 L280,20 L320,28 L360,14 L400,22 L400,96 L0,96 Z" fill="url(#lineGrad)"/>
                 <path d="M0,72 L40,60 L80,64 L120,42 L160,48 L200,30 L240,38 L280,20 L320,28 L360,14 L400,22"
-                      stroke="#6DAB93" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="360" cy="14" r="3" fill="#6DAB93"/>
-                <circle cx="360" cy="14" r="6" fill="none" stroke="#6DAB93" stroke-opacity="0.4"/>
+                      stroke="#52C795" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="360" cy="14" r="3" fill="#52C795"/>
+                <circle cx="360" cy="14" r="6" fill="none" stroke="#52C795" stroke-opacity="0.4"/>
               </svg>
             </div>
 
@@ -2690,11 +2788,11 @@ section { position: relative; }
       <article class="case-card reveal" style="transition-delay: 60ms;">
         <div class="case-band">
           <svg viewBox="0 0 400 96" preserveAspectRatio="none">
-            <g stroke="#6DAB93" stroke-opacity="0.18" stroke-width="1" fill="none">
+            <g stroke="#52C795" stroke-opacity="0.18" stroke-width="1" fill="none">
               <path d="M0 80 L60 70 L120 76 L180 50 L240 56 L300 30 L360 42 L400 22"/>
               <path d="M0 86 L60 82 L120 84 L180 70 L240 72 L300 56 L360 62 L400 50"/>
             </g>
-            <g fill="#6DAB93" fill-opacity="0.5">
+            <g fill="#52C795" fill-opacity="0.5">
               <rect x="20" y="68" width="3" height="20" rx="1"/>
               <rect x="60" y="58" width="3" height="30" rx="1"/>
               <rect x="100" y="64" width="3" height="24" rx="1"/>
@@ -2728,21 +2826,21 @@ section { position: relative; }
       <article class="case-card reveal" style="transition-delay: 140ms;">
         <div class="case-band">
           <svg viewBox="0 0 400 96" preserveAspectRatio="none">
-            <g stroke="#6DAB93" stroke-opacity="0.2" stroke-width="1" fill="none">
+            <g stroke="#52C795" stroke-opacity="0.2" stroke-width="1" fill="none">
               <circle cx="50" cy="48" r="20"/>
               <circle cx="120" cy="48" r="14"/>
               <circle cx="180" cy="48" r="22"/>
               <circle cx="250" cy="48" r="16"/>
               <circle cx="320" cy="48" r="20"/>
             </g>
-            <g fill="#6DAB93">
+            <g fill="#52C795">
               <circle cx="50" cy="48" r="2"/>
               <circle cx="120" cy="48" r="2"/>
               <circle cx="180" cy="48" r="2"/>
               <circle cx="250" cy="48" r="2"/>
               <circle cx="320" cy="48" r="2"/>
             </g>
-            <g stroke="#6DAB93" stroke-opacity="0.4" stroke-width="0.8">
+            <g stroke="#52C795" stroke-opacity="0.4" stroke-width="0.8">
               <line x1="70" y1="48" x2="106" y2="48"/>
               <line x1="134" y1="48" x2="158" y2="48"/>
               <line x1="202" y1="48" x2="234" y2="48"/>
@@ -2770,14 +2868,14 @@ section { position: relative; }
       <article class="case-card reveal" style="transition-delay: 200ms;">
         <div class="case-band">
           <svg viewBox="0 0 400 96" preserveAspectRatio="none">
-            <g stroke="#6DAB93" stroke-opacity="0.25" stroke-width="1" fill="none">
+            <g stroke="#52C795" stroke-opacity="0.25" stroke-width="1" fill="none">
               <rect x="20" y="20" width="50" height="56" rx="2"/>
               <rect x="90" y="30" width="50" height="46" rx="2"/>
               <rect x="160" y="14" width="50" height="62" rx="2"/>
               <rect x="230" y="34" width="50" height="42" rx="2"/>
               <rect x="300" y="22" width="50" height="54" rx="2"/>
             </g>
-            <g stroke="#6DAB93" stroke-opacity="0.45" stroke-width="0.8" fill="none">
+            <g stroke="#52C795" stroke-opacity="0.45" stroke-width="0.8" fill="none">
               <line x1="28" y1="34" x2="62" y2="34"/>
               <line x1="28" y1="42" x2="56" y2="42"/>
               <line x1="98" y1="44" x2="132" y2="44"/>
@@ -2810,20 +2908,20 @@ section { position: relative; }
       <article class="case-card reveal" style="transition-delay: 260ms;">
         <div class="case-band">
           <svg viewBox="0 0 400 96" preserveAspectRatio="none">
-            <g stroke="#6DAB93" stroke-opacity="0.25" stroke-width="1" fill="none">
+            <g stroke="#52C795" stroke-opacity="0.25" stroke-width="1" fill="none">
               <path d="M40 48 L100 48"/>
               <path d="M120 48 L180 48"/>
               <path d="M200 48 L260 48"/>
               <path d="M280 48 L340 48"/>
             </g>
-            <g fill="#1D2720" stroke="#6DAB93" stroke-opacity="0.5" stroke-width="1">
+            <g fill="#15201A" stroke="#52C795" stroke-opacity="0.5" stroke-width="1">
               <circle cx="40" cy="48" r="8"/>
               <circle cx="120" cy="48" r="8"/>
               <circle cx="200" cy="48" r="8"/>
               <circle cx="280" cy="48" r="8"/>
               <circle cx="360" cy="48" r="8"/>
             </g>
-            <g fill="#6DAB93">
+            <g fill="#52C795">
               <circle cx="40" cy="48" r="2"/>
               <circle cx="120" cy="48" r="2"/>
               <circle cx="200" cy="48" r="2"/>
@@ -3008,39 +3106,39 @@ section { position: relative; }
 
       <div class="faq-list reveal" style="transition-delay: 100ms;">
         <div class="faq-item open">
-          <button class="faq-q" aria-expanded="true">
+          <button class="faq-q" id="faq-q1" aria-expanded="true" aria-controls="faq-a1">
             <span class="faq-q-text">Meu negócio realmente precisa de um sistema personalizado?</span>
-            <span class="faq-arrow"><svg viewBox="0 0 14 14"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg></span>
+            <span class="faq-arrow" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg></span>
           </button>
-          <div class="faq-a"><div class="faq-a-inner">Se sua operação depende de planilhas, mensagens espalhadas e processos manuais, você provavelmente já está perdendo tempo, controle e dinheiro sem perceber. O diagnóstico inicial é gratuito — já na conversa você entende se faz sentido para o seu caso.</div></div>
+          <div class="faq-a" id="faq-a1" role="region" aria-labelledby="faq-q1"><div class="faq-a-inner">Se sua operação depende de planilhas, mensagens espalhadas e processos manuais, você provavelmente já está perdendo tempo, controle e dinheiro sem perceber. O diagnóstico inicial é gratuito — já na conversa você entende se faz sentido para o seu caso.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">
+          <button class="faq-q" id="faq-q2" aria-expanded="false" aria-controls="faq-a2">
             <span class="faq-q-text">Quanto custa um sistema personalizado?</span>
-            <span class="faq-arrow"><svg viewBox="0 0 14 14"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg></span>
+            <span class="faq-arrow" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg></span>
           </button>
-          <div class="faq-a"><div class="faq-a-inner">O investimento varia conforme a complexidade da operação e o escopo do sistema. Por isso o diagnóstico vem antes da proposta — para apresentar um valor justo, detalhado e sem surpresas.</div></div>
+          <div class="faq-a" id="faq-a2" role="region" aria-labelledby="faq-q2"><div class="faq-a-inner">O investimento varia conforme a complexidade da operação e o escopo do sistema. Por isso o diagnóstico vem antes da proposta — para apresentar um valor justo, detalhado e sem surpresas.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">
+          <button class="faq-q" id="faq-q3" aria-expanded="false" aria-controls="faq-a3">
             <span class="faq-q-text">Quanto tempo leva para ter o sistema funcionando?</span>
-            <span class="faq-arrow"><svg viewBox="0 0 14 14"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg></span>
+            <span class="faq-arrow" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg></span>
           </button>
-          <div class="faq-a"><div class="faq-a-inner">Projetos mais simples ficam operacionais em 6 a 12 semanas. Operações complexas levam mais tempo, mas sempre com entregas parciais — você vê o progresso ao longo do caminho.</div></div>
+          <div class="faq-a" id="faq-a3" role="region" aria-labelledby="faq-q3"><div class="faq-a-inner">Projetos mais simples ficam operacionais em 6 a 12 semanas. Operações complexas levam mais tempo, mas sempre com entregas parciais — você vê o progresso ao longo do caminho.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">
+          <button class="faq-q" id="faq-q4" aria-expanded="false" aria-controls="faq-a4">
             <span class="faq-q-text">O sistema funciona no celular?</span>
-            <span class="faq-arrow"><svg viewBox="0 0 14 14"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg></span>
+            <span class="faq-arrow" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg></span>
           </button>
-          <div class="faq-a"><div class="faq-a-inner">Sim. Todos os sistemas que desenvolvemos são totalmente responsivos — funcionam em qualquer dispositivo, sem perda de funcionalidade.</div></div>
+          <div class="faq-a" id="faq-a4" role="region" aria-labelledby="faq-q4"><div class="faq-a-inner">Sim. Todos os sistemas que desenvolvemos são totalmente responsivos — funcionam em qualquer dispositivo, sem perda de funcionalidade.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">
+          <button class="faq-q" id="faq-q5" aria-expanded="false" aria-controls="faq-a5">
             <span class="faq-q-text">Existe suporte após a entrega?</span>
-            <span class="faq-arrow"><svg viewBox="0 0 14 14"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg></span>
+            <span class="faq-arrow" aria-hidden="true"><svg viewBox="0 0 14 14"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg></span>
           </button>
-          <div class="faq-a"><div class="faq-a-inner">Sim. Acompanhamos a implantação de perto e seguimos disponíveis para ajustes, melhorias e suporte técnico contínuo.</div></div>
+          <div class="faq-a" id="faq-a5" role="region" aria-labelledby="faq-q5"><div class="faq-a-inner">Sim. Acompanhamos a implantação de perto e seguimos disponíveis para ajustes, melhorias e suporte técnico contínuo.</div></div>
         </div>
       </div>
     </div>
@@ -3121,48 +3219,60 @@ section { position: relative; }
       </div>
 
       <div class="reveal" style="transition-delay: 120ms;">
-        <form class="cta-form" id="contact-form" novalidate>
+        <form class="cta-form" id="contact-form" novalidate aria-labelledby="cta-form-title">
           <div class="cta-form-head">
-            <span class="cta-form-title">Diagnóstico gratuito</span>
+            <span class="cta-form-title" id="cta-form-title">Diagnóstico gratuito</span>
             <span class="cta-form-tag"><span class="d"></span>Aberto</span>
           </div>
 
           <div class="form-row">
-            <input class="form-input" id="f-name" name="nome" type="text" placeholder="Nome completo" autocomplete="name">
-            <span class="form-error" id="err-name">Informe seu nome</span>
+            <label class="sr-only" for="f-name">Nome completo</label>
+            <input class="form-input" id="f-name" name="nome" type="text" placeholder="Nome completo"
+                   autocomplete="name" maxlength="255" required aria-required="true" aria-describedby="err-name">
+            <span class="form-error" id="err-name" role="alert">Informe seu nome</span>
           </div>
 
           <div class="form-row">
-            <input class="form-input" id="f-phone" name="whatsapp" type="tel" placeholder="WhatsApp — (11) 99999-9999" autocomplete="tel">
-            <span class="form-error" id="err-phone">Informe seu WhatsApp</span>
+            <label class="sr-only" for="f-phone">WhatsApp</label>
+            <input class="form-input" id="f-phone" name="whatsapp" type="tel" placeholder="WhatsApp — (11) 99999-9999"
+                   autocomplete="tel" inputmode="tel" maxlength="20" required aria-required="true" aria-describedby="err-phone">
+            <span class="form-error" id="err-phone" role="alert">Informe um WhatsApp válido</span>
           </div>
 
           <div class="form-row">
-            <input class="form-input" id="f-email" name="email" type="email" placeholder="E-mail (opcional)" autocomplete="email">
-            <span class="form-error" id="err-email">E-mail inválido</span>
+            <label class="sr-only" for="f-email">E-mail (opcional)</label>
+            <input class="form-input" id="f-email" name="email" type="email" placeholder="E-mail (opcional)"
+                   autocomplete="email" inputmode="email" maxlength="254" aria-describedby="err-email">
+            <span class="form-error" id="err-email" role="alert">E-mail inválido</span>
           </div>
 
           <div class="form-row">
-            <select class="form-select" id="f-segmento" name="segmento">
+            <label class="sr-only" for="f-segmento">Segmento da operação</label>
+            <select class="form-select" id="f-segmento" name="segmento" required aria-required="true" aria-describedby="err-seg">
               <option value="" disabled selected>Segmento da operação</option>
               <option value="agro">Agronegócio</option>
               <option value="logistica">Logística</option>
               <option value="industria">Indústria</option>
+              <option value="varejo">Varejo</option>
               <option value="outro">Outro</option>
             </select>
-            <span class="form-error" id="err-seg">Selecione um segmento</span>
+            <span class="form-error" id="err-seg" role="alert">Selecione um segmento</span>
           </div>
 
           <div class="form-row">
-            <textarea class="form-textarea" id="f-challenge" name="desafio" placeholder="Qual o maior desafio hoje? Ex: planilhas desatualizadas, retrabalho, falta de controle..."></textarea>
+            <label class="sr-only" for="f-challenge">Maior desafio da operação hoje</label>
+            <textarea class="form-textarea" id="f-challenge" name="desafio" maxlength="1200" placeholder="Qual o maior desafio hoje? Ex: planilhas desatualizadas, retrabalho, falta de controle..."></textarea>
           </div>
 
-          <button type="submit" class="form-submit">
-            Agendar diagnóstico gratuito
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg>
+          <p class="form-feedback" id="form-feedback" role="alert"></p>
+
+          <button type="submit" class="form-submit" id="form-submit">
+            <span class="form-submit-label">Agendar diagnóstico gratuito</span>
+            <svg class="form-submit-icon" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg>
           </button>
 
           <p class="form-disclaimer">Sem compromisso · Apenas uma conversa</p>
+          <p class="form-privacy">Seus dados são usados apenas para retornar o contato sobre o diagnóstico.</p>
 
           <a href="https://wa.me/559492083253" class="form-whatsapp" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
@@ -3170,14 +3280,16 @@ section { position: relative; }
           </a>
         </form>
 
-        <div class="form-success" id="form-success">
+        <div class="form-success" id="form-success" role="status" aria-live="polite" tabindex="-1">
           <h3>Mensagem enviada</h3>
-          <p>Entraremos em contato em breve para agendar seu diagnóstico gratuito.</p>
+          <p>Recebemos seu contato. Retornaremos em breve para agendar o diagnóstico gratuito da sua operação.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- ═══════════════════════════════════════════════
      FOOTER
@@ -3198,6 +3310,9 @@ section { position: relative; }
         <div class="footer-social">
           <a href="https://www.linkedin.com/company/ferzion/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://www.instagram.com/ferzion.dev/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg>
           </a>
           <a href="https://wa.me/559492083253" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
@@ -3235,6 +3350,7 @@ section { position: relative; }
           <li><a href="mailto:contato@ferzion.com.br">contato@ferzion.com.br</a></li>
           <li><a href="https://wa.me/559492083253" target="_blank" rel="noopener noreferrer">+55 94 9 9208-3253</a></li>
           <li><a href="https://www.linkedin.com/company/ferzion/" target="_blank" rel="noopener noreferrer">linkedin.com/company/ferzion</a></li>
+          <li><a href="https://www.instagram.com/ferzion.dev/" target="_blank" rel="noopener noreferrer">instagram.com/ferzion.dev</a></li>
         </ul>
       </div>
     </div>
@@ -3262,7 +3378,7 @@ window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
-/* ─── Mobile drawer ─── */
+/* ─── Menu mobile (drawer) ─── */
 const hamburger = document.getElementById('hamburger-btn');
 const drawer    = document.getElementById('nav-drawer');
 const overlay   = document.getElementById('drawer-overlay');
@@ -3272,17 +3388,32 @@ function openDrawer() {
   overlay.classList.add('visible');
   hamburger.setAttribute('aria-expanded', 'true');
   document.body.style.overflow = 'hidden';
+  closeBtn.focus();
 }
-function closeDrawer() {
+function closeDrawer(returnFocus) {
+  if (!drawer.classList.contains('open')) return;
   drawer.classList.remove('open');
   overlay.classList.remove('visible');
   hamburger.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
+  if (returnFocus !== false) hamburger.focus();
 }
 hamburger.addEventListener('click', openDrawer);
-closeBtn.addEventListener('click', closeDrawer);
-overlay.addEventListener('click', closeDrawer);
-drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+closeBtn.addEventListener('click', () => closeDrawer());
+overlay.addEventListener('click', () => closeDrawer());
+drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeDrawer(false)));
+
+/* Esc fecha o menu; Tab fica preso dentro dele enquanto aberto */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDrawer();
+});
+drawer.addEventListener('keydown', e => {
+  if (e.key !== 'Tab' || !drawer.classList.contains('open')) return;
+  const f = drawer.querySelectorAll('a[href], button');
+  const first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
 
 /* ─── Scroll reveal ─── */
 const reveals = document.querySelectorAll('.reveal, .split-line');
@@ -3326,45 +3457,91 @@ phoneInput.addEventListener('input', () => {
   phoneInput.value = v;
 });
 
-/* ─── Form submit ─── */
-const form = document.getElementById('contact-form');
+/* ─── Envio do formulário ─── */
+const form       = document.getElementById('contact-form');
+const submitBtn  = document.getElementById('form-submit');
+const feedback   = document.getElementById('form-feedback');
+const successBox = document.getElementById('form-success');
+const fields = {
+  name:    document.getElementById('f-name'),
+  phone:   document.getElementById('f-phone'),
+  email:   document.getElementById('f-email'),
+  segment: document.getElementById('f-segmento'),
+};
+const errs = {
+  name:    document.getElementById('err-name'),
+  phone:   document.getElementById('err-phone'),
+  email:   document.getElementById('err-email'),
+  segment: document.getElementById('err-seg'),
+};
+
+function setFieldError(key, hasError) {
+  fields[key].classList.toggle('error', hasError);
+  fields[key].setAttribute('aria-invalid', hasError ? 'true' : 'false');
+  errs[key].classList.toggle('visible', hasError);
+}
+
+/* Limpa o erro assim que o usuário corrige o campo */
+Object.keys(fields).forEach(key => {
+  fields[key].addEventListener(key === 'segment' ? 'change' : 'input', () => setFieldError(key, false));
+});
+
+const submitIdle = submitBtn.innerHTML;
+function setLoading(on) {
+  submitBtn.disabled = on;
+  submitBtn.innerHTML = on
+    ? '<span class="btn-spinner"></span><span class="form-submit-label">Enviando…</span>'
+    : submitIdle;
+}
+
 form.addEventListener('submit', e => {
   e.preventDefault();
-  let valid = true;
-  const name = document.getElementById('f-name');
-  const phone = document.getElementById('f-phone');
-  const email = document.getElementById('f-email');
-  const segment = document.getElementById('f-segmento');
-  const errName = document.getElementById('err-name');
-  const errPhone = document.getElementById('err-phone');
-  const errEmail = document.getElementById('err-email');
-  const errSeg = document.getElementById('err-seg');
+  feedback.classList.remove('visible');
 
-  [name, phone, email, segment].forEach(el => el.classList.remove('error'));
-  [errName, errPhone, errEmail, errSeg].forEach(el => el.classList.remove('visible'));
+  const emailVal = fields.email.value.trim();
+  const checks = {
+    name:    !!fields.name.value.trim(),
+    phone:   fields.phone.value.replace(/\D/g, '').length >= 10,
+    email:   !emailVal || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal),
+    segment: !!fields.segment.value,
+  };
+  Object.keys(checks).forEach(key => setFieldError(key, !checks[key]));
 
-  if (!name.value.trim()) { name.classList.add('error'); errName.classList.add('visible'); valid = false; }
-  if (!phone.value.trim() || phone.value.replace(/\D/g,'').length < 10) { phone.classList.add('error'); errPhone.classList.add('visible'); valid = false; }
-  if (email.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { email.classList.add('error'); errEmail.classList.add('visible'); valid = false; }
-  if (!segment.value) { segment.classList.add('error'); errSeg.classList.add('visible'); valid = false; }
-
-  if (valid) {
-    const data = {
-      nome: name.value.trim(),
-      email: email.value.trim(),
-      whatsapp: phone.value.trim(),
-      segmento: segment.value,
-      desafio: document.getElementById('f-challenge').value.trim(),
-    };
-    fetch('/api/leads/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-    .then(res => { if (!res.ok) return res.json().then(err => Promise.reject(err)); return res.json(); })
-    .then(() => { form.style.display = 'none'; document.getElementById('form-success').classList.add('visible'); })
-    .catch(err => { console.error('Erro:', err); form.style.display = 'none'; document.getElementById('form-success').classList.add('visible'); });
+  if (!Object.values(checks).every(Boolean)) {
+    const firstBad = ['name', 'phone', 'email', 'segment'].find(k => !checks[k]);
+    if (firstBad) fields[firstBad].focus();
+    return;
   }
+
+  const data = {
+    nome:     fields.name.value.trim(),
+    email:    emailVal,
+    whatsapp: fields.phone.value.trim(),
+    segmento: fields.segment.value,
+    desafio:  document.getElementById('f-challenge').value.trim(),
+  };
+
+  setLoading(true);
+
+  fetch('/api/leads/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+    .then(res => { if (!res.ok) throw new Error('http_' + res.status); return res.json(); })
+    .then(() => {
+      form.style.display = 'none';
+      successBox.classList.add('visible');
+      successBox.focus();
+      if (typeof gtag === 'function') gtag('event', 'generate_lead', { form: 'diagnostico' });
+    })
+    .catch(err => {
+      console.error('Falha ao enviar lead:', err);
+      setLoading(false);
+      feedback.innerHTML = 'Não foi possível enviar agora. Tente novamente ou fale direto pelo '
+        + '<a href="https://wa.me/559492083253" target="_blank" rel="noopener noreferrer">WhatsApp</a>.';
+      feedback.classList.add('visible');
+    });
 });
 
 /* ─── Scroll progress ─── */
@@ -3388,8 +3565,8 @@ const activeObs = new IntersectionObserver(entries => {
 }, { threshold: 0.4 });
 sections.forEach(s => activeObs.observe(s));
 
-/* ─── Smooth anchor ─── */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
+/* ─── Rolagem suave para âncoras (o link "pular para o conteúdo" usa o comportamento nativo) ─── */
+document.querySelectorAll('a[href^="#"]:not(.skip-link)').forEach(a => {
   a.addEventListener('click', e => {
     const href = a.getAttribute('href');
     if (href.length < 2) return;
@@ -3401,28 +3578,30 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ─── Custom cursor ─── */
-const cursorDot = document.getElementById('cursor-dot');
-const cursorRing = document.getElementById('cursor-ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursorDot.style.left = mx + 'px';
-  cursorDot.style.top  = my + 'px';
-});
-(function animRing() {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  cursorRing.style.left = rx + 'px';
-  cursorRing.style.top  = ry + 'px';
-  requestAnimationFrame(animRing);
-})();
-document.querySelectorAll('a, button, .case-card, .pain-card, .tech-pill, .sobre-stat, .sol-card, .faq-q').forEach(el => {
-  el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
-  el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
-});
-document.addEventListener('mouseleave', () => { cursorDot.style.opacity = '0'; cursorRing.style.opacity = '0'; });
-document.addEventListener('mouseenter', () => { cursorDot.style.opacity = '1'; cursorRing.style.opacity = '1'; });
+/* ─── Cursor personalizado (apenas em ponteiro fino, ex.: mouse) ─── */
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  const cursorDot = document.getElementById('cursor-dot');
+  const cursorRing = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursorDot.style.left = mx + 'px';
+    cursorDot.style.top  = my + 'px';
+  });
+  (function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    cursorRing.style.left = rx + 'px';
+    cursorRing.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+  document.querySelectorAll('a, button, input, select, textarea, .case-card, .pain-card, .tech-pill, .sobre-stat, .sol-card, .faq-q').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
+  });
+  document.addEventListener('mouseleave', () => { cursorDot.style.opacity = '0'; cursorRing.style.opacity = '0'; });
+  document.addEventListener('mouseenter', () => { cursorDot.style.opacity = '1'; cursorRing.style.opacity = '1'; });
+}
 
 /* ─── Counters ─── */
 function animateCount(el, target, duration) {
